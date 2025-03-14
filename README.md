@@ -3,6 +3,18 @@
 ## Development omgeving
 
 De sofware wordt gemaakt in een STM32CubeIDE omgeving. 
+
+### Assignments
+
+- *USART3*: Serial port voor sturen van informatie
+
+#### PINS
+
+| PIN  | Assignment  |
+| ---- | ----------- |
+| PB0  | LED 1 [Green] - DefaultTask running | 
+| PB7  | LED 2 [Blue] | 
+| PB14 | LED 3 [Red] | 
  
 ## Hardware
 
