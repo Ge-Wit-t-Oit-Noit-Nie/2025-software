@@ -7,15 +7,26 @@ De sofware wordt gemaakt in een STM32CubeIDE omgeving.
 ### Assignments
 
 - *USART3*: Serial port voor sturen van informatie
+- *SYS*: Debug: Serial wire, Timebase Source: TIM1
 
 #### PINS
 
 | PIN  | Assignment  |
 | ---- | ----------- |
-| PB0  | LED 1 [Green] - DefaultTask running | 
+| PA8  | USB_OTG_FS_SOF |
+| PA9  | USB_OTG_FS_VBUS |
+| PA11 | USB_OTG_FS_DM |
+| PA10 | USB_OTG_FS_ID |
+| PA12 | USB_OTG_FS_DP |
+| PA13 | SYS_JTMS-SWDIO |
+| PA14 | SYS_JTMS-SWCLK |
+| PB0  | LED 1 [Green] - DefaultTask running |
+| PB3  | SYT_JTDO-SWO | 
 | PB7  | LED 2 [Blue] | 
 | PB14 | LED 3 [Red] | 
- 
+| PD8  | UART3_TX |
+| PD9  | UART3_RX |
+
 ## Hardware
 
 Voor het ontwikkelen van de software wordt gebruik gemaakt van de **Nucleo-F412ZG Development** board
