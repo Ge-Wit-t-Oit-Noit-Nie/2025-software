@@ -629,49 +629,62 @@ static void SD_Card_Test(void)
 	clear_buffer();
 
 
-	  	/*********************UPDATING an existing file ***************************/
+	/*********************UPDATING an existing file ***************************/
 
-	  	/* Open the file with write access */
-	  	fresult = f_open(&fil, "file2.txt", FA_OPEN_EXISTING | FA_READ | FA_WRITE);
+	/* Open the file with write access */
+	fresult = f_open(&fil, "file2.txt", FA_OPEN_EXISTING | FA_READ | FA_WRITE);
 
-	  	/* Move to offset to the end of the file */
-	  	fresult = f_lseek(&fil, f_size(&fil));
+	if (fresult == FR_OK)
+	{
+		/* Move to offset to the end of the file */
+		fresult = f_lseek(&fil, f_size(&fil));
+		send_uart ("About to update the file2.txt\n\r");
+		/* write the string to the file */
+		fresult = f_puts("This is updated data and it should be in the end", &fil);
+	}
 
-	  	if (fresult == FR_OK)send_uart ("About to update the file2.txt\n\r");
+	f_close (&fil);
 
-	  	/* write the string to the file */
-	  	fresult = f_puts("This is updated data and it should be in the end", &fil);
+	clear_buffer();
+	osDelay(pdMS_TO_TICKS(1000));
 
-	  	f_close (&fil);
+	/* Open to read the file */
+	fresult = f_open (&fil, "file2.txt", FA_OPEN_EXISTING | FA_READ);
 
-	  	clear_buffer();
+	/* Read string from the file */
+	if (f_size(&fil)<BUFFER_SIZE) {
+		fresult = f_read (&fil, buffer, f_size(&fil), &br);
+	}
+	else
+	{
+		fresult = f_read (&fil, buffer, BUFFER_SIZE, &br);
+	}
 
-	  	/* Open to read the file */
-	  	fresult = f_open (&fil, "file2.txt", FA_READ);
-
-	  	/* Read string from the file */
-	  	fresult = f_read (&fil, buffer, f_size(&fil), &br);
-	  	if (fresult == FR_OK)send_uart ("Below is the data from updated file2.txt\n\r");
-	  	send_uart(buffer);
-	  	send_uart("\n\n");
-
-	  	/* Close file */
-	  	f_close(&fil);
-
-	  	clear_buffer();
+	if (fresult == FR_OK)
+	{
+		send_uart("Below is the data from updated file2.txt\n\r");
+		send_uart(buffer);
+		send_uart("\n\n");
+	}
 
 
-	  	/*************************REMOVING FILES FROM THE DIRECTORY ****************************/
+	/* Close file */
+	f_close(&fil);
 
-	  	fresult = f_unlink("/file1.txt");
-	  	if (fresult == FR_OK) send_uart("file1.txt removed successfully...\n\r");
+	clear_buffer();
 
-	  	fresult = f_unlink("/file2.txt");
-	  	if (fresult == FR_OK) send_uart("file2.txt removed successfully...\n\r");
 
-	  	/* Unmount SDCARD */
-	  	fresult = f_mount(NULL, "/", 1);
-	  	if (fresult == FR_OK) send_uart ("SD CARD UNMOUNTED successfully...\n\r");
+	/*************************REMOVING FILES FROM THE DIRECTORY ****************************/
+
+	fresult = f_unlink("/file1.txt");
+	if (fresult == FR_OK) send_uart("file1.txt removed successfully...\n\r");
+
+	fresult = f_unlink("/file2.txt");
+	if (fresult == FR_OK) send_uart("file2.txt removed successfully...\n\r");
+
+	/* Unmount SDCARD */
+	fresult = f_mount(NULL, "/", 1);
+	if (fresult == FR_OK) send_uart ("SD CARD UNMOUNTED successfully...\n\r");
 
 
 }
