@@ -52,9 +52,22 @@
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+volatile uint8_t FatFsCnt = 0;
+volatile uint16_t Timer1, Timer2;
+
+void SDTimer_Handler(void)
+{
+  if(Timer1 > 0)
+    Timer1--;
+
+  if(Timer2 > 0)
+    Timer2--;
+}
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern SPI_HandleTypeDef hspi1;
 extern TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN EV */
@@ -85,6 +98,7 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
+	HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
 
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
@@ -166,11 +180,32 @@ void TIM1_UP_TIM10_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
 
+	FatFsCnt++;
+	if(FatFsCnt >= 10)
+	{
+		FatFsCnt = 0;
+		SDTimer_Handler();
+	}
+
   /* USER CODE END TIM1_UP_TIM10_IRQn 0 */
   HAL_TIM_IRQHandler(&htim1);
   /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 1 */
 
   /* USER CODE END TIM1_UP_TIM10_IRQn 1 */
+}
+
+/**
+  * @brief This function handles SPI1 global interrupt.
+  */
+void SPI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI1_IRQn 0 */
+
+  /* USER CODE END SPI1_IRQn 0 */
+  HAL_SPI_IRQHandler(&hspi1);
+  /* USER CODE BEGIN SPI1_IRQn 1 */
+
+  /* USER CODE END SPI1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
