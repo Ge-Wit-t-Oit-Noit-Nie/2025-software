@@ -1,5 +1,11 @@
 # How to contribute
 
+## Coding conventions
+
+Voordat je code kan toevoegen, lees eerst de [coding conventions](docs/coding_conventions.md "Een verwijzing naar de coding conventions").
+
+## Steps
+
 Als je code wil toevoegen of aanpassen dan kan dit!. 
 
 1. Clone de repository

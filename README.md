@@ -1,5 +1,7 @@
 # 2025-software
 
+If you want to know how to add features or bugfixes, read [CONTRIBUTING.md](CONTRIBUTING.md "Reference to the CONTRIBUTING.md").
+
 ## Development omgeving
 
 De sofware wordt gemaakt in een STM32CubeIDE omgeving. 
