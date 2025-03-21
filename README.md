@@ -2,18 +2,45 @@
 
 If you want to know how to add features or bugfixes, read [CONTRIBUTING.md](CONTRIBUTING.md "Reference to the CONTRIBUTING.md").
 
-## Development omgeving
+## Prerequisites
 
-De sofware wordt gemaakt in een STM32CubeIDE omgeving. 
+De volgende applicaties zijn nodig:
 
-### Assignments
+- VSCode: 1.98.2 of hoger
+- [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html#st-get-software): >= 1.18.0
+- [STM32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html): >= 6.14.0
+- [ST-MCU-FINDER-PC](https://www.st.com/en/development-tools/st-mcu-finder-pc.html): >= 6.1.0
+- [STM32 VSCode Extension](https://marketplace.visualstudio.com/items?itemName=STMicroelectronics.stm32-vscode-extension)
+
+Verder worden de volgende extenties aangeraden voor VSCode:
+
+### GitHub Suport
+
+- [GitHub Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+
+### Markdown support
+
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
+- [Markdown Table](https://marketplace.visualstudio.com/items?itemName=TakumiI.markdowntable)
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+
+### CMake
+
+- [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+
+### C/C++
+
+- [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+- [C/C++ Extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)
+
+## Assignments
 
 - *USART3*: Serial port voor sturen van informatie
 - *SYS*: Debug: Serial wire, Timebase Source: TIM1
 - *RCC*: High speed clock and low speed clock based on cristals build in  
 - *SPI1*: SD Card writer over SPI
 
-#### PINS
+### PINS
 
 | PIN  | Assignment  |
 | ---- | ----------- |
@@ -62,3 +89,9 @@ Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
 ### Debug of upload geeft een foutmelding
 
 ![Debug settings](docs/images/set_debugger.png)
+
+### Mijn VSCode can de code niet compileren
+
+Controleer of the juiste instellingen voor STM32 zijn gemaakt.
+
+![STM32 Extension settings](docs/images/stm32_extention_settings.png)
