@@ -23,4 +23,8 @@ Wanneer je eigen bestanden toevoegd (zoals in de `docs/` folder), dan wordt dit 
 
 ### Underscore
 
-Wanneer een bestandsnaam uit meerdere woorden bestaad (zoals in dit bestand), dan wordt er altijd gebruik gemaakt van een *underscore*. 
+Wanneer een bestandsnaam uit meerdere woorden bestaad (zoals in dit bestand), dan wordt er altijd gebruik gemaakt van een *underscore*.
+
+## Markdown
+
+Voor de documentatie word gebruik gemaakt van Markdown. Meer specifiek de GitHub variant: [GitHub specificatie](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)

@@ -45,7 +45,8 @@ Voor het ontwikkelen van de software wordt gebruik gemaakt van de **Nucleo-F412Z
 Voor het schrijven van de log op de SD card wordt gebruik gemaakt van een stukje code in `Middlewares/sd_logger.c`. 
 Deze code is betrekkelijk simpel. In het vervolg moet hier de logica zitten om de juiste info in de file te krijgen.
 
-**LET OP**: voor de `startLogTask` is _3000 WORDS_ gereserveerd op de stack. We moeten dus opletten met de code (en dus ook wat opschonen). 
+> [!IMPORTANT]
+> Voor de `startLogTask` is *3000 WORDS* gereserveerd op de stack. We moeten dus opletten met de code (en dus ook wat opschonen).
 
 De functie `startLogTask` wacht op een item in de queue. Wanneer deze binnen komt, dan wordt er een string gemaakt. Deze string wordt naar de UART gestuurd en ook naar de SD_LOGGER.
 Voor de sd_logger wordt ook gebruik gemaakt van een MUTEX om te voorkomen dat er 2 schrijfacties tegelijk plaatsvinden.
