@@ -60,8 +60,6 @@ Verder worden de volgende extenties aangeraden voor VSCode:
 | PD9  | UART3_RX |
 | PH0  | RCC_OSC_IN |
 | PH1  | RCC_OSC_OUT |
-| PG6  | USB_PowerSwitchOn [STMPS2151STR_EN] |
-| PG7  | USB_OverCurrent [STMPS2151STR_FAULT] |
 
 ## Hardware
 
