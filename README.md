@@ -51,17 +51,15 @@ Verder worden de volgende extenties aangeraden voor VSCode:
 | PA13 | SYS_JTMS-SWDIO |
 | PA14 | SYS_JTMS-SWCLK |
 | PB0  | LED 1 [Green] - DefaultTask running |
-| PB3  | SYT_JTDO-SWO | 
-| PB7  | LED 2 [Blue] | 
-| PB14 | LED 3 [Red] - HardFault_Handler entered | 
+| PB3  | SYT_JTDO-SWO |
+| PB7  | LED 2 [Blue] |
+| PB14 | LED 3 [Red] - HardFault_Handler entered |
 | PC14 | RCC_OSC32 |
 | PC15 | RCC_OSC32_OUT |
 | PD8  | UART3_TX |
 | PD9  | UART3_RX |
 | PH0  | RCC_OSC_IN |
 | PH1  | RCC_OSC_OUT |
-| PG6  | USB_PowerSwitchOn [STMPS2151STR_EN] |
-| PG7  | USB_OverCurrent [STMPS2151STR_FAULT] |
 
 ## Hardware
 
@@ -69,7 +67,7 @@ Voor het ontwikkelen van de software wordt gebruik gemaakt van de **Nucleo-F412Z
 
 ## Middlewares
 
-Voor het schrijven van de log op de SD card wordt gebruik gemaakt van een stukje code in `Middlewares/sd_logger.c`. 
+Voor het schrijven van de log op de SD card wordt gebruik gemaakt van een stukje code in `Middlewares/sd_logger.c`.
 Deze code is betrekkelijk simpel. In het vervolg moet hier de logica zitten om de juiste info in de file te krijgen.
 
 > [!IMPORTANT]
@@ -82,7 +80,7 @@ Voor de sd_logger wordt ook gebruik gemaakt van een MUTEX om te voorkomen dat er
 
 ### Hoe vindt ik mijn STM32 Nuleo USB port in Windows 11 met PowerShell
 
-```
+```ps
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
 ```
 
