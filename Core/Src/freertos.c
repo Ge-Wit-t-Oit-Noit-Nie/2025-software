@@ -37,17 +37,12 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct {                                // object data type
-  uint8_t message;
-  uint8_t index;
-} MSGQUEUE_OBJ_t;
-
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define BUFFER_SIZE 128
+
 
 /* USER CODE END PD */
 
@@ -82,12 +77,6 @@ const osMessageQueueAttr_t loggerQueue_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-
-/**
- * @brief Fill the buffer with '\0'
- * @param buf the buffer to clear
- */
-void clear_buffer (char *buf);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -173,48 +162,15 @@ void startProgramTask(void *argument)
 * @retval None
 */
 /* USER CODE END Header_startLogTask */
-void startLogTask(void *argument)
+__weak void startLogTask(void *argument)
 {
   /* USER CODE BEGIN startLogTask */
-		MSGQUEUE_OBJ_t msg;
-		osStatus_t status;
-		char string[BUFFER_SIZE];  // to store strings..
-
-		osMutexId_t mutex_id;
-		mutex_id = osMutexNew(NULL);
-		sd_logger_open();
-
-		while (1) {
-			status = osMessageQueueGet(loggerQueueHandle, &msg, NULL, osWaitForever);   // wait for message
-			if (osOK == status) {
-				clear_buffer(string);
-				sprintf (string, "Message: {index: %d, message: %d}\n\r", msg.index, msg.message);
-				uart_print_string(string);
-
-				if(osOK == osMutexAcquire(mutex_id, 0)){
-					sd_logger_print(string);
-					osMutexRelease(mutex_id);
-				} else {
-					uart_print_string("Could not get the MUTEX 'mutex_sd_card_lockHandle'\0");
-				}
-
-			}
-		}
-		sd_logger_close();
-
+	
   /* USER CODE END startLogTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-
-/**
- * @brief Fill the buffer with '\0'
- */
-void clear_buffer (char *buf)
-{
-	for (int i=0; i<BUFFER_SIZE; i++) buf[i] = '\0';
-}
 
 /* USER CODE END Application */
 
