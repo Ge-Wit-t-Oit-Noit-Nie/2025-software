@@ -1,4 +1,4 @@
 {
-    "githubIssues.issueBranchTitle": "feature/${issueNumber} - ${sanitizedIssueTitle}",
+    "githubIssues.issueBranchTitle": "feature/${issueNumber}-${sanitizedIssueTitle}",
     "git.enableCommitSigning": true
 }
