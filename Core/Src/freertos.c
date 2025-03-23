@@ -30,6 +30,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "sd_logger.h"
+#include "program.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -142,14 +143,18 @@ void MX_FREERTOS_Init(void) {
 void startProgramTask(void *argument)
 {
   /* USER CODE BEGIN startProgramTask */
-	MSGQUEUE_OBJ_t msg;
+	MSGQUEUE_OBJ_t msg = {0, 0};
 
-	/* Infinite loop */
+  msg.index=0;
+  msg.message = MSG_PROGRAM_START;
+  osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
+
+  /* Infinite loop */
 	for(;;)
 	{
 		msg.index++;
-		msg.message = 'A';
-		osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
+    msg.message = MSG_PROGRAM_COUNTER;
+    osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
 		osDelay(pdMS_TO_TICKS(1000));
 	}
   /* USER CODE END startProgramTask */

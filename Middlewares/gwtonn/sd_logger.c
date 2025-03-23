@@ -52,7 +52,11 @@ void startLogTask(void *argument)
 
 	osMutexId_t mutex_id;
 	mutex_id = osMutexNew(NULL);
-	sd_logger_open();
+	// mount the file system
+	if (osOK == osMutexAcquire(mutex_id, 0)) {
+		sd_logger_open();
+		osMutexRelease(mutex_id);
+	};
 
 	while (1)
 	{
@@ -60,7 +64,7 @@ void startLogTask(void *argument)
 		if (osOK == status)
 		{
 			CLEAR_BUFFER(string);
-			sprintf(string, "Message: {index: %d, message: %d}\n\r", msg.index, msg.message);
+			snprintf(string, BUFFER_SIZE, "%d,%d\n\r", msg.index, msg.message);
 			//uart_print_string(string);
 
 			if (osOK == osMutexAcquire(mutex_id, 0))
@@ -74,7 +78,13 @@ void startLogTask(void *argument)
 			}
 		}
 	}
-	sd_logger_close();
+	// mount the file system
+	if (osOK == osMutexAcquire(mutex_id, 0))
+	{
+		sd_logger_close();
+		osMutexRelease(mutex_id);
+	};
+
 	osMutexDelete(mutex_id);
 	
 	/* USER CODE END startLogTask */
