@@ -36,16 +36,15 @@ void sd_logger_print(char *string) {
 	f_close (&fil);
 
 }
-
 /**
  * @brief Function implementing the logTask thread.
  * @param argument: Not used
  * @retval None
  */
-/* USER CODE END Header_startLogTask */
+
 void startLogTask(void *argument)
 {
-	/* USER CODE BEGIN startLogTask */
+	UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
 	MSGQUEUE_OBJ_t msg;
 	osStatus_t status;
 	char string[BUFFER_SIZE]; // to store strings..
@@ -86,6 +85,4 @@ void startLogTask(void *argument)
 	};
 
 	osMutexDelete(mutex_id);
-	
-	/* USER CODE END startLogTask */
 }
