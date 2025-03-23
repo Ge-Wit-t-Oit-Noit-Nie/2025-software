@@ -30,7 +30,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "sd_logger.h"
-#include "program.h"
+#include "program_controller.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -81,7 +81,7 @@ const osMessageQueueAttr_t loggerQueue_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void startProgramTask(void *argument);
+void program_controller_task(void *argument);
 void startLogTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -118,7 +118,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of programTask */
-  programTaskHandle = osThreadNew(startProgramTask, NULL, &programTask_attributes);
+  programTaskHandle = osThreadNew(program_controller_task, NULL, &programTask_attributes);
 
   /* creation of logTask */
   logTaskHandle = osThreadNew(startLogTask, NULL, &logTask_attributes);
@@ -133,31 +133,19 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_startProgramTask */
+/* USER CODE BEGIN Header_program_controller_task */
 /**
   * @brief  Function implementing the programTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_startProgramTask */
-void startProgramTask(void *argument)
+/* USER CODE END Header_program_controller_task */
+__weak void program_controller_task(void *argument)
 {
-  /* USER CODE BEGIN startProgramTask */
-	MSGQUEUE_OBJ_t msg = {0, 0};
+  /* USER CODE BEGIN program_controller_task */
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
 
-  msg.index=0;
-  msg.message = MSG_PROGRAM_START;
-  osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
-
-  /* Infinite loop */
-	for(;;)
-	{
-		msg.index++;
-    msg.message = MSG_PROGRAM_COUNTER;
-    osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
-		osDelay(pdMS_TO_TICKS(1000));
-	}
-  /* USER CODE END startProgramTask */
+  /* USER CODE END program_controller_task */
 }
 
 /* USER CODE BEGIN Header_startLogTask */
@@ -170,7 +158,8 @@ void startProgramTask(void *argument)
 __weak void startLogTask(void *argument)
 {
   /* USER CODE BEGIN startLogTask */
-	
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+
   /* USER CODE END startLogTask */
 }
 
