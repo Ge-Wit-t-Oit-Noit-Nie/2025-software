@@ -6,6 +6,13 @@
         "ff.h": "c",
         "cmsis_os.h": "c",
         "freertos.h": "c",
-        "sd_logger.h": "c"
+        "sd_logger.h": "c",
+        "fatfs.h": "c",
+        "user_diskio.h": "c",
+        "ff_gen_drv.h": "c",
+        "ffconf.h": "c",
+        "program_controller.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "cmsis_os2.h": "c"
     }
 }

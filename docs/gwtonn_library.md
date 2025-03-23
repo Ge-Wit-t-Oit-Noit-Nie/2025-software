@@ -19,3 +19,7 @@ msg.index=1;
 msg.message = 'A';
 osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
 ```
+
+## Programma controller
+
+Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in [programma.md](./programma.md).

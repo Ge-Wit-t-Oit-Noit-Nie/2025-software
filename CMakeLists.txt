@@ -48,7 +48,8 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    Middlewares/gwtonn/sd_logger.c    
+    Middlewares/gwtonn/program_controller.c
+    Middlewares/gwtonn/sd_logger.c
     Core/Src/fatfs_sd.c
 )
 
@@ -56,6 +57,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     Middlewares/gwtonn/
+    .
 )
 
 # Add project symbols (macros)
