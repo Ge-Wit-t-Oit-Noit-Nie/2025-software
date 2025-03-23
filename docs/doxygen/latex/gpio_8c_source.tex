@@ -1,0 +1,155 @@
+\doxysection{gpio.\+c}
+\hypertarget{gpio_8c_source}{}\label{gpio_8c_source}\index{Core/Src/gpio.c@{Core/Src/gpio.c}}
+\mbox{\hyperlink{gpio_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00001}00001\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ Header\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00019}00019\ \textcolor{comment}{/*\ USER\ CODE\ END\ Header\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00021}00021\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gpio_8h}{gpio.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00024}00024\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00026}00026\ \textcolor{comment}{/*\ USER\ CODE\ END\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00028}00028\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00029}00029\ \textcolor{comment}{/*\ Configure\ GPIO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00030}00030\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00031}00031\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00033}00033\ \textcolor{comment}{/*\ USER\ CODE\ END\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00044}\mbox{\hyperlink{gpio_8h_ac724e431d2af879252de35615be2bdea}{00044}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gpio_8c_ac724e431d2af879252de35615be2bdea}{MX\_GPIO\_Init}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00045}00045\ \{}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00047}00047\ \ \ GPIO\_InitTypeDef\ GPIO\_InitStruct\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00049}00049\ \ \ \textcolor{comment}{/*\ GPIO\ Ports\ Clock\ Enable\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00050}00050\ \ \ \_\_HAL\_RCC\_GPIOE\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00051}00051\ \ \ \_\_HAL\_RCC\_GPIOC\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00052}00052\ \ \ \_\_HAL\_RCC\_GPIOF\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00053}00053\ \ \ \_\_HAL\_RCC\_GPIOH\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00054}00054\ \ \ \_\_HAL\_RCC\_GPIOA\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00055}00055\ \ \ \_\_HAL\_RCC\_GPIOB\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00056}00056\ \ \ \_\_HAL\_RCC\_GPIOG\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00057}00057\ \ \ \_\_HAL\_RCC\_GPIOD\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00059}00059\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pin\ Output\ Level\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00060}00060\ \ \ HAL\_GPIO\_WritePin(GPIOA,\ GPIO\_PIN\_4,\ GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00062}00062\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pin\ Output\ Level\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00063}00063\ \ \ HAL\_GPIO\_WritePin(GPIOB,\ GREEN\_LED\_Pin|RED\_LED\_Pin|BLUE\_LED\_Pin,\ GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00065}00065\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PE2\ PE3\ PE4\ PE5}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00066}00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PE6\ PE7\ PE8\ PE9}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00067}00067\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PE10\ PE11\ PE12\ PE13}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00068}00068\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PE14\ PE15\ PE0\ PE1\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00069}00069\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_2|GPIO\_PIN\_3|GPIO\_PIN\_4|GPIO\_PIN\_5}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_6|GPIO\_PIN\_7|GPIO\_PIN\_8|GPIO\_PIN\_9}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_10|GPIO\_PIN\_11|GPIO\_PIN\_12|GPIO\_PIN\_13}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_14|GPIO\_PIN\_15|GPIO\_PIN\_0|GPIO\_PIN\_1;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00073}00073\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00074}00074\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00075}00075\ \ \ HAL\_GPIO\_Init(GPIOE,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00077}00077\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pin\ :\ USER\_BTN\_Pin\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00078}00078\ \ \ GPIO\_InitStruct.Pin\ =\ USER\_BTN\_Pin;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00079}00079\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_IT\_RISING;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00080}00080\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00081}00081\ \ \ HAL\_GPIO\_Init(USER\_BTN\_GPIO\_Port,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00083}00083\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PF0\ PF1\ PF2\ PF3}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00084}00084\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PF4\ PF5\ PF6\ PF7}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00085}00085\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PF8\ PF9\ PF10\ PF11}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00086}00086\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PF12\ PF13\ PF14\ PF15\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00087}00087\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_0|GPIO\_PIN\_1|GPIO\_PIN\_2|GPIO\_PIN\_3}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_4|GPIO\_PIN\_5|GPIO\_PIN\_6|GPIO\_PIN\_7}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_8|GPIO\_PIN\_9|GPIO\_PIN\_10|GPIO\_PIN\_11}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_12|GPIO\_PIN\_13|GPIO\_PIN\_14|GPIO\_PIN\_15;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00091}00091\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00092}00092\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00093}00093\ \ \ HAL\_GPIO\_Init(GPIOF,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00095}00095\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PC0\ PC1\ PC2\ PC3}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00096}00096\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PC4\ PC5\ PC6\ PC7}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00097}00097\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PC8\ PC9\ PC10\ PC11}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00098}00098\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PC12\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00099}00099\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_0|GPIO\_PIN\_1|GPIO\_PIN\_2|GPIO\_PIN\_3}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_4|GPIO\_PIN\_5|GPIO\_PIN\_6|GPIO\_PIN\_7}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_8|GPIO\_PIN\_9|GPIO\_PIN\_10|GPIO\_PIN\_11}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_12;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00103}00103\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00104}00104\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00105}00105\ \ \ HAL\_GPIO\_Init(GPIOC,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00107}00107\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PA0\ PA1\ PA2\ PA3}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00108}00108\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PA8\ PA9\ PA10\ PA11}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00109}00109\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PA12\ PA15\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00110}00110\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_0|GPIO\_PIN\_1|GPIO\_PIN\_2|GPIO\_PIN\_3}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_8|GPIO\_PIN\_9|GPIO\_PIN\_10|GPIO\_PIN\_11}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_12|GPIO\_PIN\_15;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00113}00113\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00114}00114\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00115}00115\ \ \ HAL\_GPIO\_Init(GPIOA,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00117}00117\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pin\ :\ PA4\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00118}00118\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_4;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00119}00119\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_OUTPUT\_PP;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00120}00120\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00121}00121\ \ \ GPIO\_InitStruct.Speed\ =\ GPIO\_SPEED\_FREQ\_LOW;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00122}00122\ \ \ HAL\_GPIO\_Init(GPIOA,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00124}00124\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ GREEN\_LED\_Pin\ RED\_LED\_Pin\ BLUE\_LED\_Pin\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00125}00125\ \ \ GPIO\_InitStruct.Pin\ =\ GREEN\_LED\_Pin|RED\_LED\_Pin|BLUE\_LED\_Pin;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00126}00126\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_OUTPUT\_PP;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00127}00127\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00128}00128\ \ \ GPIO\_InitStruct.Speed\ =\ GPIO\_SPEED\_FREQ\_LOW;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00129}00129\ \ \ HAL\_GPIO\_Init(GPIOB,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00131}00131\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PB1\ PB2\ PB10\ PB11}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00132}00132\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PB12\ PB13\ PB15\ PB3}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00133}00133\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PB4\ PB5\ PB6\ PB8}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00134}00134\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PB9\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00135}00135\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_1|GPIO\_PIN\_2|GPIO\_PIN\_10|GPIO\_PIN\_11}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_12|GPIO\_PIN\_13|GPIO\_PIN\_15|GPIO\_PIN\_3}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_4|GPIO\_PIN\_5|GPIO\_PIN\_6|GPIO\_PIN\_8}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_9;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00139}00139\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00140}00140\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00141}00141\ \ \ HAL\_GPIO\_Init(GPIOB,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00143}00143\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PG0\ PG1\ PG2\ PG3}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00144}00144\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PG4\ PG5\ PG6\ PG7}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00145}00145\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PG8\ PG9\ PG10\ PG11}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00146}00146\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PG12\ PG13\ PG14\ PG15\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00147}00147\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_0|GPIO\_PIN\_1|GPIO\_PIN\_2|GPIO\_PIN\_3}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_4|GPIO\_PIN\_5|GPIO\_PIN\_6|GPIO\_PIN\_7}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_8|GPIO\_PIN\_9|GPIO\_PIN\_10|GPIO\_PIN\_11}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_12|GPIO\_PIN\_13|GPIO\_PIN\_14|GPIO\_PIN\_15;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00151}00151\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00152}00152\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00153}00153\ \ \ HAL\_GPIO\_Init(GPIOG,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00155}00155\ \ \ \textcolor{comment}{/*Configure\ GPIO\ pins\ :\ PD10\ PD11\ PD12\ PD13}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00156}00156\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PD14\ PD15\ PD0\ PD1}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00157}00157\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PD2\ PD3\ PD4\ PD5}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00158}00158\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PD6\ PD7\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00159}00159\ \ \ GPIO\_InitStruct.Pin\ =\ GPIO\_PIN\_10|GPIO\_PIN\_11|GPIO\_PIN\_12|GPIO\_PIN\_13}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_14|GPIO\_PIN\_15|GPIO\_PIN\_0|GPIO\_PIN\_1}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_2|GPIO\_PIN\_3|GPIO\_PIN\_4|GPIO\_PIN\_5}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |GPIO\_PIN\_6|GPIO\_PIN\_7;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00163}00163\ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_ANALOG;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00164}00164\ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00165}00165\ \ \ HAL\_GPIO\_Init(GPIOD,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00167}00167\ \ \ \textcolor{comment}{/*\ EXTI\ interrupt\ init*/}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00168}00168\ \ \ HAL\_NVIC\_SetPriority(EXTI15\_10\_IRQn,\ 5,\ 0);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00169}00169\ \ \ HAL\_NVIC\_EnableIRQ(EXTI15\_10\_IRQn);}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00171}00171\ \}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00173}00173\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 2\ */}}
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{gpio_8c_source_l00175}00175\ \textcolor{comment}{/*\ USER\ CODE\ END\ 2\ */}}
+
+\end{DoxyCode}

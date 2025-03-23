@@ -1,0 +1,101 @@
+\doxysection{usart.\+c}
+\hypertarget{usart_8c_source}{}\label{usart_8c_source}\index{Core/Src/usart.c@{Core/Src/usart.c}}
+\mbox{\hyperlink{usart_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00001}00001\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ Header\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00019}00019\ \textcolor{comment}{/*\ USER\ CODE\ END\ Header\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00020}00020\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{usart_8h}{usart.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00023}00023\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00025}00025\ \textcolor{comment}{/*\ USER\ CODE\ END\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00027}00027\ UART\_HandleTypeDef\ huart3;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00029}00029\ \textcolor{comment}{/*\ USART3\ init\ function\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00031}00031\ \textcolor{keywordtype}{void}\ MX\_USART3\_UART\_Init(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00032}00032\ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00034}00034\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_Init\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00036}00036\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_Init\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00038}00038\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_Init\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00040}00040\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_Init\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00041}00041\ \ \ huart3.Instance\ =\ USART3;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00042}00042\ \ \ huart3.Init.BaudRate\ =\ 115200;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00043}00043\ \ \ huart3.Init.WordLength\ =\ UART\_WORDLENGTH\_8B;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00044}00044\ \ \ huart3.Init.StopBits\ =\ UART\_STOPBITS\_1;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00045}00045\ \ \ huart3.Init.Parity\ =\ UART\_PARITY\_NONE;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00046}00046\ \ \ huart3.Init.Mode\ =\ UART\_MODE\_TX\_RX;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00047}00047\ \ \ huart3.Init.HwFlowCtl\ =\ UART\_HWCONTROL\_NONE;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00048}00048\ \ \ huart3.Init.OverSampling\ =\ UART\_OVERSAMPLING\_16;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00049}00049\ \ \ \textcolor{keywordflow}{if}\ (HAL\_UART\_Init(\&huart3)\ !=\ HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00050}00050\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{main_8h_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}();}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00052}00052\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00053}00053\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_Init\ 2\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00055}00055\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_Init\ 2\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00059}\mbox{\hyperlink{usart_8c_a62a25476866998c7aadfb5c0864fa349}{00059}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{usart_8c_a62a25476866998c7aadfb5c0864fa349}{HAL\_UART\_MspInit}}(UART\_HandleTypeDef*\ uartHandle)}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00060}00060\ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00062}00062\ \ \ GPIO\_InitTypeDef\ GPIO\_InitStruct\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00063}00063\ \ \ \textcolor{keywordflow}{if}(uartHandle-\/>Instance==USART3)}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00064}00064\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00065}00065\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_MspInit\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00067}00067\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_MspInit\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00068}00068\ \ \ \ \ \textcolor{comment}{/*\ USART3\ clock\ enable\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00069}00069\ \ \ \ \ \_\_HAL\_RCC\_USART3\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00071}00071\ \ \ \ \ \_\_HAL\_RCC\_GPIOD\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00076}00076\ \ \ \ \ GPIO\_InitStruct.Pin\ =\ STLK\_RX\_Pin|STLK\_TX\_Pin;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00077}00077\ \ \ \ \ GPIO\_InitStruct.Mode\ =\ GPIO\_MODE\_AF\_PP;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00078}00078\ \ \ \ \ GPIO\_InitStruct.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00079}00079\ \ \ \ \ GPIO\_InitStruct.Speed\ =\ GPIO\_SPEED\_FREQ\_VERY\_HIGH;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00080}00080\ \ \ \ \ GPIO\_InitStruct.Alternate\ =\ GPIO\_AF7\_USART3;}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00081}00081\ \ \ \ \ HAL\_GPIO\_Init(GPIOD,\ \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00083}00083\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_MspInit\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00085}00085\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_MspInit\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00086}00086\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00089}\mbox{\hyperlink{usart_8c_a94cd2c58add4f2549895a03bf267622e}{00089}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{usart_8c_a94cd2c58add4f2549895a03bf267622e}{HAL\_UART\_MspDeInit}}(UART\_HandleTypeDef*\ uartHandle)}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00090}00090\ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00092}00092\ \ \ \textcolor{keywordflow}{if}(uartHandle-\/>Instance==USART3)}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00093}00093\ \ \ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00094}00094\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_MspDeInit\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00096}00096\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_MspDeInit\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00097}00097\ \ \ \ \ \textcolor{comment}{/*\ Peripheral\ clock\ disable\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00098}00098\ \ \ \ \ \_\_HAL\_RCC\_USART3\_CLK\_DISABLE();}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00104}00104\ \ \ \ \ HAL\_GPIO\_DeInit(GPIOD,\ STLK\_RX\_Pin|STLK\_TX\_Pin);}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00106}00106\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ USART3\_MspDeInit\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00108}00108\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ USART3\_MspDeInit\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00109}00109\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00110}00110\ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00112}00112\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 1\ */}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00113}\mbox{\hyperlink{usart_8h_a0ad43afb18abc4b0f7a7b3f4640c137a}{00113}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{usart_8c_a0ad43afb18abc4b0f7a7b3f4640c137a}{uart\_print\_string}}(\textcolor{keywordtype}{char}\ *\textcolor{keywordtype}{string})\ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00114}00114\ \ \ \ \ uint8\_t\ len\ =\ strlen\ (\textcolor{keywordtype}{string});}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_UART\_STATE\_READY\ ==\ HAL\_UART\_GetState(\&huart3))\ \{}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ HAL\_UART\_Transmit(\&huart3,\ (uint8\_t\ *)\ \textcolor{keywordtype}{string},\ len,\ HAL\_MAX\_DELAY);\ \ \textcolor{comment}{//\ transmit\ in\ blocking\ mode}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{usart_8c_source_l00120}00120\ \textcolor{comment}{/*\ USER\ CODE\ END\ 1\ */}}
+
+\end{DoxyCode}

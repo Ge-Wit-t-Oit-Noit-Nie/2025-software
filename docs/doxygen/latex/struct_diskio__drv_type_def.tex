@@ -1,0 +1,65 @@
+\doxysection{Diskio\+\_\+drv\+Type\+Def Struct Reference}
+\hypertarget{struct_diskio__drv_type_def}{}\label{struct_diskio__drv_type_def}\index{Diskio\_drvTypeDef@{Diskio\_drvTypeDef}}
+
+
+Disk IO Driver structure definition.  
+
+
+
+
+{\ttfamily \#include $<$ff\+\_\+gen\+\_\+drv.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+DSTATUS(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_diskio__drv_type_def_a6eb1dab68fd01043e7366dc419c693cf}{disk\+\_\+initialize}} )(BYTE)
+\item 
+DSTATUS(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_diskio__drv_type_def_a6f441b818250523924b6e67cace07ed3}{disk\+\_\+status}} )(BYTE)
+\item 
+DRESULT(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_diskio__drv_type_def_a4efc1e15fda6831ec1bf18199ea2d6fc}{disk\+\_\+read}} )(BYTE, BYTE \texorpdfstring{$\ast$}{*}, DWORD, UINT)
+\item 
+DRESULT(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_diskio__drv_type_def_a3754d2ae169d02ba6996c4e672bff2a9}{disk\+\_\+write}} )(BYTE, const BYTE \texorpdfstring{$\ast$}{*}, DWORD, UINT)
+\item 
+DRESULT(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_diskio__drv_type_def_aa6bcafbb089551805e88d4ee7e13d746}{disk\+\_\+ioctl}} )(BYTE, BYTE, void \texorpdfstring{$\ast$}{*})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Disk IO Driver structure definition. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_diskio__drv_type_def_a6eb1dab68fd01043e7366dc419c693cf}\index{Diskio\_drvTypeDef@{Diskio\_drvTypeDef}!disk\_initialize@{disk\_initialize}}
+\index{disk\_initialize@{disk\_initialize}!Diskio\_drvTypeDef@{Diskio\_drvTypeDef}}
+\doxysubsubsection{\texorpdfstring{disk\_initialize}{disk\_initialize}}
+{\footnotesize\ttfamily \label{struct_diskio__drv_type_def_a6eb1dab68fd01043e7366dc419c693cf} 
+DSTATUS(\texorpdfstring{$\ast$}{*} Diskio\+\_\+drv\+Type\+Def\+::disk\+\_\+initialize) (BYTE)}
+
+Initialize Disk Drive \Hypertarget{struct_diskio__drv_type_def_aa6bcafbb089551805e88d4ee7e13d746}\index{Diskio\_drvTypeDef@{Diskio\_drvTypeDef}!disk\_ioctl@{disk\_ioctl}}
+\index{disk\_ioctl@{disk\_ioctl}!Diskio\_drvTypeDef@{Diskio\_drvTypeDef}}
+\doxysubsubsection{\texorpdfstring{disk\_ioctl}{disk\_ioctl}}
+{\footnotesize\ttfamily \label{struct_diskio__drv_type_def_aa6bcafbb089551805e88d4ee7e13d746} 
+DRESULT(\texorpdfstring{$\ast$}{*} Diskio\+\_\+drv\+Type\+Def\+::disk\+\_\+ioctl) (BYTE, BYTE, void \texorpdfstring{$\ast$}{*})}
+
+I/O control operation when \+\_\+\+USE\+\_\+\+IOCTL = 1 \Hypertarget{struct_diskio__drv_type_def_a4efc1e15fda6831ec1bf18199ea2d6fc}\index{Diskio\_drvTypeDef@{Diskio\_drvTypeDef}!disk\_read@{disk\_read}}
+\index{disk\_read@{disk\_read}!Diskio\_drvTypeDef@{Diskio\_drvTypeDef}}
+\doxysubsubsection{\texorpdfstring{disk\_read}{disk\_read}}
+{\footnotesize\ttfamily \label{struct_diskio__drv_type_def_a4efc1e15fda6831ec1bf18199ea2d6fc} 
+DRESULT(\texorpdfstring{$\ast$}{*} Diskio\+\_\+drv\+Type\+Def\+::disk\+\_\+read) (BYTE, BYTE \texorpdfstring{$\ast$}{*}, DWORD, UINT)}
+
+Read Sector(s) \Hypertarget{struct_diskio__drv_type_def_a6f441b818250523924b6e67cace07ed3}\index{Diskio\_drvTypeDef@{Diskio\_drvTypeDef}!disk\_status@{disk\_status}}
+\index{disk\_status@{disk\_status}!Diskio\_drvTypeDef@{Diskio\_drvTypeDef}}
+\doxysubsubsection{\texorpdfstring{disk\_status}{disk\_status}}
+{\footnotesize\ttfamily \label{struct_diskio__drv_type_def_a6f441b818250523924b6e67cace07ed3} 
+DSTATUS(\texorpdfstring{$\ast$}{*} Diskio\+\_\+drv\+Type\+Def\+::disk\+\_\+status) (BYTE)}
+
+Get Disk Status \Hypertarget{struct_diskio__drv_type_def_a3754d2ae169d02ba6996c4e672bff2a9}\index{Diskio\_drvTypeDef@{Diskio\_drvTypeDef}!disk\_write@{disk\_write}}
+\index{disk\_write@{disk\_write}!Diskio\_drvTypeDef@{Diskio\_drvTypeDef}}
+\doxysubsubsection{\texorpdfstring{disk\_write}{disk\_write}}
+{\footnotesize\ttfamily \label{struct_diskio__drv_type_def_a3754d2ae169d02ba6996c4e672bff2a9} 
+DRESULT(\texorpdfstring{$\ast$}{*} Diskio\+\_\+drv\+Type\+Def\+::disk\+\_\+write) (BYTE, const BYTE \texorpdfstring{$\ast$}{*}, DWORD, UINT)}
+
+Write Sector(s) when \+\_\+\+USE\+\_\+\+WRITE = 0 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Middlewares/\+Third\+\_\+\+Party/\+Fat\+Fs/src/\mbox{\hyperlink{ff__gen__drv_8h}{ff\+\_\+gen\+\_\+drv.\+h}}\end{DoxyCompactItemize}

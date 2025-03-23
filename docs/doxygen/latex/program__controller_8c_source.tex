@@ -1,0 +1,71 @@
+\doxysection{program\+\_\+controller.\+c}
+\hypertarget{program__controller_8c_source}{}\label{program__controller_8c_source}\index{Middlewares/gwtonn/program\_controller.c@{Middlewares/gwtonn/program\_controller.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}program\_controller.h"{}}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}FreeRTOS.h"{}}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}cmsis\_os2.h"{}}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{main_8h}{main.h}}>}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}programma.h"{}}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}sd\_logger.h"{}}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00009}00009\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structinstruction__t}{instruction\_t}}\ instruction[];}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00015}00015\ \textcolor{keywordtype}{void}\ program\_controller\_task(\textcolor{keywordtype}{void}\ *argument)}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00017}00017\ \ \ \ \ UNUSED(argument);\ \textcolor{comment}{//\ Mark\ variable\ as\ 'UNUSED'\ to\ suppress\ 'unused-\/variable'\ warning}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00018}00018\ \ \ \ \ \mbox{\hyperlink{structprogram__controller__registers__t}{program\_controller\_registers\_t}}\ pcr\ =\ \{}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00019}00019\ \ \ \ \ \ \ \ \ .program\_counter\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00020}00020\ \ \ \ \ \ \ \ \ .program\_size\ =\ \textcolor{keyword}{sizeof}(instruction)\ /\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structinstruction__t}{instruction\_t}}),}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00023}00023\ \ \ \ \ HAL\_GPIO\_WritePin(GREEN\_LED\_GPIO\_Port,\ GREEN\_LED\_Pin,\ GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00025}00025\ \ \ \ \ \textcolor{comment}{/*\ Infinite\ loop\ */}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00027}00027\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (instruction[pcr.program\_counter].opcode)}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ OPCODE\_PIN\_TOGGLE:}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ HAL\_GPIO\_TogglePin((GPIO\_TypeDef\ *)instruction[pcr.program\_counter].parameter1,}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (uint32\_t)instruction[pcr.program\_counter].parameter0);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ program\_controller\_step(\&pcr);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ OPCODE\_PIN\_STATE:}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ HAL\_GPIO\_WritePin((GPIO\_TypeDef\ *)instruction[pcr.program\_counter].parameter1,}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (uint32\_t)instruction[pcr.program\_counter].parameter0,}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (uint32\_t)instruction[pcr.program\_counter].parameter2);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ program\_controller\_step(\&pcr);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ OPCODE\_DELAY:}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ osDelay((uint32\_t)instruction[pcr.program\_counter].parameter0);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ program\_controller\_step(\&pcr);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ OPCODE\_LOG\_PROGRAM\_STATE:}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Log\ the\ state\ of\ the\ program}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_m_s_g_q_u_e_u_e___o_b_j__t}{MSGQUEUE\_OBJ\_t}}\ msg;}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ msg.index\ =\ pcr.program\_counter;}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ msg.message\ =\ MSG\_PROGRAM\_COUNTER;}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ osMessageQueuePut(loggerQueueHandle,\ \&msg,\ 0,\ 0U);\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ program\_controller\_step(\&pcr);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ OPCODE\_JUMP:}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ pcr.program\_counter\ =\ (uint32\_t)instruction[pcr.program\_counter].parameter0;}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00063}00063\ \ \ \ \ HAL\_GPIO\_WritePin(GREEN\_LED\_GPIO\_Port,\ GREEN\_LED\_Pin,\ GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00072}00072\ \textcolor{keywordtype}{void}\ program\_controller\_step(\mbox{\hyperlink{structprogram__controller__registers__t}{program\_controller\_registers\_t}}\ *program\_controller\_registers)\ \{}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00073}00073\ \ \ \ \ program\_controller\_registers-\/>program\_counter++;}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{if}\ (program\_controller\_registers-\/>program\_counter\ >=\ program\_controller\_registers-\/>program\_size)}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ program\_controller\_registers-\/>program\_counter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{program__controller_8c_source_l00076}00076\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['v_0',['v',['../structos_event.html#a5d2bb38f7be9c75f508646c24d2de4b1',1,'osEvent']]],
+  ['value_1',['value',['../structos_event.html#a3ecb1a172d9ee386bc5968d57fe48989',1,'osEvent']]],
+  ['vcoroutineschedule_2',['vCoRoutineSchedule',['../group__v_co_routine_schedule.html',1,'']]],
+  ['vindt_20ik_20mijn_20stm32_20nuleo_20usb_20port_20in_20windows_2011_20met_20powershell_3',['Hoe vindt ik mijn STM32 Nuleo USB port in Windows 11 met PowerShell',['../md__r_e_a_d_m_e.html#autotoc_md29',1,'']]],
+  ['voorbeeld_20programma_4',['Voorbeeld programma',['../md_docs_2programma.html#autotoc_md16',1,'']]],
+  ['vqueuedelete_5',['vQueueDelete',['../group__v_queue_delete.html',1,'']]],
+  ['vscode_20can_20de_20code_20niet_20compileren_6',['Mijn VSCode can de code niet compileren',['../md__r_e_a_d_m_e.html#autotoc_md31',1,'']]],
+  ['vsemaphorecreatebinary_7',['vSemaphoreCreateBinary',['../group__v_semaphore_create_binary.html',1,'']]],
+  ['vsemaphoredelete_8',['vSemaphoreDelete',['../group__v_semaphore_delete.html',1,'']]],
+  ['vstreambufferdelete_9',['vStreamBufferDelete',['../group__v_stream_buffer_delete.html',1,'']]],
+  ['vtaskdelay_10',['vTaskDelay',['../group__v_task_delay.html',1,'']]],
+  ['vtaskdelayuntil_11',['vTaskDelayUntil',['../group__v_task_delay_until.html',1,'']]],
+  ['vtaskdelete_12',['vTaskDelete',['../group__v_task_delete.html',1,'']]],
+  ['vtaskendscheduler_13',['vTaskEndScheduler',['../group__v_task_end_scheduler.html',1,'']]],
+  ['vtaskgetinfo_14',['vTaskGetInfo',['../group__v_task_get_info.html',1,'']]],
+  ['vtaskgetruntimestats_15',['vTaskGetRunTimeStats',['../group__v_task_get_run_time_stats.html',1,'']]],
+  ['vtasklist_16',['vTaskList',['../group__v_task_list.html',1,'']]],
+  ['vtaskpriorityset_17',['vTaskPrioritySet',['../group__v_task_priority_set.html',1,'']]],
+  ['vtaskresume_18',['vTaskResume',['../group__v_task_resume.html',1,'']]],
+  ['vtaskresumefromisr_19',['vTaskResumeFromISR',['../group__v_task_resume_from_i_s_r.html',1,'']]],
+  ['vtasksettimeoutstate_20',['vTaskSetTimeOutState',['../group__v_task_set_time_out_state.html',1,'']]],
+  ['vtaskstartscheduler_21',['vTaskStartScheduler',['../group__v_task_start_scheduler.html',1,'']]],
+  ['vtasksuspend_22',['vTaskSuspend',['../group__v_task_suspend.html',1,'']]],
+  ['vtasksuspendall_23',['vTaskSuspendAll',['../group__v_task_suspend_all.html',1,'']]]
+];

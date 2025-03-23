@@ -1,0 +1,86 @@
+\doxysection{diskio.\+h}
+\hypertarget{diskio_8h_source}{}\label{diskio_8h_source}\index{Middlewares/Third\_Party/FatFs/src/diskio.h@{Middlewares/Third\_Party/FatFs/src/diskio.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{/\ \ Low\ level\ disk\ interface\ modlue\ include\ file\ \ \ (C)ChaN,\ 2014\ \ \ \ \ \ \ \ \ \ /}}
+\DoxyCodeLine{00003\ \textcolor{comment}{/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ \_DISKIO\_DEFINED}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ \_DISKIO\_DEFINED}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ \_USE\_WRITE\ \ 1\ \ \ }\textcolor{comment}{/*\ 1:\ Enable\ disk\_write\ function\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_USE\_IOCTL\ \ 1\ \ \ }\textcolor{comment}{/*\ 1:\ Enable\ disk\_ioctl\ function\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}integer.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{/*\ Status\ of\ Disk\ Functions\ */}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ BYTE\ \ \ \ DSTATUS;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{/*\ Results\ of\ Disk\ Functions\ */}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ RES\_OK\ =\ 0,\ \ \ \ \ \textcolor{comment}{/*\ 0:\ Successful\ */}}
+\DoxyCodeLine{00024\ \ \ \ \ RES\_ERROR,\ \ \ \ \ \ \textcolor{comment}{/*\ 1:\ R/W\ Error\ */}}
+\DoxyCodeLine{00025\ \ \ \ \ RES\_WRPRT,\ \ \ \ \ \ \textcolor{comment}{/*\ 2:\ Write\ Protected\ */}}
+\DoxyCodeLine{00026\ \ \ \ \ RES\_NOTRDY,\ \ \ \ \ \textcolor{comment}{/*\ 3:\ Not\ Ready\ */}}
+\DoxyCodeLine{00027\ \ \ \ \ RES\_PARERR\ \ \ \ \ \ \textcolor{comment}{/*\ 4:\ Invalid\ Parameter\ */}}
+\DoxyCodeLine{00028\ \}\ DRESULT;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00032\ \textcolor{comment}{/*\ Prototypes\ for\ disk\ control\ functions\ */}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ DSTATUS\ disk\_initialize\ (BYTE\ pdrv);}
+\DoxyCodeLine{00036\ DSTATUS\ disk\_status\ (BYTE\ pdrv);}
+\DoxyCodeLine{00037\ DRESULT\ disk\_read\ (BYTE\ pdrv,\ BYTE*\ buff,\ DWORD\ sector,\ UINT\ count);}
+\DoxyCodeLine{00038\ DRESULT\ disk\_write\ (BYTE\ pdrv,\ \textcolor{keyword}{const}\ BYTE*\ buff,\ DWORD\ sector,\ UINT\ count);}
+\DoxyCodeLine{00039\ DRESULT\ disk\_ioctl\ (BYTE\ pdrv,\ BYTE\ cmd,\ \textcolor{keywordtype}{void}*\ buff);}
+\DoxyCodeLine{00040\ DWORD\ get\_fattime\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ Disk\ Status\ Bits\ (DSTATUS)\ */}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ STA\_NOINIT\ \ \ \ \ \ 0x01\ \ \ \ }\textcolor{comment}{/*\ Drive\ not\ initialized\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ STA\_NODISK\ \ \ \ \ \ 0x02\ \ \ \ }\textcolor{comment}{/*\ No\ medium\ in\ the\ drive\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ STA\_PROTECT\ \ \ \ \ 0x04\ \ \ \ }\textcolor{comment}{/*\ Write\ protected\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ Command\ code\ for\ disk\_ioctrl\ fucntion\ */}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ Generic\ command\ (Used\ by\ FatFs)\ */}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ CTRL\_SYNC\ \ \ \ \ \ \ 0\ \ \ }\textcolor{comment}{/*\ Complete\ pending\ write\ process\ (needed\ at\ \_FS\_READONLY\ ==\ 0)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ GET\_SECTOR\_COUNT\ \ \ \ 1\ \ \ }\textcolor{comment}{/*\ Get\ media\ size\ (needed\ at\ \_USE\_MKFS\ ==\ 1)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ GET\_SECTOR\_SIZE\ \ \ \ \ 2\ \ \ }\textcolor{comment}{/*\ Get\ sector\ size\ (needed\ at\ \_MAX\_SS\ !=\ \_MIN\_SS)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ GET\_BLOCK\_SIZE\ \ \ \ \ \ 3\ \ \ }\textcolor{comment}{/*\ Get\ erase\ block\ size\ (needed\ at\ \_USE\_MKFS\ ==\ 1)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ CTRL\_TRIM\ \ \ \ \ \ \ 4\ \ \ }\textcolor{comment}{/*\ Inform\ device\ that\ the\ data\ on\ the\ block\ of\ sectors\ is\ no\ longer\ used\ (needed\ at\ \_USE\_TRIM\ ==\ 1)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ Generic\ command\ (Not\ used\ by\ FatFs)\ */}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ CTRL\_POWER\ \ \ \ \ \ \ \ \ \ 5\ \ \ }\textcolor{comment}{/*\ Get/Set\ power\ status\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ CTRL\_LOCK\ \ \ \ \ \ \ \ \ \ \ 6\ \ \ }\textcolor{comment}{/*\ Lock/Unlock\ media\ removal\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ CTRL\_EJECT\ \ \ \ \ \ \ \ \ \ 7\ \ \ }\textcolor{comment}{/*\ Eject\ media\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ CTRL\_FORMAT\ \ \ \ \ \ \ \ \ 8\ \ \ }\textcolor{comment}{/*\ Create\ physical\ format\ on\ the\ media\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ MMC/SDC\ specific\ ioctl\ command\ */}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ MMC\_GET\_TYPE\ \ \ \ \ \ \ \ 10\ \ }\textcolor{comment}{/*\ Get\ card\ type\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ MMC\_GET\_CSD\ \ \ \ \ \ \ \ \ 11\ \ }\textcolor{comment}{/*\ Get\ CSD\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ MMC\_GET\_CID\ \ \ \ \ \ \ \ \ 12\ \ }\textcolor{comment}{/*\ Get\ CID\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MMC\_GET\_OCR\ \ \ \ \ \ \ \ \ 13\ \ }\textcolor{comment}{/*\ Get\ OCR\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ MMC\_GET\_SDSTAT\ \ \ \ \ \ 14\ \ }\textcolor{comment}{/*\ Get\ SD\ status\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ ATA/CF\ specific\ ioctl\ command\ */}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ATA\_GET\_REV\ \ \ \ \ \ \ \ \ 20\ \ }\textcolor{comment}{/*\ Get\ F/W\ revision\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ ATA\_GET\_MODEL\ \ \ \ \ \ \ 21\ \ }\textcolor{comment}{/*\ Get\ model\ name\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ATA\_GET\_SN\ \ \ \ \ \ \ \ \ \ 22\ \ }\textcolor{comment}{/*\ Get\ serial\ number\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00077\ \}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

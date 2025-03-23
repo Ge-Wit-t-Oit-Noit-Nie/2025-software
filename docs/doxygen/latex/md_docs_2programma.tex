@@ -1,0 +1,59 @@
+\chapter{Programma}
+\hypertarget{md_docs_2programma}{}\label{md_docs_2programma}\index{Programma@{Programma}}
+\label{md_docs_2programma_autotoc_md13}%
+\Hypertarget{md_docs_2programma_autotoc_md13}%
+
+
+Het hele idee van de controller is om een progarmma uit te voeren. Om dit flexibel te maken, is er een basis instructieset gemaakt. Met deze instructieset kan een programma gemaakt worden.\hypertarget{md_docs_2programma_autotoc_md14}{}\doxysection{\texorpdfstring{Programmeren}{Programmeren}}\label{md_docs_2programma_autotoc_md14}
+Maak een bestand met de naam "{}programma.\+h"{} en plaats hierin het programma. Het volgende programma is hier een voorbeeld van.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ \_\_PROGRAMMA\_H\_\_}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ \_\_PROGRAMMA\_H\_\_}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <program\_controller.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{main_8h}{main.h}}>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \mbox{\hyperlink{structinstruction__t}{instruction\_t}}\ instruction[]\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{.opcode\ =\ OPCODE\_PIN\_STATE,\ .parameter0\ =\ (\textcolor{keywordtype}{void}\ *)BLUE\_LED\_Pin,\ .parameter1\ =\ (\textcolor{keywordtype}{void}\ *)BLUE\_LED\_GPIO\_Port,\ .parameter2\ =\ (\textcolor{keywordtype}{void}\ *)GPIO\_PIN\_SET\},}
+\DoxyCodeLine{\ \ \ \ \{.opcode\ =\ OPCODE\_DELAY,\ .parameter0\ =\ (\textcolor{keywordtype}{void}\ *)1500\},}
+\DoxyCodeLine{\ \ \ \ \{.opcode\ =\ OPCODE\_PIN\_TOGGLE,\ .parameter0\ =\ (\textcolor{keywordtype}{void}\ *)BLUE\_LED\_Pin,\ .parameter1\ =\ (\textcolor{keywordtype}{void}\ *)BLUE\_LED\_GPIO\_Port\},}
+\DoxyCodeLine{\ \ \ \ \{.opcode\ =\ OPCODE\_JUMP,\ .parameter0\ =\ (\textcolor{keywordtype}{void}\ *)1\},}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_PROGRAMMA\_H\_\_}}
+
+\end{DoxyCode}
+\hypertarget{md_docs_2programma_autotoc_md15}{}\doxysection{\texorpdfstring{Instuctieset}{Instuctieset}}\label{md_docs_2programma_autotoc_md15}
+Een programma kan gemaakt worden door het opzetten van een instructie set. De onderstaande tabel bevat een overzicht van de functies.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Functie   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Op\+Code   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Parameters   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Omschrijving    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Functie   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Op\+Code   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Parameters   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Omschrijving    }\\\cline{1-4}
+\endhead
+OPCODE\+\_\+\+PIN\+\_\+\+TOGGLE   &0x00   &Parameter0\+: GPIOx – Where x can be (A..K) to select the GPIO peripheral for STM32\+F429X device or x can be (A..I) to select the GPIO peripheral for STM32\+F40\+XX and STM32\+F427X devices; Parameter1\+: GPIO\+\_\+\+Pin – Specifies the pins to be toggled.   &Zet een pin op hoog als deze laag is; Zet een pin op laag als deze hoog is.    \\\cline{1-4}
+OPCODE\+\_\+\+PIN\+\_\+\+STATE   &0x01   &Parameter0\+: GPIOx – Where x can be (A..K) to select the GPIO peripheral for STM32\+F429X device or x can be (A..I) to select the GPIO peripheral for STM32\+F40\+XX and STM32\+F427X devices; Parameter1\+: GPIO\+\_\+\+Pin – Specifies the pins to be toggled; Parameter2\+: GPIO\+\_\+\+PIN\+\_\+\+SET of GPIO\+\_\+\+PIN\+\_\+\+RESET   &Zet de status van een pin    \\\cline{1-4}
+OPCODE\+\_\+\+DELAY   &0x11   &Parameter0\+: De gewenste delay in MS   &Laat het programma wachten voor x ms    \\\cline{1-4}
+OPCODE\+\_\+\+LOG\+\_\+\+PROGRAM\+\_\+\+STATE   &0x12   &n/a   &Stuur de huidige status van het programma (alle registers) naar de log    \\\cline{1-4}
+OPCODE\+\_\+\+JUMP   &0x21   &Parameter0\+: index (0-\/bound) van de volgende instructie   &Laat het programma "{}springen"{} naar de instructie met index Parameter0   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{md_docs_2programma_autotoc_md16}{}\doxysection{\texorpdfstring{Voorbeeld programma}{Voorbeeld programma}}\label{md_docs_2programma_autotoc_md16}
+\hypertarget{md_docs_2programma_autotoc_md17}{}\doxysubsection{\texorpdfstring{Simple programma om de blauwe led te knipperen}{Simple programma om de blauwe led te knipperen}}\label{md_docs_2programma_autotoc_md17}
+Declareer de blauwe led met {\ttfamily BLUE\+\_\+\+LED\+\_\+\+Pin} en zorg dat deze op {\ttfamily BLUE\+\_\+\+LED\+\_\+\+GPIO\+\_\+\+Port} gemount zit.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \mbox{\hyperlink{structinstruction__t}{instruction\_t}}\ instruction[]\ =\ \{}
+\DoxyCodeLine{\ \ \{\ .opcode\ =\ OPCODE\_PIN\_TOGGLE,\ .parameter0\ =\ (\textcolor{keywordtype}{void}*)\ BLUE\_LED\_Pin,\ .parameter1\ =\ (\textcolor{keywordtype}{void}*)\ BLUE\_LED\_GPIO\_Port\ \},}
+\DoxyCodeLine{\ \ \{\ .opcode\ =\ OPCODE\_DELAY,\ .parameter0\ =\ (\textcolor{keywordtype}{void}\ *)pdMS\_TO\_TICKS(1500)\},}
+\DoxyCodeLine{\ \ \};}
+
+\end{DoxyCode}
+ 
