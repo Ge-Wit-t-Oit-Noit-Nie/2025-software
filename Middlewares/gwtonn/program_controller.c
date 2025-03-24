@@ -74,3 +74,18 @@ void program_controller_step(program_controller_registers_t *program_controller_
     if (program_controller_registers->program_counter >= program_controller_registers->program_size)
         program_controller_registers->program_counter = 0;
 }
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED(GPIO_Pin);
+
+    if (PROGRAM_STATE_TRIGGER_Pin == GPIO_Pin)
+    {
+        MSGQUEUE_OBJ_t msg;
+        msg.message = MSG_PROGRAM_STATE_TRIGGER;
+        msg.index = 0;
+        osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
+
+    }
+}

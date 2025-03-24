@@ -143,8 +143,11 @@ void MX_FREERTOS_Init(void) {
 __weak void program_controller_task(void *argument)
 {
   /* USER CODE BEGIN program_controller_task */
-  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
-
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
   /* USER CODE END program_controller_task */
 }
 

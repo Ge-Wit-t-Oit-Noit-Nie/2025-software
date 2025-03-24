@@ -74,7 +74,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-
+  /*Configure GPIO pin : PROGRAM_STATE_TRIGGER_Pin */
+  GPIO_InitStruct.Pin = PROGRAM_STATE_TRIGGER_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(PROGRAM_STATE_TRIGGER_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PF0 PF1 PF2 PF3
                            PF4 PF5 PF6 PF7
