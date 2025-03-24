@@ -23,3 +23,11 @@ osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
 ## Programma controller
 
 Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in [programma.md](./programma.md).
+
+## FatFS met de SD Card Controller via SPI
+
+Om bestanden te kunnen maken op een SD kaart, gebruiken we een SD Card reader. Deze wordt aangesloten via een SPI Interface met de Nucleo board. Vervolgens gebruiken we de FatFS library om een bestandsysteem te simuleren.
+
+De FatFS staat aangemerkt als `USER_Driver` in STM32CubeMX. Deze userdriver is gedefineerd in [user_diskio.h](../FATFS/Target/user_diskio.h) en geimplementeerd in  [user_diskio.c](../FATFS/Target/user_diskio.c).
+
+De vertaalslag van de FATFS implentatie naar SPI commando's gebeurt in [fatfs_sd.c](../Middlewares/gwtonn/fatfs_sd.c).

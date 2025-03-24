@@ -20,4 +20,9 @@ Om een bericht te sturen moet je {\ttfamily \doxylink{sd__logger_8h_source}{sd\+
 
 \end{DoxyCode}
 \hypertarget{md_docs_2gwtonn__library_autotoc_md12}{}\doxysection{\texorpdfstring{Programma controller}{Programma controller}}\label{md_docs_2gwtonn__library_autotoc_md12}
-Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in \doxysectlink{md_docs_2programma}{programma.md}{0}. 
+Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in \doxysectlink{md_docs_2programma}{programma.md}{0}.\hypertarget{md_docs_2gwtonn__library_autotoc_md13}{}\doxysection{\texorpdfstring{Fat\+FS met de SD Card Controller via SPI}{Fat\+FS met de SD Card Controller via SPI}}\label{md_docs_2gwtonn__library_autotoc_md13}
+Om bestanden te kunnen maken op een SD kaart, gebruiken we een SD Card reader. Deze wordt aangesloten via een SPI Interface met de Nucleo board. Vervolgens gebruiken we de Fat\+FS library om een bestandsysteem te simuleren.
+
+De Fat\+FS staat aangemerkt als {\ttfamily USER\+\_\+\+Driver} in STM32\+Cube\+MX. Deze userdriver is gedefineerd in \href{../FATFS/Target/user_diskio.h}{\texttt{ user\+\_\+diskio.\+h}} en geimplementeerd in \href{../FATFS/Target/user_diskio.c}{\texttt{ user\+\_\+diskio.\+c}}.
+
+De vertaalslag van de FATFS implentatie naar SPI commando\textquotesingle{}s gebeurt in \href{../Middlewares/gwtonn/fatfs_sd.c}{\texttt{ fatfs\+\_\+sd.\+c}}. 
