@@ -16,9 +16,8 @@ STM32\+Cube\+IDE Minimal System calls file.
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24}\label{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24} 
-int {\bfseries \+\_\+\+\_\+io\+\_\+putchar} (int ch) \+\_\+\+\_\+attribute\+\_\+\+\_\+((weak))
-\item 
+int \mbox{\hyperlink{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24}{\+\_\+\+\_\+io\+\_\+putchar}} (int ch) \+\_\+\+\_\+attribute\+\_\+\+\_\+((weak))
+\begin{DoxyCompactList}\small\item\em Retargets the C library printf function to the USART. None. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{syscalls_8c_ad0122671640a3af49792ddaa59e8294e}{\+\_\+\+\_\+io\+\_\+getchar}} (void)
 \item 
 void \mbox{\hyperlink{syscalls_8c_a25c7f100d498300fff65568c2fcfe639}{initialise\+\_\+monitor\+\_\+handles}} ()
@@ -103,6 +102,25 @@ int \+\_\+\+\_\+io\+\_\+getchar (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 Definition at line \mbox{\hyperlink{syscalls_8c_source_l00036}{36}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24}\index{syscalls.c@{syscalls.c}!\_\_io\_putchar@{\_\_io\_putchar}}
+\index{\_\_io\_putchar@{\_\_io\_putchar}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_\_io\_putchar()}{\_\_io\_putchar()}}
+{\footnotesize\ttfamily \label{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24} 
+int \+\_\+\+\_\+io\+\_\+putchar (\begin{DoxyParamCaption}\item[{int}]{ch}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Retargets the C library printf function to the USART. None. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{uart__writer_8c_source_l00027}{27}} of file \mbox{\hyperlink{uart__writer_8c_source}{uart\+\_\+writer.\+c}}.
 
 \Hypertarget{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}\index{syscalls.c@{syscalls.c}!\_close@{\_close}}
 \index{\_close@{\_close}!syscalls.c@{syscalls.c}}

@@ -1,0 +1,29 @@
+\doxysection{uart\+\_\+writer.\+c}
+\hypertarget{uart__writer_8c_source}{}\label{uart__writer_8c_source}\index{Middlewares/gwtonn/uart\_writer.c@{Middlewares/gwtonn/uart\_writer.c}}
+\mbox{\hyperlink{uart__writer_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <FreeRTOS.h>}}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uart__writer_8h}{uart\_writer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{usart_8h}{usart.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00027}\mbox{\hyperlink{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24}{00027}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{uart__writer_8c_abc513dd972081ae765b6949a62872eb7}{\_\_io\_putchar}}(\textcolor{keywordtype}{int}\ ch)}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00029}00029\ \ \ \ \ HAL\_UART\_Transmit(\&huart3,\ (uint8\_t\ *)\&ch,\ 1,\ 0xFFFF);}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{return}\ ch;}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00039}\mbox{\hyperlink{uart__writer_8c_ab14ac9fa513d25da5b56903128f3bf66}{00039}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uart__writer_8c_ab14ac9fa513d25da5b56903128f3bf66}{uart\_writer\_task}}(\textcolor{keywordtype}{void}\ *argument)}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00040}00040\ \{}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00041}00041\ \ \ \ \ UNUSED(argument);\ \textcolor{comment}{//\ Mark\ variable\ as\ 'UNUSED'\ to\ suppress\ 'unused-\/variable'\ warning}}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00044}00044\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ osDelay(pdMS\_TO\_TICKS(100));}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Hello,\ world!\(\backslash\)n\(\backslash\)r"{}});}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uart__writer_8c_source_l00048}00048\ \}}
+
+\end{DoxyCode}

@@ -8,7 +8,7 @@
 #include "fatfs.h"
 #include "sd_logger.h"
 #include "FreeRTOS.h"
-#include "cmsis_os.h"
+#include "cmsis_os2.h"
 
 #include <string.h>
 #include <stdio.h>
