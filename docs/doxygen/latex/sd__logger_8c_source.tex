@@ -63,27 +63,26 @@
 \DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ CLEAR\_BUFFER(\textcolor{keywordtype}{string});}
 \DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ snprintf(\textcolor{keywordtype}{string},\ BUFFER\_SIZE,\ \textcolor{stringliteral}{"{}\%d,\%d\(\backslash\)n\(\backslash\)r"{}},\ msg.index,\ msg.message);}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uart\_print\_string(string);}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (osOK\ ==\ osMutexAcquire(mutex\_id,\ 0))}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sd\_logger\_print(\textcolor{keywordtype}{string});}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ osMutexRelease(mutex\_id);}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uart\_print\_string("{}Could\ not\ get\ the\ MUTEX\ 'mutex\_sd\_card\_lockHandle'\(\backslash\)0"{});}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00079}00079\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//\ mount\ the\ file\ system}}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{if}\ (osOK\ ==\ osMutexAcquire(mutex\_id,\ 0))}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00082}00082\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ sd\_logger\_close();}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ osMutexRelease(mutex\_id);}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00085}00085\ \ \ \ \ \};}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00086}00086\ }
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00087}00087\ \ \ \ \ osMutexDelete(mutex\_id);}
-\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00088}00088\ \}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (osOK\ ==\ osMutexAcquire(mutex\_id,\ 0))}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sd\_logger\_print(\textcolor{keywordtype}{string});}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ osMutexRelease(mutex\_id);}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Could\ not\ get\ the\ MUTEX\ 'mutex\_sd\_card\_lockHandle'\(\backslash\)n\(\backslash\)r"{}});}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//\ mount\ the\ file\ system}}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (osOK\ ==\ osMutexAcquire(mutex\_id,\ 0))}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ sd\_logger\_close();}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ osMutexRelease(mutex\_id);}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00084}00084\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00086}00086\ \ \ \ \ osMutexDelete(mutex\_id);}
+\DoxyCodeLine{\Hypertarget{sd__logger_8c_source_l00087}00087\ \}}
 
 \end{DoxyCode}

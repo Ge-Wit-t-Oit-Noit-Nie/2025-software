@@ -113,6 +113,7 @@ $(function(){initNavTree('uart__writer_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &lt;FreeRTOS.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="uart__writer_8h_source.html">uart_writer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="usart_8h_source.html">usart.h</a>&quot;</code><br />
+<code>#include &quot;std_inc.h&quot;</code><br />
 </div>
 <p><a href="uart__writer_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -121,9 +122,6 @@ Functions</h2></td></tr>
 <tr class="memitem:abc513dd972081ae765b6949a62872eb7" id="r_abc513dd972081ae765b6949a62872eb7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc513dd972081ae765b6949a62872eb7">__io_putchar</a> (int ch)</td></tr>
 <tr class="memdesc:abc513dd972081ae765b6949a62872eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retargets the C library printf function to the USART. None.  <br /></td></tr>
 <tr class="separator:abc513dd972081ae765b6949a62872eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab14ac9fa513d25da5b56903128f3bf66" id="r_ab14ac9fa513d25da5b56903128f3bf66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab14ac9fa513d25da5b56903128f3bf66">uart_writer_task</a> (void *argument)</td></tr>
-<tr class="memdesc:ab14ac9fa513d25da5b56903128f3bf66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function implementing the uartWriterTask thread.  <br /></td></tr>
-<tr class="separator:ab14ac9fa513d25da5b56903128f3bf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the uart writer. </p>
@@ -156,40 +154,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="uart__writer_8c_source.html#l00027">27</a> of file <a class="el" href="uart__writer_8c_source.html">uart_writer.c</a>.</p>
-
-</div>
-</div>
-<a id="ab14ac9fa513d25da5b56903128f3bf66" name="ab14ac9fa513d25da5b56903128f3bf66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab14ac9fa513d25da5b56903128f3bf66">&#9670;&#160;</a></span>uart_writer_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void uart_writer_task </td>
-          <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>argument</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function implementing the uartWriterTask thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">argument</td><td>Not used </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="uart__writer_8c_source.html#l00039">39</a> of file <a class="el" href="uart__writer_8c_source.html">uart_writer.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uart__writer_8c_source.html#l00028">28</a> of file <a class="el" href="uart__writer_8c_source.html">uart_writer.c</a>.</p>
 
 </div>
 </div>

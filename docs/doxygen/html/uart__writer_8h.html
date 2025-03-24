@@ -103,16 +103,14 @@ $(function(){initNavTree('uart__writer_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">uart_writer.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Headerfile for the <a class="el" href="uart__writer_8c.html" title="Implementation of the uart writer.">uart_writer.c</a> file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;cmsis_os2.h&quot;</code><br />
-</div>
+
 <p><a href="uart__writer_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -120,15 +118,6 @@ Functions</h2></td></tr>
 <tr class="memitem:abc513dd972081ae765b6949a62872eb7" id="r_abc513dd972081ae765b6949a62872eb7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc513dd972081ae765b6949a62872eb7">__io_putchar</a> (int ch)</td></tr>
 <tr class="memdesc:abc513dd972081ae765b6949a62872eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retargets the C library printf function to the USART. None.  <br /></td></tr>
 <tr class="separator:abc513dd972081ae765b6949a62872eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ae70f3522ba79e712d0023a0d17795283" id="r_ae70f3522ba79e712d0023a0d17795283"><td class="memItemLeft" align="right" valign="top">osMessageQueueId_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae70f3522ba79e712d0023a0d17795283">uart_queueHandle</a></td></tr>
-<tr class="memdesc:ae70f3522ba79e712d0023a0d17795283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle for the UART writer thread.  <br /></td></tr>
-<tr class="separator:ae70f3522ba79e712d0023a0d17795283"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4902ed22b6b04e8722869b0ab7cd16d7" id="r_a4902ed22b6b04e8722869b0ab7cd16d7"><td class="memItemLeft" align="right" valign="top">const osMessageQueueAttr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4902ed22b6b04e8722869b0ab7cd16d7">uart_queue_attributes</a></td></tr>
-<tr class="memdesc:a4902ed22b6b04e8722869b0ab7cd16d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attributes for the UART writer thread.  <br /></td></tr>
-<tr class="separator:a4902ed22b6b04e8722869b0ab7cd16d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Headerfile for the <a class="el" href="uart__writer_8c.html" title="Implementation of the uart writer.">uart_writer.c</a> file. </p>
@@ -161,60 +150,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="uart__writer_8c_source.html#l00027">27</a> of file <a class="el" href="uart__writer_8c_source.html">uart_writer.c</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a4902ed22b6b04e8722869b0ab7cd16d7" name="a4902ed22b6b04e8722869b0ab7cd16d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4902ed22b6b04e8722869b0ab7cd16d7">&#9670;&#160;</a></span>uart_queue_attributes</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const osMessageQueueAttr_t uart_queue_attributes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Attributes for the UART writer thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00087">87</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
-
-</div>
-</div>
-<a id="ae70f3522ba79e712d0023a0d17795283" name="ae70f3522ba79e712d0023a0d17795283"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae70f3522ba79e712d0023a0d17795283">&#9670;&#160;</a></span>uart_queueHandle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">osMessageQueueId_t uart_queueHandle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Handle for the UART writer thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00086">86</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uart__writer_8c_source.html#l00028">28</a> of file <a class="el" href="uart__writer_8c_source.html">uart_writer.c</a>.</p>
 
 </div>
 </div>

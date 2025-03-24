@@ -117,23 +117,14 @@ $(function(){initNavTree('sd__logger_8h_source.html',''); initResizable(true); }
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define LOG_FILENAME &quot;logger.txt&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="struct_m_s_g_q_u_e_u_e___o_b_j__t.html">   21</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{ </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    uint8_t message;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    uint8_t index;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <a class="code hl_struct" href="struct_m_s_g_q_u_e_u_e___o_b_j__t.html">MSGQUEUE_OBJ_t</a>;</div>
-</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">extern</span> osMessageQueueId_t loggerQueueHandle;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">extern</span> <span class="keyword">const</span> osMessageQueueAttr_t loggerQueue_attributes;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> sd_logger_open();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">void</span> sd_logger_close();</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> sd_logger_print(<span class="keywordtype">char</span> *);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif </span><span class="comment">/* INC_SD_LOGGER_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astruct_m_s_g_q_u_e_u_e___o_b_j__t_html"><div class="ttname"><a href="struct_m_s_g_q_u_e_u_e___o_b_j__t.html">MSGQUEUE_OBJ_t</a></div><div class="ttdoc">Message Queue Object.</div><div class="ttdef"><b>Definition</b> <a href="#l00021">sd_logger.h:22</a></div></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">extern</span> osMessageQueueId_t loggerQueueHandle;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">extern</span> <span class="keyword">const</span> osMessageQueueAttr_t loggerQueue_attributes;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> sd_logger_open();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> sd_logger_close();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> sd_logger_print(<span class="keywordtype">char</span> *);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">/* INC_SD_LOGGER_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

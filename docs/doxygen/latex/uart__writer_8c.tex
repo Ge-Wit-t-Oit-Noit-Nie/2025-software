@@ -8,13 +8,12 @@ Implementation of the uart writer.
 {\ttfamily \#include $<$Free\+RTOS.\+h$>$}\newline
 {\ttfamily \#include "{}uart\+\_\+writer.\+h"{}}\newline
 {\ttfamily \#include "{}usart.\+h"{}}\newline
+{\ttfamily \#include "{}std\+\_\+inc.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{uart__writer_8c_abc513dd972081ae765b6949a62872eb7}{\+\_\+\+\_\+io\+\_\+putchar}} (int ch)
-\begin{DoxyCompactList}\small\item\em Retargets the C library printf function to the USART. None. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{uart__writer_8c_ab14ac9fa513d25da5b56903128f3bf66}{uart\+\_\+writer\+\_\+task}} (void \texorpdfstring{$\ast$}{*}argument)
-\begin{DoxyCompactList}\small\item\em Function implementing the uart\+Writer\+Task thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Retargets the C library printf function to the USART. None. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -49,29 +48,5 @@ Retargets the C library printf function to the USART. None.
 \end{DoxyRetVals}
 
 
-Definition at line \mbox{\hyperlink{uart__writer_8c_source_l00027}{27}} of file \mbox{\hyperlink{uart__writer_8c_source}{uart\+\_\+writer.\+c}}.
-
-\Hypertarget{uart__writer_8c_ab14ac9fa513d25da5b56903128f3bf66}\index{uart\_writer.c@{uart\_writer.c}!uart\_writer\_task@{uart\_writer\_task}}
-\index{uart\_writer\_task@{uart\_writer\_task}!uart\_writer.c@{uart\_writer.c}}
-\doxysubsubsection{\texorpdfstring{uart\_writer\_task()}{uart\_writer\_task()}}
-{\footnotesize\ttfamily \label{uart__writer_8c_ab14ac9fa513d25da5b56903128f3bf66} 
-void uart\+\_\+writer\+\_\+task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{argument}{}\end{DoxyParamCaption})}
-
-
-
-Function implementing the uart\+Writer\+Task thread. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em argument} & Not used \\
-\hline
-\end{DoxyParams}
-
-\begin{DoxyRetVals}{Return values}
-{\em None} & \\
-\hline
-\end{DoxyRetVals}
-
-
-Definition at line \mbox{\hyperlink{uart__writer_8c_source_l00039}{39}} of file \mbox{\hyperlink{uart__writer_8c_source}{uart\+\_\+writer.\+c}}.
+Definition at line \mbox{\hyperlink{uart__writer_8c_source_l00028}{28}} of file \mbox{\hyperlink{uart__writer_8c_source}{uart\+\_\+writer.\+c}}.
 
