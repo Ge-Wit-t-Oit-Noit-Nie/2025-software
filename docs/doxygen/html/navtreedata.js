@@ -41,13 +41,14 @@ var NAVTREE =
     [ "Ge Wit't Oit Noit Nie bibliotheek", "md_docs_2gwtonn__library.html", [
       [ "SD Card Logger - FreeRTOS implementation", "md_docs_2gwtonn__library.html#autotoc_md10", null ],
       [ "Message mechanisme", "md_docs_2gwtonn__library.html#autotoc_md11", null ],
-      [ "Programma controller", "md_docs_2gwtonn__library.html#autotoc_md12", null ]
+      [ "Programma controller", "md_docs_2gwtonn__library.html#autotoc_md12", null ],
+      [ "FatFS met de SD Card Controller via SPI", "md_docs_2gwtonn__library.html#autotoc_md13", null ]
     ] ],
     [ "Programma", "md_docs_2programma.html", [
-      [ "Programmeren", "md_docs_2programma.html#autotoc_md14", null ],
-      [ "Instuctieset", "md_docs_2programma.html#autotoc_md15", null ],
-      [ "Voorbeeld programma", "md_docs_2programma.html#autotoc_md16", [
-        [ "Simple programma om de blauwe led te knipperen", "md_docs_2programma.html#autotoc_md17", null ]
+      [ "Programmeren", "md_docs_2programma.html#autotoc_md15", null ],
+      [ "Instuctieset", "md_docs_2programma.html#autotoc_md16", null ],
+      [ "Voorbeeld programma", "md_docs_2programma.html#autotoc_md17", [
+        [ "Simple programma om de blauwe led te knipperen", "md_docs_2programma.html#autotoc_md18", null ]
       ] ]
     ] ],
     [ "Topics", "topics.html", "topics" ],

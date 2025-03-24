@@ -122,7 +122,12 @@ Message mechanisme</h1>
 <div class="ttc" id="astruct_m_s_g_q_u_e_u_e___o_b_j__t_html"><div class="ttname"><a href="struct_m_s_g_q_u_e_u_e___o_b_j__t.html">MSGQUEUE_OBJ_t</a></div><div class="ttdoc">Message Queue Object.</div><div class="ttdef"><b>Definition</b> <a href="sd__logger_8h_source.html#l00021">sd_logger.h:22</a></div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
 Programma controller</h1>
-<p>Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in <a class="el" href="md_docs_2programma.html">programma.md</a>. </p>
+<p>Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in <a class="el" href="md_docs_2programma.html">programma.md</a>.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
+FatFS met de SD Card Controller via SPI</h1>
+<p>Om bestanden te kunnen maken op een SD kaart, gebruiken we een SD Card reader. Deze wordt aangesloten via een SPI Interface met de Nucleo board. Vervolgens gebruiken we de FatFS library om een bestandsysteem te simuleren.</p>
+<p>De FatFS staat aangemerkt als <code>USER_Driver</code> in STM32CubeMX. Deze userdriver is gedefineerd in <a href="../FATFS/Target/user_diskio.h">user_diskio.h</a> en geimplementeerd in <a href="../FATFS/Target/user_diskio.c">user_diskio.c</a>.</p>
+<p>De vertaalslag van de FATFS implentatie naar SPI commando's gebeurt in <a href="../Middlewares/gwtonn/fatfs_sd.c">fatfs_sd.c</a>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

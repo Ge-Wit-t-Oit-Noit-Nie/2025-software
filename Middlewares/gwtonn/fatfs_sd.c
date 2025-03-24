@@ -1,3 +1,20 @@
+/**
+ ******************************************************************************
+ * @file   fatfs_sd.c
+ * @brief  Implementation of the SPI SD Card driver for FatFs
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 Ge Wit't Oit Noit Nie.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
+
 #define TRUE  1
 #define FALSE 0
 #define bool BYTE
@@ -248,7 +265,6 @@ static BYTE SD_SendCmd(BYTE cmd, uint32_t arg)
  * user_diskio.c functions
  **************************************/
 
-/* initialize SD */
 DSTATUS SD_disk_initialize(BYTE drv)
 {
 	uint8_t n, type, ocr[4];
@@ -536,7 +552,10 @@ DRESULT SD_disk_ioctl(BYTE drv, BYTE ctrl, void *buff)
 					*ptr++ = SPI_RxByte();
 				}
 				res = RES_OK;
+			} else {
+				res = RES_PARERR;
 			}
+			break;
 		default:
 			res = RES_PARERR;
 		}

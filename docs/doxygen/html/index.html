@@ -107,7 +107,7 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a></p>
 <p>If you want to know how to add features or bugfixes, read <a class="el" href="md__c_o_n_t_r_i_b_u_t_i_n_g.html">Reference to the CONTRIBUTING.md</a>.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Prerequisites</h1>
 <p>De volgende applicaties zijn nodig:</p>
 <ul>
@@ -118,30 +118,30 @@ Prerequisites</h1>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=STMicroelectronics.stm32-vscode-extension">STM32 VSCode Extension</a></li>
 </ul>
 <p>Verder worden de volgende extenties aangeraden voor VSCode:</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 GitHub Suport</h2>
 <ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 Markdown support</h2>
 <ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one">Markdown All in One</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=TakumiI.markdowntable">Markdown Table</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint">markdownlint</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 CMake</h2>
 <ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools">CMake Tools</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 C/C++</h2>
 <ul>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack">C/C++ Extension pack</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Assignments</h1>
 <ul>
 <li><em>USART3</em>: Serial port voor sturen van informatie</li>
@@ -150,7 +150,7 @@ Assignments</h1>
 </li>
 <li><em>SPI1</em>: SD Card writer over SPI</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 PINS</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -188,24 +188,24 @@ PINS</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">PH1   </td><td class="markdownTableBodyNone">RCC_OSC_OUT   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Hardware</h1>
 <p>Voor het ontwikkelen van de software wordt gebruik gemaakt van de <b>Nucleo-F412ZG Development</b> board</p>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Middlewares</h1>
 <p>Voor het schrijven van de log op de SD card wordt gebruik gemaakt van een stukje code in <code>Middlewares/sd_logger.c</code>. Deze code is betrekkelijk simpel. In het vervolg moet hier de logica zitten om de juiste info in de file te krijgen.</p>
 <dl class="section important"><dt>Important</dt><dd>Voor de <code>startLogTask</code> is <em>3000 WORDS</em> gereserveerd op de stack. We moeten dus opletten met de code (en dus ook wat opschonen).</dd></dl>
 <p>De functie <code>startLogTask</code> wacht op een item in de queue. Wanneer deze binnen komt, dan wordt er een string gemaakt. Deze string wordt naar de UART gestuurd en ook naar de SD_LOGGER. Voor de sd_logger wordt ook gebruik gemaakt van een MUTEX om te voorkomen dat er 2 schrijfacties tegelijk plaatsvinden.</p>
 <p>Voor mee details kan je kijken in de beschrijving van de <a class="el" href="md_docs_2gwtonn__library.html">bibliotheek</a>.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Tips &amp; Tricks</h1>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 Hoe vindt ik mijn STM32 Nuleo USB port in Windows 11 met PowerShell</h2>
 <div class="fragment"><div class="line">Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match &#39;^USB&#39; }</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md30"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md31"></a>
 Debug of upload geeft een foutmelding</h2>
 <p><img src="docs/images/set_debugger.png" alt="Debug settings" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 Mijn VSCode can de code niet compileren</h2>
 <p>Controleer of the juiste instellingen voor STM32 zijn gemaakt.</p>
 <p><img src="docs/images/stm32_extention_settings.png" alt="STM32 Extension settings" class="inline"/> </p>
