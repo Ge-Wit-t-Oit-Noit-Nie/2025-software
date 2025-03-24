@@ -70,22 +70,10 @@ const osThreadAttr_t logTask_attributes = {
   .stack_size = 3000 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for uartWriterTask */
-osThreadId_t uartWriterTaskHandle;
-const osThreadAttr_t uartWriterTask_attributes = {
-  .name = "uartWriterTask",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
 /* Definitions for loggerQueue */
 osMessageQueueId_t loggerQueueHandle;
 const osMessageQueueAttr_t loggerQueue_attributes = {
   .name = "loggerQueue"
-};
-/* Definitions for uart_queue */
-osMessageQueueId_t uart_queueHandle;
-const osMessageQueueAttr_t uart_queue_attributes = {
-  .name = "uart_queue"
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -95,7 +83,6 @@ const osMessageQueueAttr_t uart_queue_attributes = {
 
 void program_controller_task(void *argument);
 void startLogTask(void *argument);
-void uart_writer_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -125,9 +112,6 @@ void MX_FREERTOS_Init(void) {
   /* creation of loggerQueue */
   loggerQueueHandle = osMessageQueueNew (8, sizeof(MSGQUEUE_OBJ_t), &loggerQueue_attributes);
 
-  /* creation of uart_queue */
-  uart_queueHandle = osMessageQueueNew (16, sizeof(MSGQUEUE_OBJ_t), &uart_queue_attributes);
-
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -138,9 +122,6 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of logTask */
   logTaskHandle = osThreadNew(startLogTask, NULL, &logTask_attributes);
-
-  /* creation of uartWriterTask */
-  uartWriterTaskHandle = osThreadNew(uart_writer_task, NULL, &uartWriterTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -162,11 +143,8 @@ void MX_FREERTOS_Init(void) {
 __weak void program_controller_task(void *argument)
 {
   /* USER CODE BEGIN program_controller_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+
   /* USER CODE END program_controller_task */
 }
 
@@ -183,21 +161,6 @@ __weak void startLogTask(void *argument)
   UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
 
   /* USER CODE END startLogTask */
-}
-
-/* USER CODE BEGIN Header_uart_writer_task */
-/**
-* @brief Function implementing the uartWriterTask thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_uart_writer_task */
-__weak void uart_writer_task(void *argument)
-{
-  /* USER CODE BEGIN uart_writer_task */
-  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
-
-  /* USER CODE END uart_writer_task */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -11,23 +11,23 @@
 /// Filename for the logger to write to.
 #define LOG_FILENAME "logger.txt"
 
+/// Definitions for loggerQueue
+extern osMessageQueueId_t loggerQueueHandle;
+/// Attributes for the loggerQueue  message queue.
+extern const osMessageQueueAttr_t loggerQueue_attributes;
+
 /**
  * @brief Message Queue Object
- * 
+ *
  * This object is used to pass messages between tasks.
  *  - message: the message to pass
  *  - index: the index of the message
  */
 typedef struct
-{ 
+{
     uint8_t message;
     uint8_t index;
 } MSGQUEUE_OBJ_t;
-
-/// Definitions for loggerQueue
-extern osMessageQueueId_t loggerQueueHandle;
-/// Attributes for the loggerQueue  message queue.
-extern const osMessageQueueAttr_t loggerQueue_attributes;
 
 /**
 * @brief Open the SD Card and prepare for writing.

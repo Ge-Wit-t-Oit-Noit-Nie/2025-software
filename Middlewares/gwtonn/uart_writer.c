@@ -15,34 +15,21 @@
  ******************************************************************************
  */
 
-#include <FreeRTOS.h>
 #include "uart_writer.h"
 #include "usart.h"
 
 /**
  * @brief  Retargets the C library printf function to the USART.
- *   None
- * @retval None
+ * 
+ * This function is used to retarget the C library printf function to the USART.
+ * @param  ch: The character to write
+ * @retval the character written
  */
 int __io_putchar(int ch)
 {
-    HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF);
-
-    return ch;
-}
-
-/**
- * @brief Function implementing the uartWriterTask thread.
- * @param argument: Not used
- * @retval None
- */
-void uart_writer_task(void *argument)
-{
-    UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
-
-    for(;;)
+    if (HAL_UART_STATE_READY == HAL_UART_GetState(&huart3))
     {
-        osDelay(pdMS_TO_TICKS(100));
-        printf("Hello, world!\n\r");
+        HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF);
     }
+    return ch;
 }

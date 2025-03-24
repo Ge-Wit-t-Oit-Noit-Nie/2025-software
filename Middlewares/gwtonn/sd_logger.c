@@ -63,8 +63,7 @@ void startLogTask(void *argument)
 		if (osOK == status)
 		{
 			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "%d,%d\n\r", msg.index, msg.message);
-			//uart_print_string(string);
+			snprintf(string, BUFFER_SIZE, "%d,%d\n", msg.index, msg.message);
 
 			if (osOK == osMutexAcquire(mutex_id, 0))
 			{
@@ -73,7 +72,7 @@ void startLogTask(void *argument)
 			}
 			else
 			{
-				//uart_print_string("Could not get the MUTEX 'mutex_sd_card_lockHandle'\0");
+				printf("Could not get the MUTEX 'mutex_sd_card_lockHandle'\n\r");
 			}
 		}
 	}

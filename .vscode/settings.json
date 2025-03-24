@@ -13,6 +13,7 @@
         "ffconf.h": "c",
         "program_controller.h": "c",
         "stm32f4xx_hal.h": "c",
-        "cmsis_os2.h": "c"
+        "cmsis_os2.h": "c",
+        "stdio.h": "c"
     }
 }

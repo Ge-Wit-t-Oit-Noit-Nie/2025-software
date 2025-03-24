@@ -17,17 +17,6 @@
 #ifndef __UART_WRITER_H__
 #define __UART_WRITER_H__
 
-#include "cmsis_os2.h"
-
-/**
- * @brief  Handle for the UART writer thread
- */
-extern osMessageQueueId_t uart_queueHandle;
-/**
- * @brief  Attributes for the UART writer thread
- */
-extern const osMessageQueueAttr_t uart_queue_attributes;
-
 int __io_putchar(int ch);
 
 #endif // __UART_WRITER_H__
