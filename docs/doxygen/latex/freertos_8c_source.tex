@@ -81,7 +81,7 @@
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00093}00093\ }
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00094}00094\ \textcolor{comment}{/*\ USER\ CODE\ END\ FunctionPrototypes\ */}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00095}00095\ }
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00096}00096\ \textcolor{keywordtype}{void}\ startProgramTask(\textcolor{keywordtype}{void}\ *argument);}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00096}00096\ \textcolor{keywordtype}{void}\ program\_controller\_task(\textcolor{keywordtype}{void}\ *argument);}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00097}00097\ \textcolor{keywordtype}{void}\ startLogTask(\textcolor{keywordtype}{void}\ *argument);}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00098}00098\ \textcolor{keywordtype}{void}\ uart\_writer\_task(\textcolor{keywordtype}{void}\ *argument);}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00099}00099\ }
@@ -117,7 +117,7 @@
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00134}00134\ }
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00135}00135\ \ \ \textcolor{comment}{/*\ Create\ the\ thread(s)\ */}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00136}00136\ \ \ \textcolor{comment}{/*\ creation\ of\ programTask\ */}}
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00137}00137\ \ \ programTaskHandle\ =\ osThreadNew(startProgramTask,\ NULL,\ \&programTask\_attributes);}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00137}00137\ \ \ programTaskHandle\ =\ osThreadNew(program\_controller\_task,\ NULL,\ \&programTask\_attributes);}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00138}00138\ }
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00139}00139\ \ \ \textcolor{comment}{/*\ creation\ of\ logTask\ */}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00140}00140\ \ \ logTaskHandle\ =\ osThreadNew(startLogTask,\ NULL,\ \&logTask\_attributes);}
@@ -135,17 +135,17 @@
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00152}00152\ }
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00153}00153\ \}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00154}00154\ }
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00155}00155\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ Header\_startProgramTask\ */}}
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00161}00161\ \textcolor{comment}{/*\ USER\ CODE\ END\ Header\_startProgramTask\ */}}
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00162}00162\ \textcolor{keywordtype}{void}\ startProgramTask(\textcolor{keywordtype}{void}\ *argument)}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00155}00155\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ Header\_program\_controller\_task\ */}}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00161}00161\ \textcolor{comment}{/*\ USER\ CODE\ END\ Header\_program\_controller\_task\ */}}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00162}00162\ \_\_weak\ \textcolor{keywordtype}{void}\ program\_controller\_task(\textcolor{keywordtype}{void}\ *argument)}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00163}00163\ \{}
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00164}00164\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ startProgramTask\ */}}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00164}00164\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ program\_controller\_task\ */}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00165}00165\ \ \ \textcolor{comment}{/*\ Infinite\ loop\ */}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00166}00166\ \ \ \textcolor{keywordflow}{for}(;;)}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00167}00167\ \ \ \{}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00168}00168\ \ \ \ \ osDelay(1);}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00169}00169\ \ \ \}}
-\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00170}00170\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ startProgramTask\ */}}
+\DoxyCodeLine{\Hypertarget{freertos_8c_source_l00170}00170\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ program\_controller\_task\ */}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00171}00171\ \}}
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00172}00172\ }
 \DoxyCodeLine{\Hypertarget{freertos_8c_source_l00173}00173\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ Header\_startLogTask\ */}}

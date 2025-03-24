@@ -93,7 +93,7 @@ const osMessageQueueAttr_t uart_queue_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void startProgramTask(void *argument);
+void program_controller_task(void *argument);
 void startLogTask(void *argument);
 void uart_writer_task(void *argument);
 
@@ -134,7 +134,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of programTask */
-  programTaskHandle = osThreadNew(startProgramTask, NULL, &programTask_attributes);
+  programTaskHandle = osThreadNew(program_controller_task, NULL, &programTask_attributes);
 
   /* creation of logTask */
   logTaskHandle = osThreadNew(startLogTask, NULL, &logTask_attributes);
@@ -152,22 +152,22 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_startProgramTask */
+/* USER CODE BEGIN Header_program_controller_task */
 /**
   * @brief  Function implementing the programTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_startProgramTask */
-void startProgramTask(void *argument)
+/* USER CODE END Header_program_controller_task */
+__weak void program_controller_task(void *argument)
 {
-  /* USER CODE BEGIN startProgramTask */
+  /* USER CODE BEGIN program_controller_task */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END startProgramTask */
+  /* USER CODE END program_controller_task */
 }
 
 /* USER CODE BEGIN Header_startLogTask */
