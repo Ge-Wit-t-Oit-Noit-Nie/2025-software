@@ -75,17 +75,71 @@ void program_controller_step(program_controller_registers_t *program_controller_
         program_controller_registers->program_counter = 0;
 }
 
+/* Definitions for loggerQueue */
+osMessageQueueId_t interruptQueueHandle;
+const osMessageQueueAttr_t interruptQueueHandle_attributes = {
+    .name = "interruptQueue"};
+
+typedef struct
+{
+    uint8_t new_state;
+    uint8_t trigger;
+} TASKQUEUE_OBJ_t;
+
+#define TASK_STATE_STOPPED 0
+#define TASK_STATE_RUNNING !TASK_STATE_STOPPED
+
+uint8_t program_controller_current_state = TASK_STATE_RUNNING;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
+    TASKQUEUE_OBJ_t msg;
     /* Prevent unused argument(s) compilation warning */
-    UNUSED(GPIO_Pin);
-
     if (PROGRAM_STATE_TRIGGER_Pin == GPIO_Pin)
     {
-        MSGQUEUE_OBJ_t msg;
-        msg.message = MSG_PROGRAM_STATE_TRIGGER;
-        msg.index = 0;
-        osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
+        msg.trigger = MSG_PROGRAM_STATE_TRIGGER;
+        msg.new_state = !program_controller_current_state;
+        osMessageQueuePut(interruptQueueHandle, &msg, 0, 0U);
+        program_controller_current_state = !program_controller_current_state;
+    }
+}
 
+/**
+ * @brief Function implementing the triggerTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
+void trigger_task(void *argument)
+{
+    interruptQueueHandle = osMessageQueueNew(2, sizeof(TASKQUEUE_OBJ_t), &interruptQueueHandle_attributes);
+    TASKQUEUE_OBJ_t msg;
+    MSGQUEUE_OBJ_t log_msg;
+
+    osStatus_t status;
+
+    /* Infinite loop */
+    for (;;)
+    {
+        status = osMessageQueueGet(interruptQueueHandle, &msg, NULL, osWaitForever);
+        if (osOK == status) {
+            if (msg.trigger == MSG_PROGRAM_STATE_TRIGGER)
+            {
+                if (TASK_STATE_STOPPED == msg.new_state)
+                {
+                    log_msg.message = MSG_PROGRAM_STOP;
+                    log_msg.index = 0;
+                    osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
+                    osThreadTerminate(programTaskHandle);
+                    printf("Stopping program\n");
+                }
+                else
+                {
+                    log_msg.message = MSG_PROGRAM_RESUME;
+                    log_msg.index = 0;
+                    osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
+                    programTaskHandle = osThreadNew(program_controller_task, NULL, &programTask_attributes);
+                    printf("Resuming program\n");
+                }
+            }
+        }
     }
 }
