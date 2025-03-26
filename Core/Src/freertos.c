@@ -154,11 +154,8 @@ void MX_FREERTOS_Init(void) {
 __weak void program_controller_task(void *argument)
 {
   /* USER CODE BEGIN program_controller_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+
   /* USER CODE END program_controller_task */
 }
 
@@ -187,11 +184,8 @@ __weak void startLogTask(void *argument)
 __weak void trigger_task(void *argument)
 {
   /* USER CODE BEGIN trigger_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+
   /* USER CODE END trigger_task */
 }
 
