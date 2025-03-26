@@ -1,10 +1,12 @@
+#include <stdio.h>
 #include "program_controller.h"
 #include "stm32f4xx_hal.h"
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
-#include <main.h>
-#include "programma.h"
+#include "main.h"
 #include "sd_logger.h"
+
+#include "programma.h"
 
 extern const instruction_t instruction[];
 /**
@@ -19,12 +21,14 @@ void program_controller_task(void *argument)
         .program_counter = 0,
         .program_size = sizeof(instruction) / sizeof(instruction_t),
         };
+    MSGQUEUE_OBJ_t msg = {0, 0};
 
     HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
 
     /* Infinite loop */
     for (;;)
     {
+
         switch (instruction[pcr.program_counter].opcode)
         {
         case OPCODE_PIN_TOGGLE:
@@ -46,11 +50,14 @@ void program_controller_task(void *argument)
             break;
 
         case OPCODE_LOG_PROGRAM_STATE:
-            // Log the state of the program
-            MSGQUEUE_OBJ_t msg;
-            msg.index = pcr.program_counter;
+
             msg.message = MSG_PROGRAM_COUNTER;
-            osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);            
+            msg.index = pcr.program_counter;
+            if(osOK != osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U))
+            {
+                printf("Error: Could not send message to loggerQueueHandle\n\r");
+            }
+            printf("Program counter: %ld;message: %d\n\r", pcr.program_counter, MSG_PROGRAM_COUNTER);
             program_controller_step(&pcr);
             break;
 
