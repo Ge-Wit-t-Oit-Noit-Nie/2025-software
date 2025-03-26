@@ -1,8 +1,9 @@
+#include <main.h>
+#include <stdio.h>
 #include "program_controller.h"
 #include "stm32f4xx_hal.h"
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
-#include <main.h>
 #include "programma.h"
 #include "sd_logger.h"
 
@@ -21,6 +22,7 @@ void program_controller_task(void *argument)
         };
 
     HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
+    MSGQUEUE_OBJ_t msg;
 
     /* Infinite loop */
     for (;;)
@@ -47,7 +49,6 @@ void program_controller_task(void *argument)
 
         case OPCODE_LOG_PROGRAM_STATE:
             // Log the state of the program
-            MSGQUEUE_OBJ_t msg;
             msg.index = pcr.program_counter;
             msg.message = MSG_PROGRAM_COUNTER;
             osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);            
@@ -110,9 +111,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
  */
 void trigger_task(void *argument)
 {
+    UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
     interruptQueueHandle = osMessageQueueNew(2, sizeof(TASKQUEUE_OBJ_t), &interruptQueueHandle_attributes);
     TASKQUEUE_OBJ_t msg;
-    MSGQUEUE_OBJ_t log_msg;
 
     osStatus_t status;
 
@@ -125,16 +126,12 @@ void trigger_task(void *argument)
             {
                 if (TASK_STATE_STOPPED == msg.new_state)
                 {
-                    log_msg.message = MSG_PROGRAM_STOP;
-                    log_msg.index = 0;
                     osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
                     osThreadTerminate(programTaskHandle);
                     printf("Stopping program\n");
                 }
                 else
                 {
-                    log_msg.message = MSG_PROGRAM_RESUME;
-                    log_msg.index = 0;
                     osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
                     programTaskHandle = osThreadNew(program_controller_task, NULL, &programTask_attributes);
                     printf("Resuming program\n");
