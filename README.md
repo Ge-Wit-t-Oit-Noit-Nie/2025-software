@@ -78,6 +78,9 @@ Voor de sd_logger wordt ook gebruik gemaakt van een MUTEX om te voorkomen dat er
 
 Voor mee details kan je kijken in de beschrijving van de [bibliotheek](./docs/gwtonn_library.md).
 
+## Contributors
+
+
 ## Tips & Tricks
 
 ### Hoe vindt ik mijn STM32 Nuleo USB port in Windows 11 met PowerShell
