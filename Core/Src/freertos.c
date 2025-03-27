@@ -70,6 +70,13 @@ const osThreadAttr_t logTask_attributes = {
   .stack_size = 3000 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for triggerTask */
+osThreadId_t triggerTaskHandle;
+const osThreadAttr_t triggerTask_attributes = {
+  .name = "triggerTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityRealtime,
+};
 /* Definitions for loggerQueue */
 osMessageQueueId_t loggerQueueHandle;
 const osMessageQueueAttr_t loggerQueue_attributes = {
@@ -83,6 +90,7 @@ const osMessageQueueAttr_t loggerQueue_attributes = {
 
 void program_controller_task(void *argument);
 void startLogTask(void *argument);
+void trigger_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -123,6 +131,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of logTask */
   logTaskHandle = osThreadNew(startLogTask, NULL, &logTask_attributes);
 
+  /* creation of triggerTask */
+  triggerTaskHandle = osThreadNew(trigger_task, NULL, &triggerTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -161,6 +172,21 @@ __weak void startLogTask(void *argument)
   UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
 
   /* USER CODE END startLogTask */
+}
+
+/* USER CODE BEGIN Header_trigger_task */
+/**
+* @brief Function implementing the triggerTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_trigger_task */
+__weak void trigger_task(void *argument)
+{
+  /* USER CODE BEGIN trigger_task */
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+
+  /* USER CODE END trigger_task */
 }
 
 /* Private application code --------------------------------------------------*/

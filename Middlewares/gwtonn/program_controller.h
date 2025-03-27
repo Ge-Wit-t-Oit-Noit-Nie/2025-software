@@ -9,13 +9,17 @@
 #define INC_PROGAM_CONTROLLER_H_
 
 #include <stdint.h>
+#include "cmsis_os2.h"
 
-/**
- * Predefined messages for the loggerQueue
- */
 #define MSG_PROGRAM_START 0x01
 #define MSG_PROGRAM_STOP 0x02
-#define MSG_PROGRAM_COUNTER 0x03
+#define MSG_PROGRAM_RESUME 0x03
+#define MSG_PROGRAM_STATE_TRIGGER 0x04
+
+#define MSG_PROGRAM_COUNTER 0x10
+
+extern osThreadId_t programTaskHandle;
+extern const osThreadAttr_t programTask_attributes;
 
 typedef enum
 {

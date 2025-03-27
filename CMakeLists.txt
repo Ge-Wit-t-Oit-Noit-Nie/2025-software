@@ -71,3 +71,26 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
     # Add user defined libraries
 )
+
+SET(DOXYGEN_EXECUTABLE "d:/ST/doxygen-1.13.2/doxygen.exe")
+FIND_PACKAGE( Doxygen )
+
+IF(DOXYGEN_FOUND)
+    MESSAGE(STATUS "Doxygen found: ${DOXYGEN_EXECUTABLE} -- ${DOXYGEN_VERSION}")
+	# Set Doxygen input and output files.
+	SET(DOXYGEN_INPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+	SET(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen)
+	SET(DOXYGEN_INDEX_FILE ${DOXYGEN_OUTPUT_DIR}/html/index.html)
+    SET(DOXYFILE ${PROJECT_SOURCE_DIR}/Doxyfile)
+
+	# Create Output directory.
+	FILE(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR})
+	# Command for generating doc from Doxygen config file.
+	ADD_CUSTOM_COMMAND(OUTPUT ${DOXYGEN_INDEX_FILE}
+					COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+					COMMENT "Generating Doxygen documentation"
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+					VERBATIM)
+	# Create CMake Target for generating doc.
+	ADD_CUSTOM_TARGET(docs DEPENDS ${DOXYGEN_INDEX_FILE})
+ENDIF()
