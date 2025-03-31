@@ -26,7 +26,6 @@ void program_controller_task(void *argument)
     MSGQUEUE_OBJ_t msg = {0, 0};
 
     HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
-    MSGQUEUE_OBJ_t msg;
 
     /* Infinite loop */
     for (;;)
@@ -48,7 +47,7 @@ void program_controller_task(void *argument)
             break;
 
         case OPCODE_DELAY:
-            osDelay((uint32_t)instruction[pcr.program_counter].parameter0);
+            osDelay(pdMS_TO_TICKS((uint32_t) instruction[pcr.program_counter].parameter0));
             program_controller_step(&pcr);
             break;
 
