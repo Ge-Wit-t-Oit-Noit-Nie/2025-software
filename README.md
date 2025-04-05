@@ -51,6 +51,7 @@ Verder worden de volgende extenties aangeraden voor VSCode:
 | PA13 | SYS_JTMS-SWDIO |
 | PA14 | SYS_JTMS-SWCLK |
 | PB0  | LED 1 [Green] - DefaultTask running |
+| PB1  | GPIO External Interrupt mode with Rise Edge trigger detection - Emergency button |
 | PB3  | SYT_JTDO-SWO |
 | PB7  | LED 2 [Blue] |
 | PB14 | LED 3 [Red] - HardFault_Handler entered |
