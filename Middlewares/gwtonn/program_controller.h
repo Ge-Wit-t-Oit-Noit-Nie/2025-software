@@ -18,8 +18,14 @@
 
 #define MSG_PROGRAM_COUNTER 0x10
 
+#define EXTERN_INTERRUPT_EVENT_PAUZE 0x01
+#define EXTERN_INTERRUPT_EVENT_KILL 0x02
+
 extern osThreadId_t programTaskHandle;
 extern const osThreadAttr_t programTask_attributes;
+/* Definitions for ext_interrupt_event */
+extern osEventFlagsId_t ext_interrupt_eventHandle;
+extern const osEventFlagsAttr_t ext_interrupt_event_attributes;
 
 typedef enum
 {
