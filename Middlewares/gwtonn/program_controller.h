@@ -35,10 +35,13 @@ typedef enum
 
     // Program related
     OPCODE_DELAY = 0x11,
-    OPCODE_LOG_PROGRAM_STATE = 0x12,    // Log the state of the program
+    OPCODE_LOG_PROGRAM_STATE = 0x12, // Log the state of the program
+    OPCODE_HALT = 0x03,
 
     // Control flow
     OPCODE_JUMP = 0x21,
+    OPCODE_STORE_SHUTDOWN_INDEX = 0x02,
+
 } OPCODE;
 
 typedef struct
@@ -53,6 +56,7 @@ typedef struct
 {
     uint32_t program_counter;
     uint16_t program_size;
+    uint16_t shutdown_index_register;
 } program_controller_registers_t;
 
 void program_controller_step(program_controller_registers_t *program_controller_registers);
