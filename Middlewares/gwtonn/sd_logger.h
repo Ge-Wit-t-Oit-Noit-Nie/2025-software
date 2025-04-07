@@ -21,26 +21,16 @@ extern const osMessageQueueAttr_t loggerQueue_attributes;
  *
  * This object is used to pass messages between tasks.
  *  - message: the message to pass
- *  - index: the index of the message
+ *  - program_counter: the status of the program counter
+ *  - shutdown_index_register: the status of the shutdown index register
  */
 typedef struct
 {
     uint8_t message;
-    uint8_t index;
+    uint32_t program_counter;
+    uint16_t shutdown_index_register;
 } MSGQUEUE_OBJ_t;
 
-/**
-* @brief Open the SD Card and prepare for writing.
-* 
-* This function mounts the file system on the SD card.
-*/
-void sd_logger_open();
-/**
- * @brief Close the SD Card 
- *
- * This function unmounts the file system on the SD card.
- */
-void sd_logger_close();
 /**
  * @brief Write to the SD Card
  *
