@@ -11,11 +11,6 @@
 #include <stdint.h>
 #include "cmsis_os2.h"
 
-#define MSG_PROGRAM_START 0x01
-#define MSG_PROGRAM_STOP 0x02
-#define MSG_PROGRAM_RESUME 0x03
-#define MSG_PROGRAM_STATE_TRIGGER 0x04
-
 #define MSG_PROGRAM_COUNTER 0x10
 
 #define EXTERN_INTERRUPT_EVENT_PAUZE 0x01

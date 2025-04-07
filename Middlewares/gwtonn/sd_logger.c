@@ -31,11 +31,6 @@ void sd_logger_print(char *string) {
 
 }
 
-FRESULT sd_logger_mount(osMutexId_t mutex_id)
-{
-
-}
-
 /**
  * @brief Function implementing the logTask thread.
  * 
@@ -74,8 +69,8 @@ void startLogTask(void *argument)
 		if (osOK == status && FR_OK == mount_status)
 		{
 			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "%d,%d\n", msg.index, msg.message);
-
+			snprintf(string, BUFFER_SIZE, "%d,%ld,%d\n", msg.message, msg.program_counter, msg.shutdown_index_register);
+			printf(string);
 			if (osOK == osMutexAcquire(mutex_id, 0))
 			{
 				sd_logger_print(string);

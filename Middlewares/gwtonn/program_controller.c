@@ -36,6 +36,8 @@ void program_controller_task(void *argument)
             osThreadTerminate(programTaskHandle);
             return;
         }
+        printf("Program counter: %d, Shutdown index register: %d\n\r", pcr.program_counter, pcr.shutdown_index_register);
+    
         switch (instruction[pcr.program_counter].opcode)
         {
         case OPCODE_PIN_TOGGLE:
@@ -68,17 +70,18 @@ void program_controller_task(void *argument)
                 // TODO: Implement pause functionality
                 pcr.program_counter = pcr.shutdown_index_register;
             }
-
             break;
 
         case OPCODE_LOG_PROGRAM_STATE:
         {
-            MSGQUEUE_OBJ_t msg = {pcr.program_counter, MSG_PROGRAM_COUNTER};
+            MSGQUEUE_OBJ_t msg = {
+                MSG_PROGRAM_COUNTER,
+                pcr.program_counter,
+                pcr.shutdown_index_register};
             if (osOK != osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U))
             {
                 printf("Error: Could not send message to loggerQueueHandle\n\r");
             }
-            printf("Program counter: %ld;message: %d\n\r", pcr.program_counter, MSG_PROGRAM_COUNTER);
             program_controller_step(&pcr);
             break;
         }
