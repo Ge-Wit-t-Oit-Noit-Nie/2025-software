@@ -25,8 +25,6 @@ void program_controller_task(void *argument)
     };
     uint32_t state = 0;
 
-    HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
-
     /* Infinite loop */
     for (;;)
     {
@@ -61,18 +59,14 @@ void program_controller_task(void *argument)
             }
             else if ((state & EXTERN_INTERRUPT_EVENT_KILL) == EXTERN_INTERRUPT_EVENT_KILL)
             {
-                // TODO: Implement INTERRUPT functionality
                 HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
                 osThreadTerminate(programTaskHandle);
                 return;
             }
             else if ((state & EXTERN_INTERRUPT_EVENT_PAUZE) == EXTERN_INTERRUPT_EVENT_PAUZE)
             {
                 // TODO: Implement pause functionality
-                HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
-                osThreadTerminate(programTaskHandle);
-                return;
+                pcr.program_counter = pcr.shutdown_index_register;
             }
 
             break;
@@ -90,6 +84,15 @@ void program_controller_task(void *argument)
         }
         case OPCODE_JUMP:
             pcr.program_counter = (uint32_t)instruction[pcr.program_counter].parameter0;
+            break;
+
+        case OPCODE_STORE_SHUTDOWN_INDEX:
+            pcr.shutdown_index_register = (uint32_t)instruction[pcr.program_counter].parameter0;
+            program_controller_step(&pcr);
+            break;
+        case OPCODE_HALT:
+            HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
+            osThreadTerminate(programTaskHandle);
             break;
         }
     }
