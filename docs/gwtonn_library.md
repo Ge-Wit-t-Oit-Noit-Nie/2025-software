@@ -1,5 +1,17 @@
 # Ge Wit't Oit Noit Nie bibliotheek
 
+- [Ge Wit't Oit Noit Nie bibliotheek](#ge-witt-oit-noit-nie-bibliotheek)
+  - [Programma controller](#programma-controller)
+  - [SD Card Logger - FreeRTOS implementation](#sd-card-logger---freertos-implementation)
+  - [Message mechanisme](#message-mechanisme)
+  - [FatFS met de SD Card Controller via SPI](#fatfs-met-de-sd-card-controller-via-spi)
+
+Om het overzichtelijk te houden, is er een losse bibliotheek gemaakt voor Ge Wit't Oit Noit Nie. De bibliotheek is te vinden in `{workspace}/Middlewares/gwtonn`.
+
+## Programma controller
+
+Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in [programma.md](programma.md).
+
 ## SD Card Logger - FreeRTOS implementation
 
 De `sd_logger` implementeerd functionaliteiten om een log te schrijven op een SD kaart (Via de SPI Interface).
@@ -19,10 +31,6 @@ msg.index=1;
 msg.message = 'A';
 osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U);
 ```
-
-## Programma controller
-
-Voor het uitvoeren van de programma, is er een programma controller. De details staan beschreven in [programma.md](./programma.md).
 
 ## FatFS met de SD Card Controller via SPI
 

@@ -1,5 +1,27 @@
 # 2025-software
 
+## Table of Contents
+
+- [2025-software](#2025-software)
+  - [Table of Contents](#table-of-contents)
+  - [Contributing](#contributing)
+  - [Prerequisites](#prerequisites)
+    - [GitHub Suport](#github-suport)
+    - [Markdown support](#markdown-support)
+    - [CMake](#cmake)
+    - [C/C++](#cc)
+  - [Pins \& Functies](#pins--functies)
+    - [PINS](#pins)
+  - [Hardware](#hardware)
+  - [Middlewares](#middlewares)
+  - [Contributors](#contributors)
+  - [Tips \& Tricks](#tips--tricks)
+    - [Hoe vindt ik mijn STM32 Nuleo USB port in Windows 11 met PowerShell](#hoe-vindt-ik-mijn-stm32-nuleo-usb-port-in-windows-11-met-powershell)
+    - [Debug of upload geeft een foutmelding](#debug-of-upload-geeft-een-foutmelding)
+    - [Mijn VSCode can de code niet compileren](#mijn-vscode-can-de-code-niet-compileren)
+
+## Contributing
+
 If you want to know how to add features or bugfixes, read [CONTRIBUTING.md](CONTRIBUTING.md "Reference to the CONTRIBUTING.md").
 
 ## Prerequisites
@@ -33,12 +55,14 @@ Verder worden de volgende extenties aangeraden voor VSCode:
 - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - [C/C++ Extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)
 
-## Assignments
+## Pins & Functies
 
 - *USART3*: Serial port voor sturen van informatie
 - *SYS*: Debug: Serial wire, Timebase Source: TIM1
 - *RCC*: High speed clock and low speed clock based on cristals build in  
 - *SPI1*: SD Card writer over SPI
+- *EXTI line 1*: Voor interrupt
+- *EXTI line 15*: Voor interrupt
 
 ### PINS
 
@@ -68,7 +92,7 @@ Voor het ontwikkelen van de software wordt gebruik gemaakt van de **Nucleo-F412Z
 
 ## Middlewares
 
-Voor het schrijven van de log op de SD card wordt gebruik gemaakt van een stukje code in `Middlewares/sd_logger.c`.
+Voor het schrijven van de log op de SD card wordt gebruik gemaakt van een stukje code in `Middlewares/gwtonn/sd_logger.c`.
 Deze code is betrekkelijk simpel. In het vervolg moet hier de logica zitten om de juiste info in de file te krijgen.
 
 > [!IMPORTANT]
