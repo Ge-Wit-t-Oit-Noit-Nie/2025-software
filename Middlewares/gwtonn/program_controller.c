@@ -59,15 +59,14 @@ void program_controller_task(void *argument)
             }
             else if ((state & EXTERN_INTERRUPT_EVENT_KILL) == EXTERN_INTERRUPT_EVENT_KILL)
             {
-                pcr.program_counter = pcr.shutdown_index_register;
+                HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
+                osThreadTerminate(programTaskHandle);
                 return;
             }
             else if ((state & EXTERN_INTERRUPT_EVENT_PAUZE) == EXTERN_INTERRUPT_EVENT_PAUZE)
             {
                 // TODO: Implement pause functionality
-                HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
-                osThreadTerminate(programTaskHandle);
-                return;
+                pcr.program_counter = pcr.shutdown_index_register;
             }
 
             break;
@@ -92,6 +91,7 @@ void program_controller_task(void *argument)
             program_controller_step(&pcr);
             break;
         case OPCODE_HALT:
+            HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
             osThreadTerminate(programTaskHandle);
             break;
         }

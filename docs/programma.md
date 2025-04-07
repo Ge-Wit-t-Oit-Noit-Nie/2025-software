@@ -35,6 +35,8 @@ Een programma kan gemaakt worden door het opzetten van een instructie set. De on
 | OPCODE_DELAY | 0x11 | Parameter0: De gewenste delay in MS | Laat het programma wachten voor x ms |
 | OPCODE_LOG_PROGRAM_STATE | 0x12 | n/a | Stuur de huidige status van het programma (alle registers) naar de log |
 | OPCODE_JUMP | 0x21 | Parameter0: index (0-bound) van de volgende instructie | Laat het programma "springen" naar de instructie met index Parameter0 |
+| OPCODE_HALT | 0x03 | | Stop met het uitvoeren van de programma. |
+| OPCODE_STORE_SHUTDOWN_INDEX  | 0x02 | Parameter0: Index waar het programma naar toe moet om af te sluiten (0-bound) | Laat het programma "spingen" naar deze positie als de pauze trigger gedaan wordt.  |
 
 ## Voorbeeld programma
 

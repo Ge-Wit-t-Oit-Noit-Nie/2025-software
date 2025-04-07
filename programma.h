@@ -21,6 +21,8 @@ const instruction_t instruction[] = {
     {.opcode = OPCODE_JUMP, .parameter0 = (void *)3},
     {.opcode = OPCODE_LOG_PROGRAM_STATE},
     {.opcode = OPCODE_PIN_STATE, .parameter0 = (void *)RED_LED_Pin, .parameter1 = (void *)RED_LED_GPIO_Port, .parameter2 = (void *)GPIO_PIN_SET},
+    {.opcode = OPCODE_PIN_STATE, .parameter0 = (void *)BLUE_LED_Pin, .parameter1 = (void *)BLUE_LED_GPIO_Port, .parameter2 = (void *)GPIO_PIN_SET},
+    {.opcode = OPCODE_PIN_STATE, .parameter0 = (void *)GREEN_LED_Pin, .parameter1 = (void *)GREEN_LED_GPIO_Port, .parameter2 = (void *)GPIO_PIN_SET},
     {.opcode = OPCODE_HALT},
 };
 
