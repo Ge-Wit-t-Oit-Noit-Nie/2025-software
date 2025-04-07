@@ -18,11 +18,15 @@ const instruction_t instruction[] = {
     {.opcode = OPCODE_DELAY, .parameter0 = (void *)1500},
     {.opcode = OPCODE_PIN_TOGGLE, .parameter0 = (void *)BLUE_LED_Pin, .parameter1 = (void *)BLUE_LED_GPIO_Port},
     {.opcode = OPCODE_JUMP, .parameter0 = (void *)1},
+    {.opcode = OPCODE_HALT},
 };
 
 #endif // __PROGRAMMA_H__
 ```
 
+## Opmerking
+
+LET OP: een programma moet of in een loop komen, of moet eindigen met OPCODE_HALT!
 
 ## Instuctieset
 
@@ -48,5 +52,6 @@ Declareer de blauwe led met ```BLUE_LED_Pin``` en zorg dat deze op ```BLUE_LED_G
 const instruction_t instruction[] = {
   { .opcode = OPCODE_PIN_TOGGLE, .parameter0 = (void*) BLUE_LED_Pin, .parameter1 = (void*) BLUE_LED_GPIO_Port },
   { .opcode = OPCODE_DELAY, .parameter0 = (void *)pdMS_TO_TICKS(1500)},
+{.opcode = OPCODE_HALT},
   };
 ```
