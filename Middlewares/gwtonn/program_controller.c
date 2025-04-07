@@ -74,6 +74,7 @@ void program_controller_task(void *argument)
                 osThreadTerminate(programTaskHandle);
                 return;
             }
+
             break;
 
         case OPCODE_LOG_PROGRAM_STATE:
