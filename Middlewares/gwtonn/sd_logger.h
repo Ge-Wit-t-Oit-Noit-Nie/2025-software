@@ -30,18 +30,6 @@ typedef struct
 } MSGQUEUE_OBJ_t;
 
 /**
-* @brief Open the SD Card and prepare for writing.
-* 
-* This function mounts the file system on the SD card.
-*/
-void sd_logger_open();
-/**
- * @brief Close the SD Card 
- *
- * This function unmounts the file system on the SD card.
- */
-void sd_logger_close();
-/**
  * @brief Write to the SD Card
  *
  * This function writes to the SD Card
