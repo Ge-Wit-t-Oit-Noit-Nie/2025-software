@@ -9,7 +9,7 @@
 #include <program_controller.h>
 #include <main.h>
 
-volatile MEM_PROGRAM_DATA_BLOCK instruction_t instruction[0xFF] = {
+volatile MEM_PROGRAM_DATA_BLOCK instruction_t instruction[] = {
     {.opcode = OPCODE_STORE_SHUTDOWN_INDEX, .parameter0 = (void *)9},
     {.opcode = OPCODE_PIN_STATE, .parameter0 = (void *)GREEN_LED_Pin, .parameter1 = (void *)GREEN_LED_GPIO_Port, .parameter2 = (void *)GPIO_PIN_SET},
     {.opcode = OPCODE_PIN_STATE, .parameter0 = (void *)BLUE_LED_Pin, .parameter1 = (void *)BLUE_LED_GPIO_Port, .parameter2 = (void *)GPIO_PIN_SET},
