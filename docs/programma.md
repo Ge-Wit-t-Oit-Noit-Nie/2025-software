@@ -5,8 +5,29 @@ Het hele idee van de controller is om een progarmma uit te voeren. Om dit flexib
 ## Programmeren
 
 Maak een bestand met de naam "programma.h" en plaats hierin het programma. Zie [voorbeeld programma](#voorbeeld-programma) voor een voorbeeld.
-
 Ieder programma moet minimaal een `OPCODE_HALT` regel bevatten.
+
+Het programma wordt weggeschreven in een vast stukje van het geheugen: **offset 0x08000000 + grote van FLASH**. Dit is terug te vinden in het onderstaande stukje in de ```STM32F412XX_FLASH.ld```.
+
+We hebben te maken met een 32-bit system, daarom kunnen we uitgaan van de volgende grote:
+
+- ```OPCODE```: 4 bytes
+- ```void *```: 4 bytes
+
+Dus de grootte van de struct, voordat eventuele padding wordt toegepast, is: OPCODE + (3 x VOID*) = **16 bytes**.
+
+Voor een array met *255* elementen, is de totale benodigde grootte:
+**255 * 16 = 4080 bytes.**
+
+```ld
+/*Specify the memory areas*/
+MEMORY
+{
+    RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 256K
+    FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 1024K - 3324
+    RESERVED (rw)  : ORIGIN = 0x08000000 + (1024K - 3324), LENGTH = 3324
+}
+```
 
 ## Instuctieset
 

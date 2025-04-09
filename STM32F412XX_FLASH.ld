@@ -61,8 +61,9 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 256K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 1024K
+    RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 256K
+    FLASH (rx)     : ORIGIN = 0x08000000, LENGTH = 1024K - 4080
+    RESERVED (rw)  : ORIGIN = 0x08000000 + (1024K - 4080), LENGTH = 4080
 }
 
 /* Define output sections */
@@ -147,6 +148,15 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
+
+ /* Constant data goes into FLASH */
+  .program_data_block (READONLY) : /* The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
+  {
+    . = ALIGN(4);
+    FILL(0x00)
+    . = ALIGN(4);
+  } > RESERVED 
+
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);
 
@@ -163,7 +173,6 @@ SECTIONS
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
-
 
   /* Uninitialized data section */
   . = ALIGN(4);
@@ -192,8 +201,6 @@ SECTIONS
     . = ALIGN(8);
   } >RAM
 
-
-
   /* Remove information from the standard libraries */
   /DISCARD/ :
   {
@@ -203,5 +210,3 @@ SECTIONS
   }
 
 }
-
-

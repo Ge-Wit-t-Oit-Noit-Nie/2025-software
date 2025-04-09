@@ -9,7 +9,7 @@
 
 #include "programma.h"
 
-extern const instruction_t instruction[];
+extern volatile MEM_PROGRAM_DATA_BLOCK instruction_t instruction[];
 
 /**
  * @brief  Function implementing the program_controller_task thread.
@@ -19,9 +19,10 @@ extern const instruction_t instruction[];
 void program_controller_task(void *argument)
 {
     UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+
     program_controller_registers_t pcr = {
-        .program_counter = 0,
-        .program_size = sizeof(instruction) / sizeof(instruction_t),
+        .instruction_pointer = 0,
+        .shutdown_instruction_pointer = 0,
     };
     uint32_t state = 0;
 
@@ -36,25 +37,25 @@ void program_controller_task(void *argument)
             osThreadTerminate(programTaskHandle);
             return;
         }
-        printf("Program counter: %d, Shutdown index register: %d\n\r", pcr.program_counter, pcr.shutdown_index_register);
-    
-        switch (instruction[pcr.program_counter].opcode)
+        printf("Program counter: %d, Shutdown index register: %d\n\r", pcr.instruction_pointer, pcr.shutdown_instruction_pointer);
+
+        switch (instruction[pcr.instruction_pointer].opcode)
         {
         case OPCODE_PIN_TOGGLE:
-            HAL_GPIO_TogglePin((GPIO_TypeDef *)instruction[pcr.program_counter].parameter1,
-                               (uint32_t)instruction[pcr.program_counter].parameter0);
+            HAL_GPIO_TogglePin((GPIO_TypeDef *)instruction[pcr.instruction_pointer].parameter1,
+                               (uint32_t)instruction[pcr.instruction_pointer].parameter0);
             program_controller_step(&pcr);
             break;
 
         case OPCODE_PIN_STATE:
-            HAL_GPIO_WritePin((GPIO_TypeDef *)instruction[pcr.program_counter].parameter1,
-                              (uint32_t)instruction[pcr.program_counter].parameter0,
-                              (uint32_t)instruction[pcr.program_counter].parameter2);
+            HAL_GPIO_WritePin((GPIO_TypeDef *)instruction[pcr.instruction_pointer].parameter1,
+                              (uint32_t)instruction[pcr.instruction_pointer].parameter0,
+                              (uint32_t)instruction[pcr.instruction_pointer].parameter2);
             program_controller_step(&pcr);
             break;
 
         case OPCODE_DELAY:
-            state = osEventFlagsWait(ext_interrupt_eventHandle, EXTERN_INTERRUPT_EVENT_KILL | EXTERN_INTERRUPT_EVENT_PAUZE, osFlagsWaitAny, pdMS_TO_TICKS((uint32_t)instruction[pcr.program_counter].parameter0));
+            state = osEventFlagsWait(ext_interrupt_eventHandle, EXTERN_INTERRUPT_EVENT_KILL | EXTERN_INTERRUPT_EVENT_PAUZE, osFlagsWaitAny, pdMS_TO_TICKS((uint32_t)instruction[pcr.instruction_pointer].parameter0));
             if ((osFlagsErrorTimeout & state) == osFlagsErrorTimeout)
             {
                 program_controller_step(&pcr);
@@ -68,7 +69,7 @@ void program_controller_task(void *argument)
             else if ((state & EXTERN_INTERRUPT_EVENT_PAUZE) == EXTERN_INTERRUPT_EVENT_PAUZE)
             {
                 // TODO: Implement pause functionality
-                pcr.program_counter = pcr.shutdown_index_register;
+                pcr.instruction_pointer = pcr.shutdown_instruction_pointer;
             }
             break;
 
@@ -76,8 +77,8 @@ void program_controller_task(void *argument)
         {
             MSGQUEUE_OBJ_t msg = {
                 MSG_PROGRAM_COUNTER,
-                pcr.program_counter,
-                pcr.shutdown_index_register};
+                pcr.instruction_pointer,
+                pcr.shutdown_instruction_pointer};
             if (osOK != osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U))
             {
                 printf("Error: Could not send message to loggerQueueHandle\n\r");
@@ -86,13 +87,14 @@ void program_controller_task(void *argument)
             break;
         }
         case OPCODE_JUMP:
-            pcr.program_counter = (uint32_t)instruction[pcr.program_counter].parameter0;
+            pcr.instruction_pointer = (uint32_t)instruction[pcr.instruction_pointer].parameter0;
             break;
 
         case OPCODE_STORE_SHUTDOWN_INDEX:
-            pcr.shutdown_index_register = (uint32_t)instruction[pcr.program_counter].parameter0;
+            pcr.shutdown_instruction_pointer = (uint32_t)instruction[pcr.instruction_pointer].parameter0;
             program_controller_step(&pcr);
             break;
+
         case OPCODE_HALT:
             HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
             osThreadTerminate(programTaskHandle);
@@ -109,9 +111,7 @@ void program_controller_task(void *argument)
  */
 void program_controller_step(program_controller_registers_t *program_controller_registers)
 {
-    program_controller_registers->program_counter++;
-    if (program_controller_registers->program_counter >= program_controller_registers->program_size)
-        program_controller_registers->program_counter = 0;
+    program_controller_registers->instruction_pointer++;
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
