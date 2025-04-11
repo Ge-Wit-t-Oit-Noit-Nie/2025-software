@@ -63,9 +63,10 @@ void startLogTask(void *argument)
 						printf("Cannot open file (errno: %d)\n\r", mount_status);
 					}
 					f_close(&fil);
-					f_mount(&filesystem, "/", 1); // mount the file system
+					f_mount(NULL, "", 0); // unmount the file system
 				} else {
 					printf("Card not mounted (errno: %d)\n\r", mount_status);
+					USER_initialize(0); // Call USER_initialize with 0 this is in user diskio
 				}
 				osMutexRelease(mutex_id);
 			}
