@@ -31,11 +31,4 @@ typedef struct
     uint16_t shutdown_index_register;
 } MSGQUEUE_OBJ_t;
 
-/**
- * @brief Write to the SD Card
- *
- * This function writes to the SD Card
- */
-void sd_logger_print(char *);
-
 #endif /* INC_SD_LOGGER_H_ */
