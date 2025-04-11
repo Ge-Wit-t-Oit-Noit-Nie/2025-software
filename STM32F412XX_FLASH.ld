@@ -154,6 +154,7 @@ SECTIONS
   {
     . = ALIGN(4);
     FILL(0x00)
+    *(.program_data_block)
     . = ALIGN(4);
   } > RESERVED 
 
