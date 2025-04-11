@@ -46,23 +46,26 @@ void startLogTask(void *argument)
 		status = osMessageQueueGet(loggerQueueHandle, &msg, NULL, osWaitForever); // wait for message
 		if (osOK == status)
 		{
-			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "%d,%ld,%d\n", msg.message, msg.program_counter, msg.shutdown_index_register);
-			printf(string);
-
 			if (osOK == osMutexAcquire(mutex_id, 0))
 			{
 				mount_status = f_mount(&filesystem, "", 1); // mount the file system
 				if (FR_OK == mount_status) {
+					CLEAR_BUFFER(string);
+					snprintf(string, BUFFER_SIZE, "%d,%ld,%d\n\r", msg.message, msg.program_counter, msg.shutdown_index_register);
+					printf(string);
 					if (FR_OK == f_open(&fil, LOG_FILENAME, FA_OPEN_APPEND | FA_READ | FA_WRITE))
 					{
 						/* write the string to the file */
 						f_puts(string, &fil);
 					}
+					else
+					{
+						printf("Cannot open file (errno: %d)\n\r", mount_status);
+					}
 					f_close(&fil);
-					mount_status = f_mount(&filesystem, "", 1); // mount the file system
+					f_mount(&filesystem, "/", 1); // mount the file system
 				} else {
-					printf("Card not mounted\n\r");
+					printf("Card not mounted (errno: %d)\n\r", mount_status);
 				}
 				osMutexRelease(mutex_id);
 			}
