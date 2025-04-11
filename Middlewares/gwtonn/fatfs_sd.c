@@ -18,6 +18,7 @@
 #define TRUE  1
 #define FALSE 0
 #define bool BYTE
+#include <cmsis_os2.h>
 
 #include "stm32f4xx_hal.h"
 #include "diskio.h"
@@ -43,14 +44,14 @@ static uint8_t PowerFlag = 0;				/* Power flag */
 static void SELECT(void)
 {
 	HAL_GPIO_WritePin(SD_CS_PORT, SD_CS_PIN, GPIO_PIN_RESET);
-	HAL_Delay(1);
+	osDelay(pdMS_TO_TICKS(1));
 }
 
 /* slave deselect */
 static void DESELECT(void)
 {
 	HAL_GPIO_WritePin(SD_CS_PORT, SD_CS_PIN, GPIO_PIN_SET);
-	HAL_Delay(1);
+	osDelay(pdMS_TO_TICKS(1));
 }
 
 /* SPI transmit a byte */
