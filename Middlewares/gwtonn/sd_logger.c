@@ -18,19 +18,6 @@
 
 FATFS filesystem;  // file system
 
-void sd_logger_print(char *string) {
-	FIL fil; // File
-
-	if (FR_OK == f_open(&fil, LOG_FILENAME, FA_OPEN_APPEND | FA_READ | FA_WRITE))
-	{
-		/* write the string to the file */
-		f_puts(string, &fil);
-	}
-
-	f_close (&fil);
-
-}
-
 /**
  * @brief Function implementing the logTask thread.
  * 
@@ -49,31 +36,38 @@ void startLogTask(void *argument)
 	osStatus_t status;
 	char string[BUFFER_SIZE]; // to store strings..
 	uint8_t mount_status = FR_OK; // flag to check if the card is enabled
-	
+	FIL fil;					  // File
+
 	osMutexId_t mutex_id;
 	mutex_id = osMutexNew(NULL);
 
-	// mount the file system
-	if (osOK == osMutexAcquire(mutex_id, 0)) {
-		mount_status = f_mount(&filesystem, "", 1); // mount the file system
-		if (FR_OK != mount_status)
-		{
-			printf("Could not mount the file system: CODE %d\n\r", mount_status);
-		}
-		osMutexRelease(mutex_id);
-	};
-	
 	while (1)
 	{
 		status = osMessageQueueGet(loggerQueueHandle, &msg, NULL, osWaitForever); // wait for message
-		if (osOK == status && FR_OK == mount_status)
+		if (osOK == status)
 		{
-			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "%d,%ld,%d\n", msg.message, msg.program_counter, msg.shutdown_index_register);
-			printf(string);
 			if (osOK == osMutexAcquire(mutex_id, 0))
 			{
-				sd_logger_print(string);
+				mount_status = f_mount(&filesystem, "", 1); // mount the file system
+				if (FR_OK == mount_status) {
+					CLEAR_BUFFER(string);
+					snprintf(string, BUFFER_SIZE, "%d,%ld,%d\n\r", msg.message, msg.program_counter, msg.shutdown_index_register);
+					printf(string);
+					if (FR_OK == f_open(&fil, LOG_FILENAME, FA_OPEN_APPEND | FA_READ | FA_WRITE))
+					{
+						/* write the string to the file */
+						f_puts(string, &fil);
+					}
+					else
+					{
+						printf("Cannot open file (errno: %d)\n\r", mount_status);
+					}
+					f_close(&fil);
+					f_mount(NULL, "", 0); // unmount the file system
+				} else {
+					printf("Card not mounted (errno: %d)\n\r", mount_status);
+					USER_initialize(0); // Call USER_initialize with 0 this is in user diskio
+				}
 				osMutexRelease(mutex_id);
 			}
 			else
@@ -82,12 +76,6 @@ void startLogTask(void *argument)
 			}
 		}
 	}
-	// mount the file system
-	if (osOK == osMutexAcquire(mutex_id, 0))
-	{
-		f_mount(&filesystem, "/", 1); // unmount the file system
-		osMutexRelease(mutex_id);
-	};
 
 	osMutexDelete(mutex_id);
 }
