@@ -1,0 +1,3 @@
+[submodule "docs"]
+	path = docs
+	url = git@github.com:Ge-Wit-t-Oit-Noit-Nie/documentation.git
