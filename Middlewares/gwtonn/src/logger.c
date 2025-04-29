@@ -9,7 +9,6 @@
 #include "logger.h"
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
-#include "rtc.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -49,10 +48,7 @@ void logger_task(void *argument)
 		status = osMessageQueueGet(loggerQueueHandle, &msg, NULL, osWaitForever); // wait for message
 		if (osOK == status)
 		{
-			/* Get the RTC current Time */
-			HAL_RTC_GetTime(&hrtc, &gTime, RTC_FORMAT_BIN);
-			/* Get the RTC current Date */
-			HAL_RTC_GetDate(&hrtc, &gDate, RTC_FORMAT_BIN); // REQUIRED TO READ TIME AND DATE
+			get_date_time(&gDate , &gTime); // get the time from the RTC
 
 			CLEAR_BUFFER(string);
 			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],%d,%ld,%d,%d,%d\n\r", 

@@ -13,6 +13,13 @@ int get_vref(void) {
     return vref;
 }
 
+void get_date_time(RTC_DateTypeDef *date, RTC_TimeTypeDef *time)
+{
+    HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
+    HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BIN);
+}
+
+
 // Process half a buffer full of data
 void process_adc_buffer(uint16_t *buffer)
 {
