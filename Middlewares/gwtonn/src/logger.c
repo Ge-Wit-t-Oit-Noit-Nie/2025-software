@@ -6,7 +6,7 @@
  */
 
 #include "fatfs.h"
-#include "sd_logger.h"
+#include "logger.h"
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
 

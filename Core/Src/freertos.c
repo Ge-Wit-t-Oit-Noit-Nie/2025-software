@@ -29,7 +29,7 @@
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-#include "sd_logger.h"
+#include "logger.h"
 #include "program_controller.h"
 
 #include <string.h>
