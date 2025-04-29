@@ -29,6 +29,8 @@ typedef struct
     uint8_t message;
     uint32_t program_counter;
     uint16_t shutdown_index_register;
+    uint16_t temperature;
+    uint16_t vrefint;
 } MSGQUEUE_OBJ_t;
 
 #endif /* INC_SD_LOGGER_H_ */

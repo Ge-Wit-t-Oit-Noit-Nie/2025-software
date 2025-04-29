@@ -51,7 +51,9 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Middlewares/gwtonn/fatfs_sd.c
     Middlewares/gwtonn/program_controller.c
     Middlewares/gwtonn/uart_writer.c
+    Middlewares/gwtonn/src/internal_sensors.c
     Middlewares/gwtonn/src/logger.c
+
 )
 
 # Add include paths
