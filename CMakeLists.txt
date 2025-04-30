@@ -48,16 +48,16 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    Middlewares/gwtonn/fatfs_sd.c
-    Middlewares/gwtonn/program_controller.c
-    Middlewares/gwtonn/sd_logger.c
-    Middlewares/gwtonn/uart_writer.c
+    Middlewares/gwtonn/src/fatfs_sd.c
+    Middlewares/gwtonn/src/program_controller.c
+    Middlewares/gwtonn/src/sd_logger.c
+    Middlewares/gwtonn/src/uart_writer.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    Middlewares/gwtonn/
+    Middlewares/gwtonn/include/
     .
 )
 
