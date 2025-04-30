@@ -9,6 +9,7 @@
 #include "logger.h"
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
+#include "internal_sensors.h"
 
 #include <string.h>
 #include <stdio.h>
