@@ -50,7 +50,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Middlewares/gwtonn/src/fatfs_sd.c
     Middlewares/gwtonn/src/program_controller.c
-    Middlewares/gwtonn/src/sd_logger.c
+    Middlewares/gwtonn/src/internal_sensors.c
+    Middlewares/gwtonn/src/logger.c
     Middlewares/gwtonn/src/uart_writer.c
 )
 

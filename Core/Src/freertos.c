@@ -29,7 +29,7 @@
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-#include "sd_logger.h"
+#include "logger.h"
 #include "program_controller.h"
 
 #include <string.h>
@@ -87,7 +87,7 @@ const osEventFlagsAttr_t ext_interrupt_event_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void program_controller_task(void *argument);
-void startLogTask(void *argument);
+void logger_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -115,7 +115,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of loggerQueue */
-  loggerQueueHandle = osMessageQueueNew (8, sizeof(MSGQUEUE_OBJ_t), &loggerQueue_attributes);
+  loggerQueueHandle = osMessageQueueNew (10, sizeof(MSGQUEUE_OBJ_t), &loggerQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -126,7 +126,7 @@ void MX_FREERTOS_Init(void) {
   programTaskHandle = osThreadNew(program_controller_task, NULL, &programTask_attributes);
 
   /* creation of logTask */
-  logTaskHandle = osThreadNew(startLogTask, NULL, &logTask_attributes);
+  logTaskHandle = osThreadNew(logger_task, NULL, &logTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -157,19 +157,22 @@ __weak void program_controller_task(void *argument)
   /* USER CODE END program_controller_task */
 }
 
-/* USER CODE BEGIN Header_startLogTask */
+/* USER CODE BEGIN Header_logger_task */
 /**
 * @brief Function implementing the logTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_startLogTask */
-__weak void startLogTask(void *argument)
+/* USER CODE END Header_logger_task */
+__weak void logger_task(void *argument)
 {
-  /* USER CODE BEGIN startLogTask */
-  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
-
-  /* USER CODE END startLogTask */
+  /* USER CODE BEGIN logger_task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END logger_task */
 }
 
 /* Private application code --------------------------------------------------*/
