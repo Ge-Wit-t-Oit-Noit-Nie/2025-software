@@ -27,7 +27,7 @@ extern const osMessageQueueAttr_t loggerQueue_attributes;
 typedef struct
 {
     uint8_t message;
-    uint32_t program_counter;
+    uint32_t instruction_pointer;
     uint16_t shutdown_index_register;
     uint16_t temperature;
     uint16_t vrefint;

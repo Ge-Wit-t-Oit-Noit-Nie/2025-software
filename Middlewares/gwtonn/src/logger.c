@@ -57,7 +57,7 @@ void logger_task(void *argument)
 				gTime.Minutes, 
 				gTime.Seconds, 
 				msg.message, 
-				msg.program_counter, 
+				msg.instruction_pointer, 
 				msg.shutdown_index_register,
 				msg.temperature,
 				msg.vrefint); // format the string to write to the file

@@ -32,7 +32,7 @@ void process_adc_buffer(uint16_t *buffer)
     }
 
     temperature = (((float)sum1 / ADC_SAMPLES - 279) * 100);
-    vref = (((float)sum2 / 1000 / ADC_SAMPLES) * 100);
+    vref = (((float)sum2 / 1000 / ADC_SAMPLES) * 1000);
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)
