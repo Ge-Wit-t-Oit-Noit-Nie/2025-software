@@ -149,8 +149,7 @@ SECTIONS
   } >FLASH
 
 
- /* Constant data goes into FLASH */
-  .program_data_block (READONLY) : /* The "READONLY" keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
+  .program_data_block:
   {
     . = ALIGN(4);
     FILL(0x00)
