@@ -17,6 +17,7 @@
         "stdio.h": "c",
         "programma.h": "c",
         "rtc.h": "c",
-        "logger.h": "c"
+        "logger.h": "c",
+        "main.h": "c"
     }
 }

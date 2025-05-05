@@ -1,8 +1,18 @@
-/*
- * program.h
+/**
+ ******************************************************************************
+ * @file   internal_sensors.h
+ * @brief  Headerfile for the internal_sensors.c file
+ ******************************************************************************
+ * @attention
  *
- *  Created on: Mar 17, 2025
- *      Author: Rudi Middel
+ * Copyright (c) 2025 Ge Wit't Oit Noit Nie.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
  */
 
 #ifndef INC_PROGAM_CONTROLLER_H_
@@ -10,6 +20,11 @@
 
 #include <stdint.h>
 #include "cmsis_os2.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif // End of extern "C" block
 
 #define EXTERN_INTERRUPT_EVENT_PAUZE 0x01
 #define EXTERN_INTERRUPT_EVENT_KILL 0x02
@@ -53,6 +68,8 @@ typedef struct
     uint8_t shutdown_instruction_pointer;
 } program_controller_registers_t;
 
-void program_controller_step(program_controller_registers_t *program_controller_registers);
+#ifdef __cplusplus
+}
+#endif // End of extern "C" block
 
 #endif // INC_PROGAM_CONTROLLER_H_

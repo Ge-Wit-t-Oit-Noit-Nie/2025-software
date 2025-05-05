@@ -1,4 +1,19 @@
-
+/**
+ ******************************************************************************
+ * @file   program_controller.c
+ * @brief  Implementation of the program controller
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 Ge Wit't Oit Noit Nie.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 #include <main.h>
 #include <stdio.h>
 #include "program_controller.h"
@@ -12,6 +27,11 @@
 #include "programma.h"
 
 extern volatile MEM_PROGRAM_DATA_BLOCK instruction_t instruction[];
+void program_controller_step(program_controller_registers_t *program_controller_registers);
+
+/***************************************
+ * Public functions
+ **************************************/
 
 /**
  * @brief  Function implementing the program_controller_task thread.
@@ -108,16 +128,9 @@ void program_controller_task(void *argument)
     }
 }
 
-/**
- * @brief  Set the program counter to the next instruction.
- *
- * This function increments the program counter and wraps around if the end of the program is reached.
- * @param  argument: Not used
- */
-void program_controller_step(program_controller_registers_t *program_controller_registers)
-{
-    program_controller_registers->instruction_pointer++;
-}
+/***************************************
+ * Callback functions
+ **************************************/
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -131,4 +144,19 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         osEventFlagsSet(ext_interrupt_eventHandle, EXTERN_INTERRUPT_EVENT_PAUZE);
     }
+}
+
+/***************************************
+ * private functions
+ **************************************/
+
+/**
+ * @brief  Set the program counter to the next instruction.
+ *
+ * This function increments the program counter and wraps around if the end of the program is reached.
+ * @param  argument: Not used
+ */
+void program_controller_step(program_controller_registers_t *program_controller_registers)
+{
+    program_controller_registers->instruction_pointer++;
 }
