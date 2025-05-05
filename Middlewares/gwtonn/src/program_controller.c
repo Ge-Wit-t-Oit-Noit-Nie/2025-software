@@ -95,8 +95,8 @@ void program_controller_task(void *argument)
                 MSG_PROGRAM_COUNTER,
                 pcr.instruction_pointer,
                 pcr.shutdown_instruction_pointer,
-                get_temperature(),
-                get_vref(),
+                is_get_temperature(),
+                is_get_vref(),
                 };
             if (osOK != osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U))
             {

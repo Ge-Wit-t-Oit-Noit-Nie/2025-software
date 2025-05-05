@@ -49,7 +49,7 @@ void logger_task(void *argument)
 		status = osMessageQueueGet(loggerQueueHandle, &msg, NULL, osWaitForever); // wait for message
 		if (osOK == status)
 		{
-			get_date_time(&gDate , &gTime); // get the time from the RTC
+			is_get_date_time(&gDate , &gTime); // get the time from the RTC
 
 			CLEAR_BUFFER(string);
 			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],%d,%ld,%d,%d,%d\n\r", 
