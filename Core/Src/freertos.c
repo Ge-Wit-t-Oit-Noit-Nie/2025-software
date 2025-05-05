@@ -167,11 +167,7 @@ __weak void program_controller_task(void *argument)
 __weak void logger_task(void *argument)
 {
   /* USER CODE BEGIN logger_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
   /* USER CODE END logger_task */
 }
 
