@@ -1,8 +1,18 @@
-/*
- * sd_logger.c
+/**
+ ******************************************************************************
+ * @file   logger.c
+ * @brief  Implementation of the logger
+ ******************************************************************************
+ * @attention
  *
- *  Created on: Mar 17, 2025
- *      Author: Rudi Middel
+ * Copyright (c) 2025 Ge Wit't Oit Noit Nie.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
  */
 
 #include "fatfs.h"
@@ -33,7 +43,7 @@ FATFS filesystem; // file system
 void logger_task(void *argument)
 {
 	UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
-	MSGQUEUE_OBJ_t msg;
+	telemetry_t telemetry;
 	osStatus_t status;
 	char string[BUFFER_SIZE];	  // to store strings..
 	uint8_t mount_status = FR_OK; // flag to check if the card is enabled
@@ -46,21 +56,20 @@ void logger_task(void *argument)
 
 	while (1)
 	{
-		status = osMessageQueueGet(loggerQueueHandle, &msg, NULL, osWaitForever); // wait for message
+		status = osMessageQueueGet(loggerQueueHandle, &telemetry, NULL, osWaitForever); // wait for message
 		if (osOK == status)
 		{
 			is_get_date_time(&gDate , &gTime); // get the time from the RTC
 
 			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],%d,%ld,%d,%d,%d\n\r", 
-				gTime.Hours, 
-				gTime.Minutes, 
-				gTime.Seconds, 
-				msg.message, 
-				msg.instruction_pointer, 
-				msg.shutdown_index_register,
-				msg.temperature,
-				msg.vrefint); // format the string to write to the file
+			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],0x%08lX,0x%08X,0x%08X,0x%08X\n\r",
+					 gTime.Hours,
+					 gTime.Minutes,
+					 gTime.Seconds,
+					 telemetry.instruction_pointer,
+					 telemetry.shutdown_index_register,
+					 telemetry.temperature,
+					 telemetry.vrefint); // format the string to write to the file
 			printf(string); // print to uart
 
 			if (osOK == osMutexAcquire(mutex_id, 0))

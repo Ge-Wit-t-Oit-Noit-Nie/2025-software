@@ -1,3 +1,20 @@
+/**
+ ******************************************************************************
+ * @file   internal_sensors.c
+ * @brief  Implementation of the internal sensors
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 Ge Wit't Oit Noit Nie.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
+
 #include "internal_sensors.h"
 #include "main.h"
 #include <stdint.h>
@@ -39,6 +56,22 @@ void is_get_date_time(RTC_DateTypeDef *date, RTC_TimeTypeDef *time)
 {
     HAL_RTC_GetDate(&hrtc, date, RTC_FORMAT_BIN);
     HAL_RTC_GetTime(&hrtc, time, RTC_FORMAT_BIN);
+}
+/*
+ * Set the RTC time to the given values.
+ */
+void is_set_time(uint8_t hr, uint8_t min, uint8_t sec)
+{
+    RTC_TimeTypeDef sTime = {0};
+    sTime.Hours = hr;
+    sTime.Minutes = min;
+    sTime.Seconds = sec;
+    sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+    sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+    if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
+    {
+        Error_Handler();
+    }
 }
 
 /***************************************

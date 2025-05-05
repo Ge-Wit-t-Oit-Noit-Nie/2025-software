@@ -35,7 +35,21 @@ int is_get_temperature(void);
  * @retval Internal voltage value in millivolts
  */
 int is_get_vref(void);
+/**
+ * @brief  Get the date and time from the RTC
+ *
+ * @param  date: Pointer to a RTC_DateTypeDef structure that will hold the date
+ * @param  time: Pointer to a RTC_TimeTypeDef structure that will hold the time
+ */
 void is_get_date_time(RTC_DateTypeDef *date, RTC_TimeTypeDef *time);
+/**
+ * @brief  Set the RTC time
+ *
+ * @param  hr: Hour value (0-23)
+ * @param  min: Minute value (0-59)
+ * @param  sec: Second value (0-59)
+ */
+void is_set_time(uint8_t hr, uint8_t min, uint8_t sec);
 
 #ifdef __cplusplus
 }

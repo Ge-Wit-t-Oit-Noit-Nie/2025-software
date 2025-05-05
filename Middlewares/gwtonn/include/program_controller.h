@@ -11,8 +11,6 @@
 #include <stdint.h>
 #include "cmsis_os2.h"
 
-#define MSG_PROGRAM_COUNTER 0x10
-
 #define EXTERN_INTERRUPT_EVENT_PAUZE 0x01
 #define EXTERN_INTERRUPT_EVENT_KILL 0x02
 
