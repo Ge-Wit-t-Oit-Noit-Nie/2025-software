@@ -115,7 +115,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of loggerQueue */
-  loggerQueueHandle = osMessageQueueNew (10, sizeof(MSGQUEUE_OBJ_t), &loggerQueue_attributes);
+  loggerQueueHandle = osMessageQueueNew (10, sizeof(telemetry_t), &loggerQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -167,11 +167,7 @@ __weak void program_controller_task(void *argument)
 __weak void logger_task(void *argument)
 {
   /* USER CODE BEGIN logger_task */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
   /* USER CODE END logger_task */
 }
 

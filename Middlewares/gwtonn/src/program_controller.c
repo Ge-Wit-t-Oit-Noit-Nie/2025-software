@@ -1,4 +1,19 @@
-
+/**
+ ******************************************************************************
+ * @file   program_controller.c
+ * @brief  Implementation of the program controller
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 Ge Wit't Oit Noit Nie.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 #include <main.h>
 #include <stdio.h>
 #include "program_controller.h"
@@ -12,20 +27,12 @@
 #include "programma.h"
 
 extern volatile MEM_PROGRAM_DATA_BLOCK instruction_t instruction[];
+void program_controller_step(program_controller_registers_t *program_controller_registers);
 
-void set_time(uint8_t hr, uint8_t min, uint8_t sec)
-{
-    RTC_TimeTypeDef sTime = {0};
-    sTime.Hours = hr;
-    sTime.Minutes = min;
-    sTime.Seconds = sec;
-    sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-    sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-    if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
-    {
-        Error_Handler();
-    }
-}
+/***************************************
+ * Public functions
+ **************************************/
+
 /**
  * @brief  Function implementing the program_controller_task thread.
  * @param  argument: Not used
@@ -40,7 +47,7 @@ void program_controller_task(void *argument)
         .shutdown_instruction_pointer = 0,
     };
     uint32_t state = 0;
-    set_time(12, 2, 2); // Set the RTC time to 00:00:00
+    is_set_time(12, 2, 2); // Set the RTC time to 00:00:00
 
     /* Infinite loop */
     for (;;)
@@ -91,14 +98,13 @@ void program_controller_task(void *argument)
 
         case OPCODE_LOG_PROGRAM_STATE:
         {
-            MSGQUEUE_OBJ_t msg = {
-                MSG_PROGRAM_COUNTER,
+            telemetry_t telemetry = {
                 pcr.instruction_pointer,
                 pcr.shutdown_instruction_pointer,
-                get_temperature(),
-                get_vref(),
-                };
-            if (osOK != osMessageQueuePut(loggerQueueHandle, &msg, 0, 0U))
+                is_get_temperature(),
+                is_get_vref(),
+            };
+            if (osOK != osMessageQueuePut(loggerQueueHandle, &telemetry, 0, 0U))
             {
                 printf("Error: Could not send message to loggerQueueHandle\n\r");
             }
@@ -122,16 +128,9 @@ void program_controller_task(void *argument)
     }
 }
 
-/**
- * @brief  Set the program counter to the next instruction.
- *
- * This function increments the program counter and wraps around if the end of the program is reached.
- * @param  argument: Not used
- */
-void program_controller_step(program_controller_registers_t *program_controller_registers)
-{
-    program_controller_registers->instruction_pointer++;
-}
+/***************************************
+ * Callback functions
+ **************************************/
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -145,4 +144,19 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
         osEventFlagsSet(ext_interrupt_eventHandle, EXTERN_INTERRUPT_EVENT_PAUZE);
     }
+}
+
+/***************************************
+ * private functions
+ **************************************/
+
+/**
+ * @brief  Set the program counter to the next instruction.
+ *
+ * This function increments the program counter and wraps around if the end of the program is reached.
+ * @param  argument: Not used
+ */
+void program_controller_step(program_controller_registers_t *program_controller_registers)
+{
+    program_controller_registers->instruction_pointer++;
 }
