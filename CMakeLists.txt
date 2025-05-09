@@ -72,3 +72,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
     # Add user defined libraries
 )
+
+# Add a script before build that will perform the objcopy operation
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} PRE_LINK
+    COMMAND ${CMAKE_OBJCOPY} -I binary -O elf32-littlearm -B arm ${CMAKE_CURRENT_SOURCE_DIR}/binary_file.bin ${CMAKE_CURRENT_BINARY_DIR}/binary_file.o --rename-section .data=.program_data_block
+    COMMENT "Generating binary file for ELF"
+)

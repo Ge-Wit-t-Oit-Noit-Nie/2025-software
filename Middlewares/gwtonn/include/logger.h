@@ -39,10 +39,11 @@ extern const osMessageQueueAttr_t loggerQueue_attributes;
  */
 typedef struct
 {
-    uint32_t instruction_pointer;
+    uint16_t instruction_pointer;
     uint16_t shutdown_index_register;
     uint16_t temperature;
     uint16_t vrefint;
+    uint8_t trigger;
 } telemetry_t;
 
 #ifdef __cplusplus

@@ -62,14 +62,15 @@ void logger_task(void *argument)
 			is_get_date_time(&gDate , &gTime); // get the time from the RTC
 
 			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],0x%08lX,0x%08X,0x%08X,0x%08X\n\r",
+			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],0x%08X,0x%08X,0x%08X,0x%08X,0x%08X\n\r",
 					 gTime.Hours,
 					 gTime.Minutes,
 					 gTime.Seconds,
 					 telemetry.instruction_pointer,
 					 telemetry.shutdown_index_register,
 					 telemetry.temperature,
-					 telemetry.vrefint); // format the string to write to the file
+					 telemetry.vrefint,
+					 telemetry.trigger); // format the string to write to the file
 			printf(string); // print to uart
 
 			if (osOK == osMutexAcquire(mutex_id, 0))
