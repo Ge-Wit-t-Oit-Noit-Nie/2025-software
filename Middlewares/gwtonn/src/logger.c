@@ -53,6 +53,11 @@ void logger_task(void *argument)
 
 	osMutexId_t mutex_id;
 	mutex_id = osMutexNew(NULL);
+	int init_status=0;
+
+	if((init_status = USER_SPI_initialize(0))!=FR_OK)
+		printf("Initialize error (errno: %d)\n\r", init_status);
+
 
 	while (1)
 	{
@@ -74,7 +79,7 @@ void logger_task(void *argument)
 
 			if (osOK == osMutexAcquire(mutex_id, 0))
 			{
-				mount_status = f_mount(&filesystem, "", 1); // mount the file system
+				mount_status = f_mount(&filesystem, "0:", 1); // mount the file system
 				if (FR_OK == mount_status)
 				{
 					if (FR_OK == f_open(&fil, LOG_FILENAME, FA_OPEN_APPEND | FA_READ | FA_WRITE))
@@ -92,7 +97,7 @@ void logger_task(void *argument)
 				else
 				{
 					printf("Card not mounted (errno: %d)\n\r", mount_status);
-					USER_initialize(0); // Call USER_initialize with 0 this is in user diskio
+					//SD_disk_initialize(0); // Call USER_initialize with 0 this is in user diskio
 				}
 				osMutexRelease(mutex_id);
 			}

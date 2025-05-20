@@ -149,7 +149,7 @@ SECTIONS
   } >FLASH
 
 
-  .program_data_block:
+  .program_data_block :
   {
     . = ALIGN(4);
     FILL(0x00)

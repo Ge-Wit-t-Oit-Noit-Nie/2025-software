@@ -18,6 +18,9 @@
         "programma.h": "c",
         "rtc.h": "c",
         "logger.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "string.h": "c",
+        "spi.h": "c",
+        "user_diskio_spi.h": "c"
     }
 }
