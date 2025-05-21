@@ -21,6 +21,7 @@
         "main.h": "c",
         "string.h": "c",
         "spi.h": "c",
-        "user_diskio_spi.h": "c"
+        "user_diskio_spi.h": "c",
+        "internal_sensors.h": "c"
     }
 }

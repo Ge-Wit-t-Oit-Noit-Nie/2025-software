@@ -31,9 +31,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-
 #include <stdio.h>
 #include <string.h>
+
+#include "sd_card.h"
 
 /* USER CODE END Includes */
 
@@ -111,6 +112,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, ADC_SAMPLES * 2 * 2);
+
+  uint8_t content[20];
+  read_file("logger.txt", content);
 
   /* USER CODE END 2 */
 
