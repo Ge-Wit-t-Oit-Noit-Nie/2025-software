@@ -38,13 +38,19 @@ extern SPI_HandleTypeDef SD_SPI_HANDLE;
 #define FCLK_SLOW() { MODIFY_REG(SD_SPI_HANDLE.Instance->CR1, SPI_BAUDRATEPRESCALER_256, SPI_BAUDRATEPRESCALER_128); }	/* Set SCLK = slow, approx 280 KBits/s*/
 #define FCLK_FAST() { MODIFY_REG(SD_SPI_HANDLE.Instance->CR1, SPI_BAUDRATEPRESCALER_256, SPI_BAUDRATEPRESCALER_8); }	/* Set SCLK = fast, approx 4.5 MBits/s */
 
-#ifdef USE_SPI_CHIP_SELECT
-	#define CS_HIGH() 	{HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);}
-	#define CS_LOW()	{HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET);}
-#else
-	#define CS_HIGH() 	{}
-	#define CS_LOW()	{}
-#endif
+//#ifdef USE_SPI_CHIP_SELECT
+#define CS_HIGH()                                           \
+	{                                                       \
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET); \
+	}
+#define CS_LOW()                                              \
+	{                                                         \
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET); \
+	}
+//#else
+//	#define CS_HIGH() 	{}
+//	#define CS_LOW()	{}
+//#endif
 
 /*--------------------------------------------------------------------------
 
@@ -269,6 +275,7 @@ BYTE send_cmd (		/* Return value: R1 resp (bit7==1:Failed to send) */
 {
 	BYTE n, res;
 
+	wait_ready(500);	/* Wait for card ready */
 
 	if (cmd & 0x80) {	/* Send a CMD55 prior to ACMD<n> */
 		cmd &= 0x7F;
@@ -505,6 +512,11 @@ inline DRESULT USER_SPI_ioctl (
 			}
 			res = RES_OK;
 		}
+		break;
+
+	case GET_SECTOR_SIZE:
+		*(WORD *)buff = 512;
+		res = RES_OK;
 		break;
 
 	case GET_BLOCK_SIZE :	/* Get erase block size in unit of sector (DWORD) */

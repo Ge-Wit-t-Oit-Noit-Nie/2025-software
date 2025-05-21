@@ -55,6 +55,7 @@ void logger_task(void *argument)
 	mutex_id = osMutexNew(NULL);
 	int init_status=0;
 
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET); // Disable the card
 	if((init_status = USER_SPI_initialize(0))!=FR_OK)
 		printf("Initialize error (errno: %d)\n\r", init_status);
 
