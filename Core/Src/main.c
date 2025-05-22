@@ -35,6 +35,7 @@
 #include <string.h>
 
 #include "sd_card.h"
+#include "program_controller.h"
 
 /* USER CODE END Includes */
 
@@ -113,8 +114,8 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, ADC_SAMPLES * 2 * 2);
 
-  uint8_t content[20];
-  load_progam("logger.txt", content);
+  // Load the program to the specific memory
+  load_progam("programma.bin", &_program_data_start);
 
   /* USER CODE END 2 */
 
