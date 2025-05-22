@@ -15,19 +15,17 @@
  ******************************************************************************
  */
 
-#include "fatfs.h"
 #include "logger.h"
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
 #include "internal_sensors.h"
+#include "sd_card.h"
 
 #include <string.h>
 #include <stdio.h>
 
 #define BUFFER_SIZE 128
 #define CLEAR_BUFFER(buffer) memset(buffer, '\0', sizeof(buffer))
-
-FATFS filesystem; // file system
 
 /**
  * @brief Function implementing the logTask thread.
@@ -46,13 +44,9 @@ void logger_task(void *argument)
 	telemetry_t telemetry;
 	osStatus_t status;
 	char string[BUFFER_SIZE];	  // to store strings..
-	uint8_t mount_status = FR_OK; // flag to check if the card is enabled
-	FIL fil;					  // File
 	RTC_DateTypeDef gDate;
 	RTC_TimeTypeDef gTime;
-
-	osMutexId_t mutex_id;
-	mutex_id = osMutexNew(NULL);
+	osMutexId_t mutex_id = osMutexNew(NULL);
 
 	while (1)
 	{
@@ -75,26 +69,7 @@ void logger_task(void *argument)
 
 			if (osOK == osMutexAcquire(mutex_id, 0))
 			{
-				mount_status = f_mount(&filesystem, "", 1); // mount the file system
-				if (FR_OK == mount_status)
-				{
-					if (FR_OK == f_open(&fil, LOG_FILENAME, FA_OPEN_APPEND | FA_READ | FA_WRITE))
-					{
-						/* write the string to the file */
-						f_puts(string, &fil);
-					}
-					else
-					{
-						printf("Cannot open file (errno: %d)\n\r", mount_status);
-					}
-					f_close(&fil);
-					f_mount(NULL, "", 0); // unmount the file system
-				}
-				else
-				{
-					printf("Card not mounted (errno: %d)\n\r", mount_status);
-					USER_initialize(0); // Call USER_initialize with 0 this is in user diskio
-				}
+				write_file(LOG_FILENAME "\0", string);
 				osMutexRelease(mutex_id);
 			}
 			else

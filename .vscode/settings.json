@@ -19,9 +19,11 @@
         "rtc.h": "c",
         "logger.h": "c",
         "main.h": "c",
-        "compare": "c",
+        "string.h": "c",
+        "spi.h": "c",
+        "user_diskio_spi.h": "c",
         "internal_sensors.h": "c",
-        "cstdlib": "c"
-    },
-    "cortex-debug.variableUseNaturalFormat": false
+        "compare": "c",
+        "cstdint": "c"
+    }
 }

@@ -18,8 +18,8 @@
 #ifndef INC_PROGAM_CONTROLLER_H_
 #define INC_PROGAM_CONTROLLER_H_
 
-#include <stdint.h>
 #include "cmsis_os2.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -39,21 +39,21 @@ extern "C"
 #define VM_EXIT 0x0002
 #define VM_ERROR 0x0001
 
-    extern uint32_t _program_data_start;
-    extern uint32_t _program_data_end;
-    
-    extern osThreadId_t programTaskHandle;
-    extern const osThreadAttr_t programTask_attributes;
-    /* Definitions for ext_interrupt_event */
-    extern osEventFlagsId_t ext_interrupt_eventHandle;
-    extern const osEventFlagsAttr_t ext_interrupt_event_attributes;
+  extern uint32_t _program_data_start;
+  extern uint32_t _program_data_end;
 
-    typedef struct
-    {
-        uint16_t instruction_pointer;
-        uint16_t register1; // At this point, we only need one register
-        uint16_t shutdown_instruction_pointer;
-    } program_controller_registers_t;
+  extern osThreadId_t programTaskHandle;
+  extern const osThreadAttr_t programTask_attributes;
+  /* Definitions for ext_interrupt_event */
+  extern osEventFlagsId_t ext_interrupt_eventHandle;
+  extern const osEventFlagsAttr_t ext_interrupt_event_attributes;
+
+  typedef struct
+  {
+    uint16_t instruction_pointer;
+    uint16_t register1; // At this point, we only need one register
+    uint16_t shutdown_instruction_pointer;
+  } program_controller_registers_t;
 
 #ifdef __cplusplus
 }

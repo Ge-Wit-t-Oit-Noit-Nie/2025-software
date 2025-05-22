@@ -17,6 +17,8 @@
 #ifndef INC_SD_LOGGER_H_
 #define INC_SD_LOGGER_H_
 
+#include "cmsis_os2.h"
+
 /// Filename for the logger to write to.
 #define LOG_FILENAME "logger.txt"
 
