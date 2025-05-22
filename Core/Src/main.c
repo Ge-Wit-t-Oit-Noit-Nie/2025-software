@@ -114,7 +114,7 @@ int main(void)
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, ADC_SAMPLES * 2 * 2);
 
   uint8_t content[20];
-  read_file("logger.txt", content);
+  load_progam("logger.txt", content);
 
   /* USER CODE END 2 */
 

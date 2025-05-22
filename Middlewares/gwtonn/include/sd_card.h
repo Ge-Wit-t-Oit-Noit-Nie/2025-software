@@ -8,7 +8,7 @@ extern "C" {
 #endif // End of extern "C" block
 
 FRESULT write_file(const char* filename, const char* content);
-FRESULT read_file(const char* filename, uint8_t* content);
+FRESULT load_progam(const char* filename, uint8_t* content);
 
 #ifdef __cplusplus
 }

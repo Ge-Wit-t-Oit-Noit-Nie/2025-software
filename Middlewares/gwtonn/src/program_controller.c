@@ -54,7 +54,7 @@ program_controller_task (void *argument)
   uint32_t state = 0;
   is_set_time (12, 2, 2); // Set the RTC time to 00:00:00
 
-  //check_new_program ();
+  // check_new_program ();
 
   /* Infinite loop */
   for (;;)
@@ -193,26 +193,26 @@ program_controller_step (
 static FATFS fs; // file system
 void
 check_new_program ()
-{   
-    FIL fil;
+{
+  FIL fil;
 
-	FRESULT mount_status = f_mount(&fs, "0:", 1); // mount the file system
-    if (FR_OK == mount_status)
+  FRESULT mount_status = f_mount (&fs, "0:", 1); // mount the file system
+  if (FR_OK == mount_status)
     {
-        if (FR_OK == f_open(&fil, "program.bin", FA_READ))
+      if (FR_OK == f_open (&fil, "program.bin", FA_READ))
         {
-            printf("---- Programma gevonden: ");
+          printf ("---- Programma gevonden: ");
         }
-        else
+      else
         {
-            printf("<<<<Programma niet gevonden>>>>");
+          printf ("<<<<Programma niet gevonden>>>>");
         }
-        f_close(&fil);
-        f_mount(NULL, "", 0); // unmount the file system
+      f_close (&fil);
+      f_mount (NULL, "", 0); // unmount the file system
     }
-    else
+  else
     {
-        printf("Card not mounted (errno: %d)\n\r", mount_status);
+      printf ("Card not mounted (errno: %d)\n\r", mount_status);
     }
   return;
 }
