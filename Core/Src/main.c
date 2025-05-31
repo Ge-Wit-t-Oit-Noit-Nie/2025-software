@@ -37,6 +37,7 @@
 
 #include "sd_card.h"
 #include "program_controller.h"
+#include "program_controller.h"
 
 /* USER CODE END Includes */
 
