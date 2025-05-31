@@ -16,14 +16,14 @@
  */
 #include <main.h>
 #include <stdio.h>
-#include "program_controller.h"
-#include "stm32f4xx_hal.h"
+
 #include "FreeRTOS.h"
 #include "cmsis_os2.h"
-#include "logger.h"
-#include "rtc.h"
+#include "fatfs.h"
 #include "internal_sensors.h"
 #include "asserts.h"
+#include "program_controller.h"
+#include "logger.h"
 
 /***************************************
  * Private functions
@@ -257,9 +257,11 @@ static const program_controller_function_t program_controller_function[] = {
  * @param  argument: Not used
  * @retval None
  */
-void program_controller_task(void *argument)
+void
+program_controller_task (void *argument)
 {
-    UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable' warning
+  UNUSED (argument); // Mark variable as 'UNUSED' to suppress 'unused-variable'
+                     // warning
 
     program_controller_registers_t pcr = {
         .instruction_pointer = 0,
@@ -277,9 +279,10 @@ void program_controller_task(void *argument)
         uint32_t state = osEventFlagsGet(ext_interrupt_eventHandle);
         if (EXTERN_INTERRUPT_EVENT_KILL == (state & EXTERN_INTERRUPT_EVENT_KILL))
         {
-            HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_RESET);
-            osThreadTerminate(programTaskHandle);
-            return;
+          HAL_GPIO_WritePin (GREEN_LED_GPIO_Port, GREEN_LED_Pin,
+                             GPIO_PIN_RESET);
+          osThreadTerminate (programTaskHandle);
+          return;
         }
 
         uint16_t memory_entry = programma[pcr.instruction_pointer];
@@ -330,4 +333,31 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         printf("Error: Could not send message to loggerQueueHandle\n\r");
     }
     osEventFlagsSet(ext_interrupt_eventHandle, flag);
+}
+
+static FATFS fs; // file system
+void
+check_new_program ()
+{
+  FIL fil;
+
+  FRESULT mount_status = f_mount (&fs, "0:", 1); // mount the file system
+  if (FR_OK == mount_status)
+    {
+      if (FR_OK == f_open (&fil, "program.bin", FA_READ))
+        {
+          printf ("---- Programma gevonden: ");
+        }
+      else
+        {
+          printf ("<<<<Programma niet gevonden>>>>");
+        }
+      f_close (&fil);
+      f_mount (NULL, "", 0); // unmount the file system
+    }
+  else
+    {
+      printf ("Card not mounted (errno: %d)\n\r", mount_status);
+    }
+  return;
 }
