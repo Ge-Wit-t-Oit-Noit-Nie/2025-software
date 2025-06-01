@@ -4,7 +4,8 @@ enable_language(C ASM)
 # STM32CubeMX generated symbols (macros)
 set(MX_Defines_Syms 
 	USE_HAL_DRIVER 
-	STM32F412Zx
+	# STM32F412Zx
+    STM32F412Rx
     $<$<CONFIG:Debug>:DEBUG>
 )
 
@@ -41,7 +42,8 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32f4xx_hal_timebase_tim.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
-    ${CMAKE_SOURCE_DIR}/startup_stm32f412zx.s
+    ${CMAKE_SOURCE_DIR}/startup_stm32f412rx.s    
+#    ${CMAKE_SOURCE_DIR}/startup_stm32f412zx.s
 )
 
 # STM32 HAL/LL Drivers
@@ -101,7 +103,9 @@ set(MX_LINK_DIRS
 # Project static libraries
 set(MX_LINK_LIBS 
     STM32_Drivers
-    FreeRTOS	FatFs	
+    FreeRTOS
+	FatFs
+	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)
