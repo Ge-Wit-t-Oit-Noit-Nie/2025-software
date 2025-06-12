@@ -48,11 +48,12 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    Middlewares/gwtonn/src/fatfs_sd.c
     Middlewares/gwtonn/src/program_controller.c
     Middlewares/gwtonn/src/internal_sensors.c
     Middlewares/gwtonn/src/logger.c
+    Middlewares/gwtonn/src/sd_card.c
     Middlewares/gwtonn/src/uart_writer.c
+    Middlewares/gwtonn/src/user_diskio_spi.c
 )
 
 # Add include paths
@@ -71,4 +72,10 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
     # Add user defined libraries
+)
+
+# Add a script before build that will perform the objcopy operation
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} PRE_LINK
+    COMMAND ${CMAKE_OBJCOPY} -I binary -O elf32-littlearm -B arm ${CMAKE_CURRENT_SOURCE_DIR}/binary_file.bin ${CMAKE_CURRENT_BINARY_DIR}/binary_file.o --rename-section .data=.program_data_block
+    COMMENT "Generating binary file for ELF"
 )

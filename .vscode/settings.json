@@ -18,6 +18,14 @@
         "programma.h": "c",
         "rtc.h": "c",
         "logger.h": "c",
-        "main.h": "c"
-    }
+        "main.h": "c",
+        "compare": "c",
+        "internal_sensors.h": "c",
+        "cstdlib": "c",
+        "stm32f4xx_hal_conf.h": "c",
+        "stm32f412zx.h": "c",
+        "string.h": "c",
+        "sd_card.h": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": false
 }

@@ -30,10 +30,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "fatfs_sd.h"
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+#include "sd_card.h"
+#include "program_controller.h"
+#include "program_controller.h"
 
 /* USER CODE END Includes */
 
@@ -49,6 +53,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define PROGRAMMA_FILE_NAME "binary_file.bin"
 
 /* USER CODE END PM */
 
@@ -109,8 +114,16 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, ADC_SAMPLES * 2 * 2);
+
+  //  Check if the program file exists on the SD card
+  // If it exists, load it into the flash memory.
+  if (FR_OK == file_exists(PROGRAMMA_FILE_NAME))
+  {
+    load_progam_from_sd_to_flash(PROGRAMMA_FILE_NAME, (uint32_t)&_program_data_start);
+  }
 
   /* USER CODE END 2 */
 

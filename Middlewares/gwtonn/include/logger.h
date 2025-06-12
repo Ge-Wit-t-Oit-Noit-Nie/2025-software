@@ -17,6 +17,8 @@
 #ifndef INC_SD_LOGGER_H_
 #define INC_SD_LOGGER_H_
 
+#include "cmsis_os2.h"
+
 /// Filename for the logger to write to.
 #define LOG_FILENAME "logger.txt"
 
@@ -39,10 +41,11 @@ extern const osMessageQueueAttr_t loggerQueue_attributes;
  */
 typedef struct
 {
-    uint32_t instruction_pointer;
+    uint16_t instruction_pointer;
     uint16_t shutdown_index_register;
     uint16_t temperature;
     uint16_t vrefint;
+    uint8_t trigger;
 } telemetry_t;
 
 #ifdef __cplusplus

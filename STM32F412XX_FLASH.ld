@@ -148,13 +148,13 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
-
-  .program_data_block:
+  .program_data_block :
   {
-    . = ALIGN(4);
-    FILL(0x00)
-    *(.program_data_block)
-    . = ALIGN(4);
+    _program_data_start = .;
+    FILL(0xFF); /* Fill the section with 0xFF */
+    binary_file.o(.program_data_block)
+    KEEP(*(.program_data_block))
+    _program_data_end = .;
   } > RESERVED 
 
   /* used by the startup to initialize data */
