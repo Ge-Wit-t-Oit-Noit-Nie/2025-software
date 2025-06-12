@@ -29,6 +29,28 @@
       ;                                                                                                                  \
   }
 
+/**
+ * \brief  Check if the SD Card is present.
+ */
+FRESULT sd_card_is_present(void)
+{
+  FRESULT status = FR_OK;
+
+#if defined(STM32F412Rx)
+  // The pin is inverted, so we check if it is low to determine if the card is present
+  status = (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4) == 0) ? FR_OK : FR_NOT_READY;
+#else
+  FATFS filesystem;
+  status = f_mount(&filesystem, "0:", 1);
+  f_mount(NULL, "", 0); // unmount the file system
+#endif
+
+  return status;
+}
+
+/**
+ * \brief  Check on the SD Card if a file exists.
+ */
 FRESULT file_exists(const char *filename)
 {
   FATFS filesystem;
@@ -44,14 +66,7 @@ FRESULT file_exists(const char *filename)
 
 /**
  * \brief  Write a file to the SD Card.
- *
- * Writing to the SD Card requires some extra steps, such as mounting the SD
- * Card and checking the status. This function handles that all. After the
- * checkes, it will open the file for APPEND and write the content of content
- * to the file.
- * \param[in] filename the filename to write to
- * \param[in] content the content to write (must the \0 terminated)
- * \retval FR_OK in case of sucess; else any of the #FRESULT.
+ * 
  */
 FRESULT
 write_file(const char *filename, const char *content)
@@ -60,6 +75,11 @@ write_file(const char *filename, const char *content)
   FRESULT status = FR_OK;
   FIL file;
 
+  if(sd_card_is_present() != FR_OK)
+  {
+    printf("SD Card not present\n\r");
+    return FR_NOT_READY; // SD Card is not present
+  }
   status = f_mount(&filesystem, "0:", 1);
   if (FR_OK == status)
   {
@@ -87,12 +107,6 @@ write_file(const char *filename, const char *content)
 /**
  * \brief  Load the program (binary) into the specified memory location.
  *
- * This function will read the binary and load it into the specific memory
- * location.
- *
- * \param[in] filename the filename to write to
- * \param[in] address_memory the location to write to
- * \retval FR_OK in case of sucess; else any of the #FRESULT.
  */
 FRESULT
 load_progam_from_sd_to_flash(const char *filename, uint32_t address_memory)

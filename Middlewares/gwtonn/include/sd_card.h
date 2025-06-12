@@ -9,6 +9,16 @@ extern "C"
 #endif // End of extern "C" block
 
     /**
+     * \brief  Check if the SD Card is present.
+     *
+     * This function will check if the SD Card is present. It will mount the SD
+     * Card and check if it is ready. If it is, it will return FR_OK, else it
+     * will return any of the #FRESULT.
+     * \retval FR_OK in case of sucess; else any of the #FRESULT.
+     */
+    FRESULT sd_card_is_present(void);
+
+    /**
      * \brief  Check on the SD Card if a file exists.
      *
      * This function will check if the file exists on the SD Card. It will mount
