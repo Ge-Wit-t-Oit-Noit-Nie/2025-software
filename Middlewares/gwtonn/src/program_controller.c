@@ -110,7 +110,7 @@ vm_delay(program_controller_registers_t *program_controller_registers)
       ext_interrupt_eventHandle,
       EXTERN_INTERRUPT_EVENT_KILL | EXTERN_INTERRUPT_EVENT_PAUZE,
       osFlagsWaitAny,
-      pdMS_TO_TICKS((uint32_t)program_controller_registers->register1));
+      pdMS_TO_TICKS((uint32_t)program_controller_registers->register1) * 100); // Convert sec to ticks
   if (osFlagsErrorTimeout == (osFlagsErrorTimeout & state))
   {
     program_controller_registers->instruction_pointer++;
