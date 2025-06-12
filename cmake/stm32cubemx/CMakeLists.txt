@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.22)
 # Enable CMake support for ASM and C languages
 enable_language(C ASM)
 # STM32CubeMX generated symbols (macros)
-set(MX_Defines_Syms 
+set(MX_Defines_Syms
+    ${MX_Defines_Syms}
 	USE_HAL_DRIVER 
-	STM32F412Zx
     $<$<CONFIG:Debug>:DEBUG>
 )
 
@@ -41,8 +41,16 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32f4xx_hal_timebase_tim.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
-    ${CMAKE_SOURCE_DIR}/startup_stm32f412zx.s
 )
+
+# if MX_Defines_Syms contains STM32F412Rx, then we need to add specific source files to MX_Application_Src
+if (MX_Defines_Syms MATCHES "STM32F412Rx")
+    message(WARNING "Building for the piggybag.")
+    set(MX_Application_Src ${MX_Application_Src} ${CMAKE_SOURCE_DIR}/startup_stm32f412rx.s)
+else()
+message(WARNING "Building for the nucleo.")
+set(MX_Application_Src ${MX_Application_Src} ${CMAKE_SOURCE_DIR}/startup_stm32f412zx.s)
+endif()
 
 # STM32 HAL/LL Drivers
 set(STM32_Drivers_Src
@@ -101,7 +109,9 @@ set(MX_LINK_DIRS
 # Project static libraries
 set(MX_LINK_LIBS 
     STM32_Drivers
-    FreeRTOS	FatFs	
+    FreeRTOS
+	FatFs
+	
 )
 # Interface library for includes and symbols
 add_library(stm32cubemx INTERFACE)

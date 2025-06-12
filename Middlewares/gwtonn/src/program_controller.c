@@ -40,9 +40,9 @@ typedef struct
 } pin_mapping_t;
 
 static const pin_mapping_t pin_mapping[NUMBER_OF_PINS_MAPPED] = {
-    {GREEN_LED_Pin, GREEN_LED_GPIO_Port},
-    {BLUE_LED_Pin, BLUE_LED_GPIO_Port},
-    {RED_LED_Pin, RED_LED_GPIO_Port},
+    {GPIO_PIN_0, GPIOB}, // Pin 0 on GPIOA
+    {GPIO_PIN_7, GPIOB},
+    {GPIO_PIN_14, GPIOB},
 };
 
 /**
@@ -375,7 +375,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   {
     printf("Error: Could not send message to loggerQueueHandle\n\r");
   }
-  osEventFlagsSet(ext_interrupt_eventHandle, flag);
+  //osEventFlagsSet(ext_interrupt_eventHandle, flag);
 }
 
 static FATFS fs; // file system

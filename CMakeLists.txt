@@ -21,6 +21,11 @@ endif()
 # Set the project name
 set(CMAKE_PROJECT_NAME 2025-Software)
 
+set (MX_Defines_Syms
+	#STM32F412Zx
+    STM32F412Rx
+)
+
 # Include toolchain file
 include("cmake/gcc-arm-none-eabi.cmake")
 
