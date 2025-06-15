@@ -29,11 +29,11 @@ extern "C"
 #define EXTERN_INTERRUPT_EVENT_PAUZE 0x01
 #define EXTERN_INTERRUPT_EVENT_KILL 0x02
 
-#define MASK_OPCODE 0xF000
-#define OPCODE(x) ((uint16_t)((x & MASK_OPCODE) >> 12))
+#define MASK_OPCODE 0xF0
+#define OPCODE(x) ((uint8_t)((x & MASK_OPCODE) >> 4))
 
-#define MASK_REGISTER 0x0FFF
-#define REGISTER(x) ((uint16_t)(x & MASK_REGISTER))
+#define MASK_REGISTER 0x0F
+#define REGISTER(x) ((uint8_t)(x & MASK_REGISTER))
 
 #define VM_OK 0x0002
 #define VM_EXIT 0x0002
@@ -50,9 +50,9 @@ extern "C"
 
   typedef struct
   {
-    uint16_t instruction_pointer;
-    uint16_t register1; // At this point, we only need one register
-    uint16_t shutdown_instruction_pointer;
+    uint32_t instruction_pointer;
+    uint8_t register1; // At this point, we only need one register
+    uint32_t shutdown_instruction_pointer;
   } program_controller_registers_t;
 
 #ifdef __cplusplus
