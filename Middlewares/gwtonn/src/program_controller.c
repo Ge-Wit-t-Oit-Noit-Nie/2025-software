@@ -226,13 +226,11 @@ vm_jump(program_controller_registers_t *program_controller_registers)
 {
   ASSERT_NULL(program_controller_registers, VM_ERROR);
 
-  uint32_t new_ip =
-      (program_controller_registers->register1 & 0x01) << 16 |
-      (READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer) << 8) |
-      (READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer));
+  uint32_t new_ip = (program_controller_registers->register1 & 0x01) << 16;
+  new_ip |= (READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer) << 8);
+  new_ip |= READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer);
 
-  printf("Jump to instruction %d\n\r",
-         new_ip);
+  printf("Jump to instruction %lu\n\r", new_ip);
   program_controller_registers->instruction_pointer = new_ip;
   return VM_OK;
 }
@@ -251,7 +249,6 @@ static const program_controller_function_t program_controller_function[] = {
     vm_pin_toggle,     // OPCODE_PIN_TOGGLE
     vm_send_telemetry, // OPCODE_LOG_PROGRAM_STATE
     vm_jump,           // OPCODE_JUMP
-    // <<
 };
 
 /***************************************
