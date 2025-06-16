@@ -120,7 +120,7 @@ int main(void)
 
   //  Check if the program file exists on the SD card
   // If it exists, load it into the flash memory.
-  if (FR_OK == file_exists(PROGRAMMA_FILE_NAME))
+  if (FR_OK == sd_card_is_present() && FR_OK == file_exists(PROGRAMMA_FILE_NAME))
   {
     load_progam_from_sd_to_flash(PROGRAMMA_FILE_NAME, (uint32_t)&_program_data_start);
   }
