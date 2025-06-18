@@ -93,7 +93,7 @@ vm_delay(program_controller_registers_t *program_controller_registers)
 {
   ASSERT_NULL(program_controller_registers, VM_ERROR);
 
-  uint16_t delay_time = (program_controller_registers->register1 < 8) |
+  uint16_t delay_time = (program_controller_registers->register1 << 8) | 
                         READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer);
 
   printf("Delay for %d s\n\r", delay_time);
@@ -114,7 +114,7 @@ vm_delay(program_controller_registers_t *program_controller_registers)
   }
   else if (EXTERN_INTERRUPT_EVENT_PAUZE == (state & EXTERN_INTERRUPT_EVENT_PAUZE))
   {
-    program_controller_registers->instruction_pointer = program_controller_registers->shutdown_instruction_pointer;
+    program_controller_registers->instruction_pointer = program_controller_registers->end_program_pointer;
   }
   return VM_OK;
 }
@@ -198,7 +198,7 @@ vm_send_telemetry(
   printf("Send telemetry\n\r");
   telemetry_t telemetry = {
       program_controller_registers->instruction_pointer,
-      program_controller_registers->shutdown_instruction_pointer,
+      program_controller_registers->end_program_pointer,
       is_get_temperature(),
       is_get_vref(),
       0,
@@ -268,9 +268,17 @@ void program_controller_task(void *argument)
   program_controller_registers_t pcr = {
       .instruction_pointer = 0,
       .register1 = 0,
-      .shutdown_instruction_pointer = 0,
+      .start_program_pointer = 0,
+      .pauze_program_pointer = 0,
+      .end_program_pointer = 0,
   };
   is_set_time(0, 0, 0); // Set the RTC time to 00:00:00
+
+  // Initialize the program controller registers
+  pcr.start_program_pointer = ((uint32_t *)&_program_data_start)[0];
+  pcr.pauze_program_pointer = ((uint32_t *)&_program_data_start)[1];
+  pcr.end_program_pointer = ((uint32_t *)&_program_data_start)[2];
+  pcr.instruction_pointer = pcr.start_program_pointer;
 
   /* Infinite loop */
   for (;;)
@@ -341,7 +349,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   {
     printf("Error: Could not send message to loggerQueueHandle\n\r");
   }
-  //osEventFlagsSet(ext_interrupt_eventHandle, flag);
+  // osEventFlagsSet(ext_interrupt_eventHandle, flag);
 }
 
 static FATFS fs; // file system

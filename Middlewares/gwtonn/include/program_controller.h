@@ -52,7 +52,11 @@ extern "C"
   {
     uint32_t instruction_pointer;
     uint8_t register1; // At this point, we only need one register
-    uint32_t shutdown_instruction_pointer;
+
+    uint32_t start_program_pointer;
+    uint32_t pauze_program_pointer;
+    uint32_t end_program_pointer;
+
   } program_controller_registers_t;
 
 #ifdef __cplusplus
