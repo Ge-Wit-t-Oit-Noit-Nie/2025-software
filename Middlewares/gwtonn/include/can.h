@@ -22,7 +22,11 @@ extern "C"
 {
 #endif // End of extern "C" block
 
-extern void can_thread_handler(void *argument);
+typedef enum {
+    MESSAGE_CODE_TIME = 0x01
+} MESSAGE_CODE;
+
+void can_write(MESSAGE_CODE message, uint8_t *data, uint16_t length);
 
 #ifdef __cplusplus
 }
