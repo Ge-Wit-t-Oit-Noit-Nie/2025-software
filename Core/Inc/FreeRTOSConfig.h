@@ -168,6 +168,10 @@ standard names. */
 
 /* USER CODE BEGIN Defines */
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
-/* USER CODE END Defines */
+  void can_thread_handler(void *argument);
+  void program_controller_task(void *argument);
+  void logger_task(void *argument);
+
+  /* USER CODE END Defines */
 
 #endif /* FREERTOS_CONFIG_H */

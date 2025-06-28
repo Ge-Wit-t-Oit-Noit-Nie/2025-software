@@ -54,6 +54,7 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Middlewares/gwtonn/src/program_controller.c
+    Middlewares/gwtonn/src/can.c
     Middlewares/gwtonn/src/internal_sensors.c
     Middlewares/gwtonn/src/logger.c
     Middlewares/gwtonn/src/sd_card.c
