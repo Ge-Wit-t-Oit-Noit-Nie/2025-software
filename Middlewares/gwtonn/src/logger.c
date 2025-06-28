@@ -60,7 +60,7 @@ void logger_task(void *argument)
 			is_get_date_time(&gDate , &gTime); // get the time from the RTC
 
 			CLEAR_BUFFER(string);
-			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],0x%08X,0x%08X,0x%08X,0x%08X,0x%08X\n\r",
+			snprintf(string, BUFFER_SIZE, "[%02d:%02d:%02d],%08u,%08u,%05d,%05d,%05d\n\r",
 					 gTime.Hours,
 					 gTime.Minutes,
 					 gTime.Seconds,
