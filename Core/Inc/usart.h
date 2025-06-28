@@ -25,30 +25,22 @@
 extern "C" {
 #endif
 
-/* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
-/* USER CODE BEGIN Includes */
 #include <string.h>
-/* USER CODE END Includes */
 
-extern UART_HandleTypeDef huart3;
+  extern UART_HandleTypeDef huart1;
+  extern UART_HandleTypeDef huart3;
 
-/* USER CODE BEGIN Private defines */
+  void MX_USART1_UART_Init(void);
+  void MX_USART3_UART_Init(void);
 
-/* USER CODE END Private defines */
+  /**
+   * @brief Send a '\0' terminated string to the UART port (uart3)
+   * @param string The '\0' terminated string to send
+   */
+  void uart_print_string(char *string);
 
-void MX_USART3_UART_Init(void);
-
-/* USER CODE BEGIN Prototypes */
-
-/**
- * @brief Send a '\0' terminated string to the UART port (uart3)
- * @param string The '\0' terminated string to send
- */
-void uart_print_string(char *string);
-
-/* USER CODE END Prototypes */
+  /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
