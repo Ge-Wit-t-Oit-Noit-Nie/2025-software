@@ -66,7 +66,7 @@ const osThreadAttr_t programTask_attributes = {
 osThreadId_t logTaskHandle;
 const osThreadAttr_t logTask_attributes = {
     .name = "logTask",
-    .stack_size = 3000 * 4,
+    .stack_size = 2700 * 4,
     .priority = (osPriority_t)osPriorityNormal,
 };
 /* Definitions for loggerQueue */
@@ -135,8 +135,7 @@ void MX_FREERTOS_Init(void)
   /* USER CODE BEGIN RTOS_THREADS */
   /* creation of logTask */
   can_threadHandle = osThreadNew(can_thread_handler, NULL, &can_thread_attributes);
-
-  /* USER CODE END RTOS_THREADS */
+/* USER CODE END RTOS_THREADS */
 
   /* Create the event(s) */
   /* creation of ext_interrupt_event */
@@ -189,5 +188,15 @@ __weak void can_thread_handler(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName) {
+    // You can log the error, blink an LED, or halt the system
+    printf("Stack overflow in task: %s\n", pcTaskName);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,
+                      GPIO_PIN_SET); // Set an error pin (for example, PB0)
 
-/* USER CODE END Application */
+    // Optional: halt the system
+    taskDISABLE_INTERRUPTS();
+    for (;;)
+        ; // Stay here to prevent further damage
+}
+    /* USER CODE END Application */

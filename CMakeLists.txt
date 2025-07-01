@@ -55,10 +55,10 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Middlewares/gwtonn/src/program_controller.c
     Middlewares/gwtonn/src/can.c
+    Middlewares/gwtonn/src/datetime.c
     Middlewares/gwtonn/src/internal_sensors.c
     Middlewares/gwtonn/src/logger.c
     Middlewares/gwtonn/src/sd_card.c
-    Middlewares/gwtonn/src/uart_writer.c
     Middlewares/gwtonn/src/user_diskio_spi.c
 )
 

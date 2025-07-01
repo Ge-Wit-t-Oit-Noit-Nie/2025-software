@@ -29,16 +29,8 @@ extern "C" {
 #include <string.h>
 
   extern UART_HandleTypeDef huart1;
-  extern UART_HandleTypeDef huart3;
 
   void MX_USART1_UART_Init(void);
-  void MX_USART3_UART_Init(void);
-
-  /**
-   * @brief Send a '\0' terminated string to the UART port (uart3)
-   * @param string The '\0' terminated string to send
-   */
-  void uart_print_string(char *string);
 
   /* USER CODE END Prototypes */
 

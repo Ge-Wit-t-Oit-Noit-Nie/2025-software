@@ -25,6 +25,8 @@
 #include "usart.h"
 
 #include "can.h"
+#include "datetime.h"
+#include "internal_sensors.h"
 
 /* USER CODE BEGIN Header_can_thread_handler */
 #define RX_BUFFER_SIZE 128
@@ -45,13 +47,33 @@ void can_thread_handler(void *argument) {
 
     UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable'
                       // warning
+    RTC_DateTypeDef gDate;
+    RTC_TimeTypeDef gTime;
+    datetime_t datetime = {0};
+    dt_dense_time *encoded;
 
     // Start the UART receive process
     HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
 
     for (;;) {
-        osDelay(pdMS_TO_TICKS(1000)); // Delay for 1000 ms (1 second)
-    }
+        // Delay for 100 ms
+        osDelay(pdMS_TO_TICKS(1000));
+        /*
+        is_get_date_time(&gDate, &gTime); // get the time from the RTC
+        datetime.year = gDate.Year;
+        datetime.month = gDate.Month;
+        datetime.day = gDate.Date;
+        datetime.hour = (gTime.Hours + 12) % 24; // Convert to 24-hour format
+        datetime.minute = gTime.Minutes;
+        datetime.second = gTime.Seconds;
+        datetime.millisecond = 0; // Set milliseconds to 0 for simplicity
+
+        dt_encode(&datetime, encoded);
+        // convert the dt_denste_time to a byte array
+        uint8_t encoded_bytes[sizeof(dt_dense_time)];
+        memcpy(encoded_bytes, &encoded, sizeof(dt_dense_time));
+        can_write(MESSAGE_CODE_TIME, encoded_bytes, 0); // Send a time message*/
+        }
 }
 
 /**
@@ -69,7 +91,7 @@ void can_write(MESSAGE_CODE code, uint8_t *data, uint16_t length) {
 
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
                       GPIO_PIN_RESET); // Set a pin to indicate activity
-    HAL_UART_Transmit(&huart1, code, 1, HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart1, &code, 1, HAL_MAX_DELAY);
     HAL_UART_Transmit(&huart1, data, length, HAL_MAX_DELAY);
     // Send a termination sequence to indicate the end of the message
     // This is optional, but can be useful for the receiver to know when the
