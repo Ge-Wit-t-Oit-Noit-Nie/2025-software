@@ -41,16 +41,7 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32f4xx_hal_timebase_tim.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
-)
-
-# if MX_Defines_Syms contains STM32F412Rx, then we need to add specific source files to MX_Application_Src
-if (MX_Defines_Syms MATCHES "STM32F412Rx")
-    message(WARNING "Building for the piggybag.")
-    set(MX_Application_Src ${MX_Application_Src} ${CMAKE_SOURCE_DIR}/startup_stm32f412rx.s)
-else()
-message(WARNING "Building for the nucleo.")
-set(MX_Application_Src ${MX_Application_Src} ${CMAKE_SOURCE_DIR}/startup_stm32f412zx.s)
-endif()
+    ${CMAKE_SOURCE_DIR}/startup_stm32f412rx.s)
 
 # STM32 HAL/LL Drivers
 set(STM32_Drivers_Src
