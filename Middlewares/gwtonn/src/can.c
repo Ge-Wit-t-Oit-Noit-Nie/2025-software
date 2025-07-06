@@ -24,9 +24,9 @@
 #include "cmsis_os2.h"
 #include "usart.h"
 
+#include "bool.h"
 #include "can.h"
 #include "datetime.h"
-#include "bool.h"
 #include "internal_sensors.h"
 
 #define UART_RX_BUF_SIZE 12
@@ -36,13 +36,12 @@ uint8_t uartRxBuf[UART_RX_BUF_SIZE];
 const uint8_t termination_sequence[3] = {0xFF, 0xFF, 0xFF};
 uint8_t uart_rx_received;
 
-    /**
-     * @brief  FREERTOS thread handler for the CAN interface.
-     *
-     * @param argument: Not used.
-     */
-    void
-    can_thread_handler(void *argument) {
+/**
+ * @brief  FREERTOS thread handler for the CAN interface.
+ *
+ * @param argument: Not used.
+ */
+void can_thread_handler(void *argument) {
 
     UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable'
                       // warning
@@ -51,7 +50,7 @@ uint8_t uart_rx_received;
     uart_rx_received = false;
 
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
-                        GPIO_PIN_SET); // Set a pin to indicate activity
+                      GPIO_PIN_SET); // Set a pin to indicate activity
 
     // Start the UART receive process
     HAL_UART_Receive_DMA(&huart1, uartRxBuf, UART_RX_BUF_SIZE);
@@ -77,8 +76,14 @@ uint8_t uart_rx_received;
 
             datetime_t decoded_time = {0};
             dt_decode(encoded_time, &decoded_time);
-            is_set_time(decoded_time.hour, decoded_time.minute, decoded_time.second); // Set the time in the internal sensors module
-            is_set_date(decoded_time.year, decoded_time.month, decoded_time.day); // Set the date in the internal sensors module
+            is_set_time(
+                decoded_time.hour, decoded_time.minute,
+                decoded_time
+                    .second); // Set the time in the internal sensors module
+            is_set_date(
+                decoded_time.year, decoded_time.month,
+                decoded_time
+                    .day); // Set the date in the internal sensors module
             break;
 
         default:
