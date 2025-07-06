@@ -50,6 +50,14 @@ void is_get_date_time(RTC_DateTypeDef *date, RTC_TimeTypeDef *time);
  * @param  sec: Second value (0-59)
  */
 void is_set_time(uint8_t hr, uint8_t min, uint8_t sec);
+/**
+ * @brief  Set the RTC date
+ *
+ * @param  year: Year value
+ * @param  month: Month value (1-12)
+ * @param  day: Day value (1-31)
+ */
+void is_set_date(uint8_t year, uint8_t month, uint8_t day);
 
 #ifdef __cplusplus
 }

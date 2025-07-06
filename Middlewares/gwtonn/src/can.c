@@ -26,76 +26,63 @@
 
 #include "can.h"
 #include "datetime.h"
+#include "bool.h"
 #include "internal_sensors.h"
 
-/* USER CODE BEGIN Header_can_thread_handler */
-#define RX_BUFFER_SIZE 128
-#define UART_RX_BUF_SIZE 128
+#define UART_RX_BUF_SIZE 12
+#define CAN_EVENT_MESSAGE_RECEIVED 0x01
+
 uint8_t uartRxBuf[UART_RX_BUF_SIZE];
-
 const uint8_t termination_sequence[3] = {0xFF, 0xFF, 0xFF};
+uint8_t uart_rx_received;
 
-volatile uint8_t rx_buffer[RX_BUFFER_SIZE];
-volatile uint16_t head = 0;
-volatile uint16_t tail = 0;
-uint8_t rx_byte;
-
-/**
- * @brief  FREERTOS thread handler for the CAN interface.
- *
- * @param argument: Not used.
- */
-void can_thread_handler(void *argument) {
+    /**
+     * @brief  FREERTOS thread handler for the CAN interface.
+     *
+     * @param argument: Not used.
+     */
+    void
+    can_thread_handler(void *argument) {
 
     UNUSED(argument); // Mark variable as 'UNUSED' to suppress 'unused-variable'
                       // warning
 
-    enum {
-        LOOKING_FOR_START, // Initial state, waiting for the start of a message
-        WAITING_FOR_DATA   // Waiting for data to be received
-    } state = LOOKING_FOR_START;
-    MESSAGE_CODE code = 0;   // Variable to store the message code
-    uint8_t data[64];        // Buffer to store the received data
-    uint8_t data_length = 0; // Length of the received data
+    // Initialize the event flags for CAN messages
+    uart_rx_received = false;
+
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
-                      GPIO_PIN_SET); // Set a pin to indicate activity
+                        GPIO_PIN_SET); // Set a pin to indicate activity
 
     // Start the UART receive process
-    //HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
     HAL_UART_Receive_DMA(&huart1, uartRxBuf, UART_RX_BUF_SIZE);
-
+    dt_dense_time encoded_time;
     for (;;) {
-        osDelay(100); // Yield to other tasks
-        if (head != tail) {
+        // suspend the task until a message is received
+        while (!uart_rx_received) {
+            osDelay(10); // Sleep for 10 ms to avoid busy waiting
+        }
+        uart_rx_received = false; // Reset the flag for the next message
 
-            uint8_t byte = rx_buffer[tail];
-            tail = (tail + 1) % RX_BUFFER_SIZE; // Move tail forward
+        switch (uartRxBuf[0]) {
+        case MESSAGE_CODE_TIME:
+            // cast 8 bytes from the buffer to a uint64_t
+            encoded_time = (dt_dense_time)uartRxBuf[1] << 56 |
+                           (dt_dense_time)uartRxBuf[2] << 48 |
+                           (dt_dense_time)uartRxBuf[3] << 40 |
+                           (dt_dense_time)uartRxBuf[4] << 32 |
+                           (dt_dense_time)uartRxBuf[5] << 24 |
+                           (dt_dense_time)uartRxBuf[6] << 16 |
+                           (dt_dense_time)uartRxBuf[7] << 8 |
+                           (dt_dense_time)uartRxBuf[8];
 
-            switch (state) {
-            case LOOKING_FOR_START:
-                code = byte;              // Start of a new message
-                state = WAITING_FOR_DATA; // Move to the next state
-                data_length = 0;          // Reset data length
-                break;
+            datetime_t decoded_time = {0};
+            dt_decode(encoded_time, &decoded_time);
+            is_set_time(decoded_time.hour, decoded_time.minute, decoded_time.second); // Set the time in the internal sensors module
+            is_set_date(decoded_time.year, decoded_time.month, decoded_time.day); // Set the date in the internal sensors module
+            break;
 
-            case WAITING_FOR_DATA:
-                data[data_length++] = byte; // Store the received byte
-                if (data_length >= 3 &&
-                    data[data_length - 3] == termination_sequence[0] &&
-                    data[data_length - 2] == termination_sequence[1] &&
-                    data[data_length - 1] == termination_sequence[2]) {
-
-                    // If we received the termination sequence, process the
-                    // message
-                    data_length -= 3; // Remove the termination sequence
-
-                    state =
-                        LOOKING_FOR_START; // Reset state for the next message
-                }
-                break;
-            default:
-                break;
-            }
+        default:
+            break;
         }
     }
 }
@@ -111,25 +98,13 @@ void can_write(MESSAGE_CODE code, uint8_t *data, uint16_t length) {
 
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
                       GPIO_PIN_SET); // Set a pin to indicate activity
-    while (HAL_UART_GetState(&huart1) != HAL_UART_STATE_READY) {
-        // Wait until the UART is ready to transmit
-        osDelay(1); // Avoid busy-waiting, yield to other tasks
-    }
+
     HAL_UART_Transmit(&huart1, &code, 1, HAL_MAX_DELAY);
+
     if (data != NULL && length != 0) {
-        while (HAL_UART_GetState(&huart1) != HAL_UART_STATE_READY) {
-            // Wait until the UART is ready to transmit
-            osDelay(1); // Avoid busy-waiting, yield to other tasks
-        }
         HAL_UART_Transmit(&huart1, data, length, HAL_MAX_DELAY);
     }
-    // Send a termination sequence to indicate the end of the message
-    // This is optional, but can be useful for the receiver to know when the
-    // message ends
-    while (HAL_UART_GetState(&huart1) != HAL_UART_STATE_READY) {
-        // Wait until the UART is ready to transmit
-        osDelay(1); // Avoid busy-waiting, yield to other tasks
-    }
+
     HAL_UART_Transmit(&huart1, termination_sequence, 3, HAL_MAX_DELAY);
 
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
@@ -151,18 +126,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART1) {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
                           GPIO_PIN_SET); // Set a pin to indicate activity
-        uint16_t next_head = (head + 1) % RX_BUFFER_SIZE;
 
-        if (next_head != tail) // Avoid overwrite
-        {
-            rx_buffer[head] = rx_byte;
-            head = next_head;
-        }
+        uart_rx_received = true;
 
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7,
                           GPIO_PIN_RESET); // Set a pin to indicate activity
         // Restart interrupt for next byte
-        HAL_UART_Receive_IT(huart, &rx_byte, 1);
+        HAL_UART_Receive_DMA(&huart1, uartRxBuf, UART_RX_BUF_SIZE);
     }
 }
-

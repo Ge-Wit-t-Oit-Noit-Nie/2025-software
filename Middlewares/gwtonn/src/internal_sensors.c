@@ -73,6 +73,21 @@ void is_set_time(uint8_t hr, uint8_t min, uint8_t sec)
         Error_Handler();
     }
 }
+/**
+ * @brief  Set the RTC date to the given values.
+ */
+void is_set_date(uint8_t year, uint8_t month, uint8_t day)
+{
+    RTC_DateTypeDef sDate = {0};
+    sDate.Year = year;
+    sDate.Month = month;
+    sDate.Date = day;
+    sDate.WeekDay = RTC_WEEKDAY_MONDAY; // Set to a default value, can be changed later
+    if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
+    {
+        Error_Handler();
+    }
+}
 
 /***************************************
  * Callback functions
