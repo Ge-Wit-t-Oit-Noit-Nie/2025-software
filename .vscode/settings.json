@@ -26,7 +26,11 @@
         "stm32f412zx.h": "c",
         "string.h": "c",
         "sd_card.h": "c",
+        "can.h": "c",
+        "usart.h": "c",
+        "uart_writer.h": "c",
+        "stm32f4xx_it.h": "c"
         "cstdint": "c"
     },
-    "cortex-debug.variableUseNaturalFormat": false
+    "cortex-debug.variableUseNaturalFormat": true
 }

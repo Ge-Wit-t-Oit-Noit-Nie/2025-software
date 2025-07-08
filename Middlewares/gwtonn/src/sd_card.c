@@ -34,18 +34,7 @@
  */
 FRESULT sd_card_is_present(void)
 {
-  FRESULT status = FR_OK;
-
-#if defined(STM32F412Rx)
-  // The pin is inverted, so we check if it is low to determine if the card is present
-  status = (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4) == 0) ? FR_OK : FR_NOT_READY;
-#else
-  FATFS filesystem;
-  status = f_mount(&filesystem, "0:", 1);
-  f_mount(NULL, "", 0); // unmount the file system
-#endif
-
-  return status;
+  return (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4) == 0) ? FR_OK : FR_NOT_READY;
 }
 
 /**

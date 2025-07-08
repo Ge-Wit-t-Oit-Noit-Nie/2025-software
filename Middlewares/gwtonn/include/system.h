@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
- * @file   uart_writer.h
- * @brief  Headerfile for the uart_writer.c file
+ * @file   system.h
+ * @brief  Declaration of various system functions
  ******************************************************************************
  * @attention
  *
@@ -14,9 +14,15 @@
  *
  ******************************************************************************
  */
-#ifndef __UART_WRITER_H__
-#define __UART_WRITER_H__
 
+#ifndef __MIDDLEWARES_GWTONN_SYSTEM_H
+#define __MIDDLEWARES_GWTONN_SYSTEM_H 
+
+/**
+ * @brief  Function to send a character to the debug viewer.
+ * @param  ch: Character to be sent.
+ * @retval Character sent.
+ */
 int __io_putchar(int ch);
 
-#endif // __UART_WRITER_H__
+#endif /* __MIDDLEWARES_GWTONN_SYSTEM_H */

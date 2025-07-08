@@ -100,14 +100,12 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_USART3_UART_Init();
+  MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_FATFS_Init();
   MX_RTC_Init();
@@ -229,6 +227,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,
+                    GPIO_PIN_SET); // Set an error pin (for example, PB0)
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)

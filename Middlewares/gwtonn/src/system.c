@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
- * @file   uart_writer.c
- * @brief  Implementation of the uart writer
+ * @file   system.c
+ * @brief  Implementation of various system functions
  ******************************************************************************
  * @attention
  *
@@ -15,21 +15,6 @@
  ******************************************************************************
  */
 
-#include "uart_writer.h"
-#include "usart.h"
-
-/**
- * @brief  Retargets the C library printf function to the USART.
- * 
- * This function is used to retarget the C library printf function to the USART.
- * @param  ch: The character to write
- * @retval the character written
- */
-int __io_putchar(int ch)
-{
-    if (HAL_UART_STATE_READY == HAL_UART_GetState(&huart3))
-    {
-        HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF);
-    }
-    return ch;
+int __io_putchar(int ch) {
+    return ch; // Return the character sent
 }

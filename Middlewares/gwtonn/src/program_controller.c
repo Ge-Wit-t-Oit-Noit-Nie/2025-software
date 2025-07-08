@@ -43,9 +43,9 @@ typedef struct
 } pin_mapping_t;
 
 static const pin_mapping_t pin_mapping[NUMBER_OF_PINS_MAPPED] = {
-    {GPIO_PIN_0, GPIOB}, // Pin 0 on GPIOA
-    {GPIO_PIN_7, GPIOB},
-    {GPIO_PIN_14, GPIOB},
+    {GPIO_PIN_0, GPIOA}, // Pin 0 on GPIOA
+    {GPIO_PIN_1, GPIOA},
+    {GPIO_PIN_2, GPIOA},
 };
 
 /**
@@ -340,8 +340,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   telemetry_t telemetry = {
       0,
       0,
-      is_get_temperature(),
-      is_get_vref(),
       flag,
   };
 

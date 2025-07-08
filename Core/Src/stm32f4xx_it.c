@@ -55,6 +55,10 @@
 volatile uint8_t FatFsCnt = 0;
 volatile uint16_t Timer1, Timer2;
 
+/* External variables --------------------------------------------------------*/
+extern UART_HandleTypeDef huart1;
+extern DMA_HandleTypeDef hdma_usart1_rx;
+
 void SDTimer_Handler(void)
 {
   if(Timer1 > 0)
@@ -98,15 +102,14 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
-	HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
+    /* USER CODE BEGIN HardFault_IRQn 0 */
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while (1) {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
@@ -251,6 +254,28 @@ void DMA2_Stream4_IRQHandler(void)
   /* USER CODE END DMA2_Stream4_IRQn 1 */
 }
 
-/* USER CODE BEGIN 1 */
+/**
+ * @brief This function handles USART1 global interrupt.
+ */
+void USART1_IRQHandler(void) {
+    /* USER CODE BEGIN USART1_IRQn 0 */
 
-/* USER CODE END 1 */
+    /* USER CODE END USART1_IRQn 0 */
+    HAL_UART_IRQHandler(&huart1);
+    /* USER CODE BEGIN USART1_IRQn 1 */
+
+    /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+ * @brief This function handles DMA2 stream5 global interrupt.
+ */
+void DMA2_Stream5_IRQHandler(void) {
+    /* USER CODE BEGIN DMA2_Stream5_IRQn 0 */
+
+    /* USER CODE END DMA2_Stream5_IRQn 0 */
+    HAL_DMA_IRQHandler(&hdma_usart1_rx);
+    /* USER CODE BEGIN DMA2_Stream5_IRQn 1 */
+
+    /* USER CODE END DMA2_Stream5_IRQn 1 */
+}
