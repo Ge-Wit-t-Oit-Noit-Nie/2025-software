@@ -30,6 +30,7 @@
         "usart.h": "c",
         "uart_writer.h": "c",
         "stm32f4xx_it.h": "c"
+        "cstdint": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }

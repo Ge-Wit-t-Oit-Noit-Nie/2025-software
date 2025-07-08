@@ -52,7 +52,6 @@ void logger_task(void *argument) {
 
         if (osOK == osMessageQueueGet(loggerQueueHandle, &telemetry, NULL,
                                       osWaitForever)) {
-
             is_get_date_time(&gDate, &gTime); // get the time from the RTC
 
             CLEAR_BUFFER(string);

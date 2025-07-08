@@ -32,6 +32,9 @@
 typedef uint16_t (*program_controller_function_t)(
     program_controller_registers_t *program_controller_registers);
 
+#define READ_MEMORY_BYTE(index) \
+  (((uint8_t *)&_program_data_start)[index]) // Read a byte from the program memory
+
 #define NUMBER_OF_PINS_MAPPED 3
 typedef struct
 {
@@ -67,29 +70,14 @@ vm_exit(program_controller_registers_t *program_controller_registers)
   return VM_EXIT;
 }
 
-/**
- * @brief  Function to store the shutdown index.
- *
- * This function will store the shutdown index in the program controller
- * registers. It will also increment the instruction pointer.
- *
- * @param  program_controller_registers: Pointer to the program controller
- * registers.
- * @retval 0 = VM_OK
- */
 uint16_t
-vm_store_shutdown_index(
-    program_controller_registers_t *program_controller_registers)
+vm_pause(program_controller_registers_t *program_controller_registers)
 {
-  ASSERT_NULL(program_controller_registers, VM_ERROR);
-
-  printf("Store shutdown index %d\n\r",
-         (uint16_t)program_controller_registers->register1);
-  program_controller_registers->shutdown_instruction_pointer = (uint16_t)program_controller_registers->register1;
-  program_controller_registers->instruction_pointer++;
-  return VM_OK;
+  UNUSED(program_controller_registers);
+  printf("Pause program\n\r");
+  // TODO: Implement pause functionality
+  return VM_EXIT;
 }
-
 /**
  * @brief  Function to delay the program.
  *
@@ -105,12 +93,15 @@ vm_delay(program_controller_registers_t *program_controller_registers)
 {
   ASSERT_NULL(program_controller_registers, VM_ERROR);
 
-  printf("Delay for %d ms\n\r", program_controller_registers->register1);
+  uint16_t delay_time = (program_controller_registers->register1 << 8) | 
+                        READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer);
+
+  printf("Delay for %d s\n\r", delay_time);
   uint32_t state = osEventFlagsWait(
       ext_interrupt_eventHandle,
       EXTERN_INTERRUPT_EVENT_KILL | EXTERN_INTERRUPT_EVENT_PAUZE,
       osFlagsWaitAny,
-      pdMS_TO_TICKS((uint32_t)program_controller_registers->register1));
+      pdMS_TO_TICKS(delay_time * 100));
   if (osFlagsErrorTimeout == (osFlagsErrorTimeout & state))
   {
     program_controller_registers->instruction_pointer++;
@@ -123,7 +114,7 @@ vm_delay(program_controller_registers_t *program_controller_registers)
   }
   else if (EXTERN_INTERRUPT_EVENT_PAUZE == (state & EXTERN_INTERRUPT_EVENT_PAUZE))
   {
-    program_controller_registers->instruction_pointer = program_controller_registers->shutdown_instruction_pointer;
+    program_controller_registers->instruction_pointer = program_controller_registers->end_program_pointer;
   }
   return VM_OK;
 }
@@ -140,11 +131,12 @@ vm_delay(program_controller_registers_t *program_controller_registers)
  * if the pin index is invalid.
  */
 uint16_t
-vm_pin_on(program_controller_registers_t *program_controller_registers)
+vm_set_pin_state(program_controller_registers_t *program_controller_registers)
 {
   ASSERT_NULL(program_controller_registers, VM_ERROR);
 
-  uint16_t pin_index = program_controller_registers->register1 & 0x001F;
+  uint8_t pin_state = (program_controller_registers->register1 & 0x01);
+  uint16_t pin_index = (READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer) & 0x1F);
   printf("Turn on pin %d\n\r", pin_index);
   if (NUMBER_OF_PINS_MAPPED <= pin_index)
   {
@@ -152,39 +144,12 @@ vm_pin_on(program_controller_registers_t *program_controller_registers)
   };
 
   HAL_GPIO_WritePin(pin_mapping[pin_index].port,
-                    pin_mapping[pin_index].pin_number, GPIO_PIN_SET);
+                    pin_mapping[pin_index].pin_number, pin_state);
+
   program_controller_registers->instruction_pointer++;
   return VM_OK;
 }
 
-/**
- * @brief  Function to turn off a pin.
- *
- * This function will turn off the pin specified in the lowest 5 bits (0x1F) in
- * resister1. It will also increment the instruction pointer.
- *
- * @param  program_controller_registers: Pointer to the program controller
- * registers.
- * @retval 0 = VM_OK; VM_ERROR if the program controller registers are NULL or
- * if the pin index is invalid.
- */
-uint16_t
-vm_pin_off(program_controller_registers_t *program_controller_registers)
-{
-  ASSERT_NULL(program_controller_registers, VM_ERROR);
-
-  uint16_t pin_index = program_controller_registers->register1 & 0x001F;
-  printf("Turn off pin %d\n\r", pin_index);
-  if (NUMBER_OF_PINS_MAPPED <= pin_index)
-  {
-    return VM_ERROR; // Error code
-  };
-
-  HAL_GPIO_WritePin(pin_mapping[pin_index].port,
-                    pin_mapping[pin_index].pin_number, GPIO_PIN_RESET);
-  program_controller_registers->instruction_pointer++;
-  return VM_OK;
-}
 /**
  * @brief  Function to toggle a pin.
  *
@@ -201,7 +166,8 @@ vm_pin_toggle(program_controller_registers_t *program_controller_registers)
 {
   ASSERT_NULL(program_controller_registers, VM_ERROR);
 
-  uint16_t pin_index = program_controller_registers->register1 & 0x001F;
+  uint16_t pin_index = (READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer) & 0x1F);
+
   printf("Toggle pin %d\n\r", pin_index);
   if (NUMBER_OF_PINS_MAPPED <= pin_index)
   {
@@ -232,7 +198,9 @@ vm_send_telemetry(
   printf("Send telemetry\n\r");
   telemetry_t telemetry = {
       program_controller_registers->instruction_pointer,
-      program_controller_registers->shutdown_instruction_pointer,
+      program_controller_registers->end_program_pointer,
+      is_get_temperature(),
+      is_get_vref(),
       0,
   };
   if (osOK != osMessageQueuePut(loggerQueueHandle, &telemetry, 0, 0U))
@@ -258,9 +226,12 @@ vm_jump(program_controller_registers_t *program_controller_registers)
 {
   ASSERT_NULL(program_controller_registers, VM_ERROR);
 
-  printf("Jump to instruction %d\n\r",
-         (uint16_t)program_controller_registers->register1);
-  program_controller_registers->instruction_pointer = (uint16_t)program_controller_registers->register1;
+  uint32_t new_ip = (program_controller_registers->register1 & 0x01) << 16;
+  new_ip |= (READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer) << 8);
+  new_ip |= READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer);
+
+  printf("Jump to instruction %lu\n\r", new_ip);
+  program_controller_registers->instruction_pointer = new_ip;
   return VM_OK;
 }
 
@@ -271,14 +242,13 @@ vm_jump(program_controller_registers_t *program_controller_registers)
  * function.
  */
 static const program_controller_function_t program_controller_function[] = {
-    vm_exit,                 // OPCODE_HALT
-    vm_store_shutdown_index, // OPCODE_STORE_SHUTDOWN_INDEX
-    vm_delay,                // OPCODE_DELAY
-    vm_pin_on,               // OPCODE_PIN_ON
-    vm_pin_off,              // OPCODE_PIN_OFF
-    vm_pin_toggle,           // OPCODE_PIN_TOGGLE
-    vm_send_telemetry,       // OPCODE_LOG_PROGRAM_STATE
-    vm_jump,                 // OPCODE_JUMP
+    vm_exit,           // OPCODE_HALT
+    vm_pause,          // OPCODE_PAUSE
+    vm_delay,          // OPCODE_DELAY
+    vm_set_pin_state,  // OPCODE_SET_PIN_STATE
+    vm_pin_toggle,     // OPCODE_PIN_TOGGLE
+    vm_send_telemetry, // OPCODE_LOG_PROGRAM_STATE
+    vm_jump,           // OPCODE_JUMP
 };
 
 /***************************************
@@ -298,11 +268,17 @@ void program_controller_task(void *argument)
   program_controller_registers_t pcr = {
       .instruction_pointer = 0,
       .register1 = 0,
-      .shutdown_instruction_pointer = 0,
+      .start_program_pointer = 0,
+      .pauze_program_pointer = 0,
+      .end_program_pointer = 0,
   };
   is_set_time(0, 0, 0); // Set the RTC time to 00:00:00
 
-  uint16_t *programma = (uint16_t *)&_program_data_start;
+  // Initialize the program controller registers
+  pcr.start_program_pointer = ((uint32_t *)&_program_data_start)[0];
+  pcr.pauze_program_pointer = ((uint32_t *)&_program_data_start)[1];
+  pcr.end_program_pointer = ((uint32_t *)&_program_data_start)[2];
+  pcr.instruction_pointer = pcr.start_program_pointer;
 
   /* Infinite loop */
   for (;;)
@@ -317,7 +293,7 @@ void program_controller_task(void *argument)
       return;
     }
 
-    uint16_t memory_entry = programma[pcr.instruction_pointer];
+    uint8_t memory_entry = READ_MEMORY_BYTE(pcr.instruction_pointer);
     pcr.register1 = REGISTER(memory_entry);
     uint8_t opcode = OPCODE(memory_entry);
     // If the opcode is 0xFF, this should be interpreted as a 0x00
@@ -371,7 +347,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   {
     printf("Error: Could not send message to loggerQueueHandle\n\r");
   }
-  //osEventFlagsSet(ext_interrupt_eventHandle, flag);
+  // osEventFlagsSet(ext_interrupt_eventHandle, flag);
 }
 
 static FATFS fs; // file system
