@@ -114,7 +114,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim3);
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, ADC_SAMPLES * 2 * 2);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buffer, 2);
 
   //  Check if the program file exists on the SD card
   // If it exists, load it into the flash memory.

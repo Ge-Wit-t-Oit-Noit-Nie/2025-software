@@ -46,8 +46,7 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-#define ADC_SAMPLES 10
-extern uint16_t adc_buffer[ADC_SAMPLES * 2 * 2];
+extern uint16_t adc_buffer[2];
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

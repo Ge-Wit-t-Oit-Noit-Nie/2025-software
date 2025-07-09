@@ -24,17 +24,39 @@ extern "C" {
 #endif // End of extern "C" block
 
 /**
+ * @brief  AVG Slope for temperature calculation
+ * 
+ * This value is used to calculate the temperature from the ADC value.
+ * For the STM32F4xx series, the average slope is approximately 2.5 mV/°C.
+ */
+#define AVG_SLOPE (2.5F)
+/**
+ * @brief Voltage at 25 °C
+ * 
+ * This value is used to calculate the temperature from the ADC value.
+ * For the STM32F4xx series, the voltage at 25 °C is approximately 0.76 V.
+ */
+#define V_AT_25C  (0.76F)
+/**
+ * @brief Internal reference voltage
+ * 
+ * This value is used to calculate the internal voltage from the ADC value.
+ * For the STM32F4xx series, the internal reference voltage is approximately 1.2 V.
+ */
+#define V_REF_INT (1.2F)
+
+/**
  * @brief  Get the temperature value of the STM32F4xx microcontroller
  * 
  * @retval Temperature value in Celsius
  */
-int is_get_temperature(void);
+float is_get_temperature(void);
 /**
  * @brief  Get the internal voltage of the STM32F4xx microcontroller
  *
  * @retval Internal voltage value in millivolts
  */
-int is_get_vref(void);
+float is_get_vref(void);
 /**
  * @brief  Get the date and time from the RTC
  *
