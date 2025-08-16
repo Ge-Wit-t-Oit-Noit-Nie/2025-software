@@ -56,12 +56,11 @@ void logger_task(void *argument) {
 
             CLEAR_BUFFER(string);
             snprintf(
-                string, BUFFER_SIZE,
-                "[%02d:%02d:%02d],%d,%d,%d,%d,%d\n\r",
+                string, BUFFER_SIZE, "[%02d:%02d:%02d],%d,%d,%d,%d,%d\n\r",
                 gTime.Hours, gTime.Minutes, gTime.Seconds,
                 telemetry.instruction_pointer,
-                telemetry.shutdown_index_register, is_get_temperature(),
-                is_get_vref(),
+                telemetry.shutdown_index_register,
+                (uint16_t)(is_get_temperature ()* 100), (uint16_t)(is_get_vref()*100),
                 telemetry.trigger); // format the string to write to the file
 
             write_file(LOG_FILENAME "\0", string);

@@ -19,11 +19,9 @@
 #include "main.h"
 #include <stdint.h>
 
-uint16_t adc_buffer[ADC_SAMPLES * 2 * 2] = {0};
+uint16_t adc_buffer[2];
 
-int temperature = 0;
-int vref = 0;
-void process_adc_buffer(uint16_t *buffer);
+volatile float temperature = 0, vref = 0;
 
 /***************************************
  * Public functions
@@ -35,7 +33,7 @@ void process_adc_buffer(uint16_t *buffer);
  * 
  * This function returns just returns the value of the temperature variable.
  */
-int is_get_temperature(void)
+float is_get_temperature(void)
 {
     return temperature;
 }
@@ -45,7 +43,7 @@ int is_get_temperature(void)
  *
  * This function returns just returns the value of the vref variable.
  */
-int is_get_vref(void)
+float is_get_vref(void)
 {
     return vref;
 }
@@ -92,32 +90,13 @@ void is_set_date(uint8_t year, uint8_t month, uint8_t day)
 /***************************************
  * Callback functions
  **************************************/
-void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)
-{
-    UNUSED(hadc);
-    process_adc_buffer(&adc_buffer[0]);
-}
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     UNUSED(hadc);
-    process_adc_buffer(&adc_buffer[ADC_SAMPLES * 2]);
-}
+    float vsense;
 
-/***************************************
- * Internal functions
- **************************************/
-// Process half a buffer full of data
-void process_adc_buffer(uint16_t *buffer)
-{
-
-    uint32_t sum1 = 0, sum2 = 0;
-    for (int i = 0; i < ADC_SAMPLES; ++i)
-    {
-        sum1 += buffer[i * 2];
-        sum2 += buffer[1 + i * 2];
-    }
-
-    temperature = (((float)sum1 / ADC_SAMPLES - 279) * 100);
-    vref = (((float)sum2 / 1000 / ADC_SAMPLES) * 1000);
+    vref = (float)((V_REF_INT * 4095.0) / adc_buffer[0]);
+    vsense = (float)(adc_buffer[1] * vref) / 4095.0;
+    temperature = (((V_AT_25C - vsense) * 1000.0) / AVG_SLOPE) + 25.0;
 }

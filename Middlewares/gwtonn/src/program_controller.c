@@ -199,8 +199,6 @@ vm_send_telemetry(
   telemetry_t telemetry = {
       program_controller_registers->instruction_pointer,
       program_controller_registers->end_program_pointer,
-      is_get_temperature(),
-      is_get_vref(),
       0,
   };
   if (osOK != osMessageQueuePut(loggerQueueHandle, &telemetry, 0, 0U))
