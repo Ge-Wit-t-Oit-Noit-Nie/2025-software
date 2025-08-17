@@ -54,6 +54,7 @@ extern "C"
     uint8_t register1; // At this point, we only need one register
 
     uint32_t start_program_pointer;
+    uint32_t loop_program_pointer;
     uint32_t pauze_program_pointer;
     uint32_t end_program_pointer;
 

@@ -267,6 +267,7 @@ void program_controller_task(void *argument)
       .instruction_pointer = 0,
       .register1 = 0,
       .start_program_pointer = 0,
+      .loop_program_pointer = 0,
       .pauze_program_pointer = 0,
       .end_program_pointer = 0,
   };
@@ -274,8 +275,9 @@ void program_controller_task(void *argument)
 
   // Initialize the program controller registers
   pcr.start_program_pointer = ((uint32_t *)&_program_data_start)[0];
-  pcr.pauze_program_pointer = ((uint32_t *)&_program_data_start)[1];
-  pcr.end_program_pointer = ((uint32_t *)&_program_data_start)[2];
+  pcr.loop_program_pointer = ((uint32_t *)&_program_data_start)[1];
+  pcr.pauze_program_pointer = ((uint32_t *)&_program_data_start)[2];
+  pcr.end_program_pointer = ((uint32_t *)&_program_data_start)[3];
   pcr.instruction_pointer = pcr.start_program_pointer;
 
   /* Infinite loop */
