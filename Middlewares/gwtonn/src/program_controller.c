@@ -25,6 +25,7 @@
 #include "asserts.h"
 #include "program_controller.h"
 #include "logger.h"
+#include "can.h"
 
 /***************************************
  * Private functions
@@ -35,7 +36,7 @@ typedef uint16_t (*program_controller_function_t)(
 #define READ_MEMORY_BYTE(index) \
   (((uint8_t *)&_program_data_start)[index]) // Read a byte from the program memory
 
-#define NUMBER_OF_PINS_MAPPED 3
+#define NUMBER_OF_PINS_MAPPED 17
 typedef struct
 {
   uint16_t pin_number;
@@ -44,9 +45,13 @@ typedef struct
 
 static const pin_mapping_t pin_mapping[NUMBER_OF_PINS_MAPPED] = {
     {GPIO_PIN_0, GPIOA}, // Pin 0 on GPIOA
-    {GPIO_PIN_1, GPIOA},
-    {GPIO_PIN_2, GPIOA},
-};
+    {GPIO_PIN_1, GPIOA},  {GPIO_PIN_2, GPIOA},  {GPIO_PIN_3, GPIOA},
+    {GPIO_PIN_8, GPIOA},  {GPIO_PIN_11, GPIOA}, {GPIO_PIN_12, GPIOA},
+    {GPIO_PIN_15, GPIOA},
+
+    {GPIO_PIN_2, GPIOB},  {GPIO_PIN_4, GPIOB},  {GPIO_PIN_5, GPIOB},
+    {GPIO_PIN_6, GPIOB},  {GPIO_PIN_8, GPIOB},  {GPIO_PIN_9, GPIOB},
+    {GPIO_PIN_12, GPIOB}, {GPIO_PIN_13, GPIOB}, {GPIO_PIN_15, GPIOB}};
 
 /**
  * @brief  Function to exit the program.
@@ -201,6 +206,7 @@ vm_send_telemetry(
       program_controller_registers->end_program_pointer,
       0,
   };
+
   if (osOK != osMessageQueuePut(loggerQueueHandle, &telemetry, 0, 0U))
   {
     printf("Error: Could not send message to loggerQueueHandle\n\r");
@@ -229,7 +235,8 @@ vm_jump(program_controller_registers_t *program_controller_registers)
   new_ip |= READ_MEMORY_BYTE(++program_controller_registers->instruction_pointer);
 
   printf("Jump to instruction %lu\n\r", new_ip);
-  program_controller_registers->instruction_pointer = new_ip;
+  program_controller_registers->instruction_pointer =
+      program_controller_registers->start_program_pointer + new_ip;
   return VM_OK;
 }
 
